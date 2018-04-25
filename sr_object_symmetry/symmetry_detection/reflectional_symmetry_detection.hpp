@@ -371,13 +371,10 @@ sym::ReflectionalSymmetryDetection<PointT>::merge ()
 template <typename PointT>
 inline
 void sym::ReflectionalSymmetryDetection<PointT>::getSymmetries  ( std::vector<sym::ReflectionalSymmetry> &symmetries,
-                                                                  std::vector<int> &symmetry_filtered_ids,
-                                                                  std::vector<int> &symmetry_merged_ids
-                                                                )
+                                                                  std::vector<int> &symmetry_filtered_ids)
 {
   symmetries = symmetries_refined_;
   symmetry_filtered_ids = symmetry_filtered_ids_;
-  symmetry_merged_ids = symmetry_merged_ids_;
 }
 
 ////////////////////////////////////////////////////////////////////////////////

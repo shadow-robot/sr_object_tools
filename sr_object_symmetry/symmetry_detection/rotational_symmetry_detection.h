@@ -121,8 +121,7 @@ namespace sym
      */
     inline
     void getSymmetries  ( std::vector<sym::RotationalSymmetry> &symmetries,
-                          std::vector<int> &symmetry_filtered_ids,
-                          std::vector<int> &symmetry_merged_ids );
+                          std::vector<int> &symmetry_filtered_ids);
  
     /** \brief Get scores for the refined symmetries.
      *  \param[out] symmetry_scores           symmetry scores
