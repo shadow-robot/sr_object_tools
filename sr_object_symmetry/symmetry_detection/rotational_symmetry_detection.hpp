@@ -20,6 +20,7 @@ inline
 void sym::mergeDuplicateRotSymmetries ( const std::vector<sym::RotationalSymmetry> &symmetries,
                                         const std::vector<Eigen::Vector3f> &symmetry_reference_points,
                                         const std::vector<int> &indices,
+                                        const std::vector<float> &support_size,
                                         std::vector<int> &merged_sym_ids,
                                         const float max_angle_diff,
                                         const float max_distance_diff
@@ -51,28 +52,20 @@ void sym::mergeDuplicateRotSymmetries ( const std::vector<sym::RotationalSymmetr
         symmetryAdjacency.addEdge(srcIdIt, tgtIdIt);
     }
   }
-
   // Find all connected components in the graph
   utl::Map hypothesisCCs;
   hypothesisCCs = utl::getConnectedComponents  (symmetryAdjacency);
   
   // Select best hypothesis for each cluster
   merged_sym_ids.resize(hypothesisCCs.size());
-  
   for (size_t clusterId = 0; clusterId < hypothesisCCs.size(); clusterId++)
   {
     float maxSupportSize = -1.0;
     int bestHypId = -1;
-    int support_size = 0;
     for (size_t hypIt = 0; hypIt < hypothesisCCs[clusterId].size(); hypIt++)
     {
       int hypId = indices[hypothesisCCs[clusterId][hypIt]];
-      if (support_size > maxSupportSize)
-      {
-        maxSupportSize = support_size;
-        bestHypId = hypId;
-      }
-      
+      bestHypId = hypId;
       if (bestHypId == -1)
         std::cout << "[sym::mergeDuplicateRotSymmetries] Could not select best hypothesis. Probably going to crash now." << std::endl;
       merged_sym_ids[clusterId] = bestHypId;
@@ -84,6 +77,7 @@ void sym::mergeDuplicateRotSymmetries ( const std::vector<sym::RotationalSymmetr
 inline
 void sym::mergeDuplicateRotSymmetries ( const std::vector<sym::RotationalSymmetry> &symmetries,
                                         const std::vector<Eigen::Vector3f> &symmetry_reference_points,
+                                        const std::vector<float> &support_size,
                                         std::vector<int> &merged_sym_ids,
                                         const float max_normal_angle_diff,
                                         const float max_distance_diff
@@ -98,6 +92,7 @@ void sym::mergeDuplicateRotSymmetries ( const std::vector<sym::RotationalSymmetr
   mergeDuplicateRotSymmetries ( symmetries,
                                 symmetry_reference_points,
                                 indices,
+                                support_size,
                                 merged_sym_ids,
                                 max_normal_angle_diff,
                                 max_distance_diff
@@ -262,6 +257,15 @@ sym::RotationalSymmetryDetection<PointT>::filter ()
       symmetry_filtered_ids_.push_back(symId);
     }
   }
+  // // create a copy of the symmetry array
+  // std::vector<sym::RotationalSymmetry> symmetry_cp;
+  // symmetry_cp = symmetries_refined_;
+  // // Loop through the filtered symmetries and delete similar ones
+  // for (size_t symId = 0; symId < symmetry_filtered_ids_.size(); symId++)
+  // {
+
+  // }
+
 }
 
 ////////////////////////////////////////////////////////////////////////////////

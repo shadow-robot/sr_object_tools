@@ -5,8 +5,9 @@
 #include <reflectional_symmetry_detection.hpp>
 #include "vis.hpp"
 #include "pointcloud/mesh_to_cloud.hpp"
-
 #include "symmetry_detection.hpp"
+
+#include <vector>
 
 typedef pcl::PointXYZRGBNormal PointT;
 //PointXYZRGBNormal
@@ -15,6 +16,16 @@ int main(int argc, char **argv)
     std::string dirname, cloudFilename, fileName;
     if (argc > 1)
         fileName = argv[1];
+//   std::vector<double> v{1.0, 2.001, 2.002, 1.1, 5.0001, 2.003, 4.0, 5.0005, 5.0};
+  
+//   std::sort(v.begin(), v.end());
+//   auto last = std::unique(v.begin(), v.end(), [](double l, double r) { return std::abs(l - r) < 0.01; });
+//   auto first = v.begin();
+  
+// v.resize( std::distance(first,last) );
+    
+    // for (size_t itemIndex = 0; itemIndex < v.size(); ++itemIndex)
+    //     std::cout << "Vector: " << v[itemIndex] << std::endl;
     dirname = "../sample_objects";
     std::cout << "Loading data..." << std::endl;
     cloudFilename = utl::fullfile(dirname, fileName);
@@ -39,7 +50,12 @@ int main(int argc, char **argv)
     if(!RotationalDetection<PointT>(rotDetParams,symmetry_TMP))
         std::cout << "Could not find rotational symmetries" << std::endl;
     else
+    {
         std::cout << "Rotational symmetries: " << symmetry_TMP.size() << std::endl;
+        for (size_t symId = 0; symId < symmetry_TMP.size(); symId++)
+            std::cout << "Rotational symmetries ID:" << symId << ": " << symmetry_TMP[symId] << std::endl;
+    }
+        
     // Reflectional symmetry detection parameters
     sym::ReflSymDetectParams reflDetParams;
     reflDetParams.voxel_size = 0.0f;
@@ -58,7 +74,12 @@ int main(int argc, char **argv)
     if(!ReflectionalDetection<PointT>(reflDetParams,Refsymmetry_TMP))
         std::cout << "Could not find reflectional symmetries" << std::endl;
     else
+    {
         std::cout << "Reflectional symmetries: " << Refsymmetry_TMP.size() << std::endl;
+        for (size_t symId = 0; symId < Refsymmetry_TMP.size(); symId++)
+            std::cout << "Reflectional symmetries ID:" << symId << ": " << Refsymmetry_TMP[symId] << std::endl;
+    }
+        
 
     std::cout << "Controls:" << std::endl;
     std::cout << "Numpad 1: Show Point Cloud" << std::endl;

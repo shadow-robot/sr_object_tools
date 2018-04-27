@@ -26,6 +26,29 @@ bool RotationalDetection(sym::RotSymDetectParams &rot_parameters, std::vector<sy
     rsd.detect();
     rsd.filter();
     rsd.getSymmetries(symmetry_TMP, symmetryFilteredIds_TMP);
+    // Merge
+    std::vector<sym::RotationalSymmetry> symmetry_linear;
+    std::vector<Eigen::Vector3f> referencePoints_linear;
+    std::vector<float> supportSizes_linear;
+    for (size_t symIdIt = 0; symIdIt < symmetryFilteredIds_TMP.size(); symIdIt++)
+    {
+        int symId = symmetryFilteredIds_TMP[symIdIt];
+            symmetry_linear.push_back(symmetry_TMP[symId]);
+
+            Eigen::Vector4f centroid;
+            pcl::compute3DCentroid(*cloudHighRes, centroid);
+            referencePoints_linear.push_back(centroid.head(3));
+    }
+    // Merge similar symmetries
+    std::vector<int> symmetryMergedGlobalIds_linear;
+    sym::mergeDuplicateRotSymmetries(symmetry_linear,
+                                     referencePoints_linear,
+                                     supportSizes_linear,
+                                     symmetryMergedGlobalIds_linear);
+    symmetry_linear.resize(symmetryMergedGlobalIds_linear.size());
+    symmetries = symmetry_linear;
+    symmetryFilteredIds_TMP = symmetryMergedGlobalIds_linear;
+std::cout << "Merged symmetries: " << symmetry_linear.size() << std::endl;
     if (symmetryFilteredIds_TMP.size() > 0)
     {
         // Found symmetries

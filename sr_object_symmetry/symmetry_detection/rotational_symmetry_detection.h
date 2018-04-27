@@ -26,6 +26,7 @@ namespace sym
     float max_symmetry_score      = 0.01f;
     float max_perpendicular_score = 0.65f;
     float min_coverage_score      = 0.3f;
+    float filtering_threshold     = 0.5f;
   };
   
   //----------------------------------------------------------------------------
@@ -45,6 +46,7 @@ namespace sym
   void mergeDuplicateRotSymmetries  ( const std::vector<sym::RotationalSymmetry> &symmetries,
                                       const std::vector<Eigen::Vector3f> &symmetry_reference_points,
                                       const std::vector<int> &indices,
+                                      const std::vector<float> &support_size,
                                       std::vector<int> &merged_sym_ids,
                                       const float max_angle_diff = pcl::deg2rad(10.0f),
                                       const float max_distance_diff = 0.01f
@@ -62,6 +64,7 @@ namespace sym
   inline
   void mergeDuplicateRotSymmetries  ( const std::vector<sym::RotationalSymmetry> &symmetries,
                                       const std::vector<Eigen::Vector3f> &symmetry_reference_points,
+                                      const std::vector<float> &support_size,
                                       std::vector<int> &merged_sym_ids,
                                       const float max_normal_angle_diff = pcl::deg2rad(10.0f),
                                       const float max_distance_diff = 0.01f
