@@ -46,7 +46,6 @@ namespace sym
   void mergeDuplicateRotSymmetries  ( const std::vector<sym::RotationalSymmetry> &symmetries,
                                       const std::vector<Eigen::Vector3f> &symmetry_reference_points,
                                       const std::vector<int> &indices,
-                                      const std::vector<float> &support_size,
                                       std::vector<int> &merged_sym_ids,
                                       const float max_angle_diff = pcl::deg2rad(10.0f),
                                       const float max_distance_diff = 0.01f
@@ -55,7 +54,6 @@ namespace sym
   /** \brief Merge symemtry hypotheses that are similar enough.
    *  \param[in]  symmetries                  input symmetries
    *  \param[in]  symmetry_reference_points   reference points for input symmetries
-   *  \param[in]  indices                     indices of the symmetries used
    *  \param[in]  symmetry_scores             symmetry scores for input symmetries
    *  \param[out] merged_sym_ids              ids of symmetries after merging
    *  \param[in]  max_angle_diff              maximum angle between the axes of two distinct symmetries that will be merged
@@ -64,7 +62,6 @@ namespace sym
   inline
   void mergeDuplicateRotSymmetries  ( const std::vector<sym::RotationalSymmetry> &symmetries,
                                       const std::vector<Eigen::Vector3f> &symmetry_reference_points,
-                                      const std::vector<float> &support_size,
                                       std::vector<int> &merged_sym_ids,
                                       const float max_normal_angle_diff = pcl::deg2rad(10.0f),
                                       const float max_distance_diff = 0.01f

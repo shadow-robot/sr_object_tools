@@ -20,7 +20,6 @@ inline
 void sym::mergeDuplicateRotSymmetries ( const std::vector<sym::RotationalSymmetry> &symmetries,
                                         const std::vector<Eigen::Vector3f> &symmetry_reference_points,
                                         const std::vector<int> &indices,
-                                        const std::vector<float> &support_size,
                                         std::vector<int> &merged_sym_ids,
                                         const float max_angle_diff,
                                         const float max_distance_diff
@@ -77,7 +76,6 @@ void sym::mergeDuplicateRotSymmetries ( const std::vector<sym::RotationalSymmetr
 inline
 void sym::mergeDuplicateRotSymmetries ( const std::vector<sym::RotationalSymmetry> &symmetries,
                                         const std::vector<Eigen::Vector3f> &symmetry_reference_points,
-                                        const std::vector<float> &support_size,
                                         std::vector<int> &merged_sym_ids,
                                         const float max_normal_angle_diff,
                                         const float max_distance_diff
@@ -92,7 +90,6 @@ void sym::mergeDuplicateRotSymmetries ( const std::vector<sym::RotationalSymmetr
   mergeDuplicateRotSymmetries ( symmetries,
                                 symmetry_reference_points,
                                 indices,
-                                support_size,
                                 merged_sym_ids,
                                 max_normal_angle_diff,
                                 max_distance_diff
@@ -178,7 +175,6 @@ sym::RotationalSymmetryDetection<PointT>::detect ()
     allPointIds[pointId] = pointId;
   cloud_no_boundary_point_ids_ = utl::vectorDifference(allPointIds, cloudBoundaryPointIds);
   pcl::copyPointCloud<PointT>(*cloud_, cloud_no_boundary_point_ids_, *cloud_no_boundary_);
-    std::cout << "removed boundaries" << std::endl;
   //----------------------------------------------------------------------------
   // Get the initial symmetries
   
@@ -245,7 +241,6 @@ inline void
 sym::RotationalSymmetryDetection<PointT>::filter ()
 {
   symmetry_filtered_ids_.clear();
-  std::cout << "filtering" << std::endl;
   for (size_t symId = 0; symId < symmetries_refined_.size(); symId++)
   {
     // Check if it's a good symmetry
