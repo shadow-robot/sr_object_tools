@@ -1,3 +1,14 @@
+/*
+ * Copyright (C) 2018 Shadow Robot Company Ltd - All Rights Reserved. Proprietary and Confidential.
+ * Unauthorized copying of the content in this file, via any medium is strictly prohibited.
+ *
+*/
+/**
+ * @file   symmmain.cpp
+ * @author Fotios Papadopoulos <fotios@shadowrobot.com>
+ * @brief  example on how to use the symmetry libraries
+**/
+
 #include "filesystem/filesystem.hpp"
 #include "eigen.hpp"
 #include <pointcloud/pointcloud.hpp>
@@ -16,22 +27,13 @@ int main(int argc, char **argv)
     std::string dirname, cloudFilename, fileName;
     if (argc > 1)
         fileName = argv[1];
-//   std::vector<double> v{1.0, 2.001, 2.002, 1.1, 5.0001, 2.003, 4.0, 5.0005, 5.0};
-  
-//   std::sort(v.begin(), v.end());
-//   auto last = std::unique(v.begin(), v.end(), [](double l, double r) { return std::abs(l - r) < 0.01; });
-//   auto first = v.begin();
-  
-// v.resize( std::distance(first,last) );
-    
-    // for (size_t itemIndex = 0; itemIndex < v.size(); ++itemIndex)
-    //     std::cout << "Vector: " << v[itemIndex] << std::endl;
     dirname = "../sample_objects";
     std::cout << "Loading data..." << std::endl;
     cloudFilename = utl::fullfile(dirname, fileName);
     // For visualization
     pcl::PointCloud<PointT>::Ptr cloudHighRes(new pcl::PointCloud<PointT>);
     cloudHighRes = convertPlyToCloud(cloudFilename,15000);
+    // For symmetries
     loadFile(cloudFilename,15000);
 
     std::vector<sym::RotationalSymmetry> symmetry_TMP;

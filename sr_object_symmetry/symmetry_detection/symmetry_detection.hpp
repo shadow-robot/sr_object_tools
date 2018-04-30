@@ -1,3 +1,17 @@
+/*
+ * Copyright (C) 2018 Shadow Robot Company Ltd - All Rights Reserved. Proprietary and Confidential.
+ * Unauthorized copying of the content in this file, via any medium is strictly prohibited.
+ *
+*/
+/**
+ * @file   symmetry_detection.hpp
+ * @author Fotios Papadopoulos <fotios@shadowrobot.com>
+ * @brief  Extracts rotational and reflectional symmetries from point clouds
+**/
+// Copyright 2017 Aleksandrs Ecins
+// Licensed under GPLv2+
+// Refer to the LICENSE.txt file included.
+
 #ifndef SYMMETRY_DETECTION_HPP
 #define SYMMETRY_DETECTION_HPP
 
@@ -49,7 +63,6 @@ bool RotationalDetection(sym::RotSymDetectParams &rot_parameters, std::vector<sy
     if (symmetryFilteredIds_TMP.size() > 0)
     {
         // Found symmetries
-        //symmetries.resize(symmetryFilteredIds_TMP.size());
         for (size_t symId = 0; symId < symmetryFilteredIds_TMP.size(); symId++)
         {
             symmetries[symId] = symmetry_TMP[symmetryFilteredIds_TMP[symId]];
@@ -98,7 +111,6 @@ bool ReflectionalDetection(sym::ReflSymDetectParams &refl_parameters, std::vecto
     if (symmetryFilteredIds_TMP.size() > 0)
     {
         // Found symmetries
-        //symmetries.resize(symmetryFilteredIds_TMP.size());
         for (size_t symId = 0; symId < symmetryFilteredIds_TMP.size(); symId++)
         {
             symmetries[symId] = symmetry_TMP[symmetryFilteredIds_TMP[symId]];
@@ -108,4 +120,14 @@ bool ReflectionalDetection(sym::ReflSymDetectParams &refl_parameters, std::vecto
     else
         return false;
 }
+// template <typename PointT>
+// bool SymmetryDetection(sym::ReflSymDetectParams &refl_parameters,
+//                        sym::RotSymDetectParams &rot_parameters,
+//                        std::vector<sym::ReflectionalSymmetry> &ref_symmetries,
+//                        std::vector<sym::RotationalSymmetry> &rot_symmetries)
+// {
+//     RotationalDetection(rot_parameters, rot_symmetries);
+    
+
+// }
 #endif // SYMMETRY_DETECTION_HPP

@@ -208,7 +208,7 @@ sym::ReflectionalSymmetryDetection<PointT>::detect ()
 
   //----------------------------------------------------------------------------
   // Downsample input pointcloud and create a search tree
-  
+
   // Downsample the cloud
   if (params_.voxel_size <= 0.0f)
     *cloud_ds_ = *cloud_;
@@ -220,17 +220,17 @@ sym::ReflectionalSymmetryDetection<PointT>::detect ()
     dc.setLeafSize(params_.voxel_size);
     dc.filter(*cloud_ds_);
   }
-  
+
   // Create a search tree for the input cloud
   pcl::search::KdTree<PointT> cloud_search_tree;
   cloud_search_tree.setInputCloud(cloud_);
 
   //----------------------------------------------------------------------------
   // Get pointcloud boundary
-  
+
   std::vector<int> cloudBoundaryPointIds, cloudNonBoundaryPointIds;
   utl::getCloudBoundary<PointT>(cloud_, 0.01f, cloudBoundaryPointIds, cloudNonBoundaryPointIds);
-    
+
   //----------------------------------------------------------------------------
   // Get initial symmetries
 
