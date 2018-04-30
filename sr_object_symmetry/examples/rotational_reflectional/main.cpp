@@ -34,7 +34,8 @@ int main(int argc, char **argv)
     pcl::PointCloud<PointT>::Ptr cloudHighRes(new pcl::PointCloud<PointT>);
     cloudHighRes = convertPlyToCloud(cloudFilename,15000);
     // For symmetries
-    loadFile(cloudFilename,15000);
+    SymmetryDetection symmetries_T;
+    symmetries_T.loadFile(cloudFilename,15000);
 
     std::vector<sym::RotationalSymmetry> symmetry_TMP;
     std::vector<sym::ReflectionalSymmetry> Refsymmetry_TMP;
@@ -48,14 +49,15 @@ int main(int argc, char **argv)
     rotDetParams.max_perpendicular_score = 0.6f;
     rotDetParams.min_coverage_score = 0.3f;
 
-
-    if(!RotationalDetection<PointT>(rotDetParams,symmetry_TMP))
+    symmetries_T.rotationalDetection<PointT>(rotDetParams);
+    if(symmetries_T.rotationalDetection.size()=0)
+    //if(!RotationalDetection<PointT>(rotDetParams,symmetry_TMP))
         std::cout << "Could not find rotational symmetries" << std::endl;
     else
     {
-        std::cout << "Rotational symmetries: " << symmetry_TMP.size() << std::endl;
-        for (size_t symId = 0; symId < symmetry_TMP.size(); symId++)
-            std::cout << "Rotational symmetries ID:" << symId << ": " << symmetry_TMP[symId] << std::endl;
+        std::cout << "Rotational symmetries: " << symmetries_T.rotationalDetection.size() << std::endl;
+        for (size_t symId = 0; symId < symmetries_T.rotationalDetection.size(); symId++)
+            std::cout << "Rotational symmetries ID:" << symId << ": " << symmetries_T.rotationalDetection[symId] << std::endl;
     }
         
     // Reflectional symmetry detection parameters
@@ -73,14 +75,14 @@ int main(int argc, char **argv)
     reflDetParams.symmetry_min_distance_diff = 0.01f;
     reflDetParams.max_reference_point_distance = 0.3f;
 
-    if(!ReflectionalDetection<PointT>(reflDetParams,Refsymmetry_TMP))
-        std::cout << "Could not find reflectional symmetries" << std::endl;
-    else
-    {
-        std::cout << "Reflectional symmetries: " << Refsymmetry_TMP.size() << std::endl;
-        for (size_t symId = 0; symId < Refsymmetry_TMP.size(); symId++)
-            std::cout << "Reflectional symmetries ID:" << symId << ": " << Refsymmetry_TMP[symId] << std::endl;
-    }
+    // if(!ReflectionalDetection<PointT>(reflDetParams,Refsymmetry_TMP))
+    //     std::cout << "Could not find reflectional symmetries" << std::endl;
+    // else
+    // {
+    //     std::cout << "Reflectional symmetries: " << Refsymmetry_TMP.size() << std::endl;
+    //     for (size_t symId = 0; symId < Refsymmetry_TMP.size(); symId++)
+    //         std::cout << "Reflectional symmetries ID:" << symId << ": " << Refsymmetry_TMP[symId] << std::endl;
+    // }
 
     std::cout << "Controls:" << std::endl;
     std::cout << "Numpad 1: Show Point Cloud" << std::endl;

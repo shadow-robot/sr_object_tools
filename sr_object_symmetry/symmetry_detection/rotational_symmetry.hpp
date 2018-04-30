@@ -22,13 +22,11 @@ namespace sym
   class RotationalSymmetry
   {
   public:
-    
     /** \brief An empty constructor */
     RotationalSymmetry ()
       : origin_ (Eigen::Vector3f::Zero())
       , direction_ (Eigen::Vector3f::Zero())
     {};
-    
     /** \brief A constructor from origin point and direction
      *  \param[in] origin origin point
      *  \param[in] direction direction
@@ -37,27 +35,27 @@ namespace sym
       : origin_ (origin)
       , direction_ (direction.normalized())
     { };
-    
+
     /** \brief Get the direction vector of the symmetry axis
      *  \return direction vector
      */    
     Eigen::Vector3f getDirection () const { return direction_; }
-    
+
     /** \brief Get the origin point of the symmetry
      *  \return symmetry origin point
      */            
     Eigen::Vector3f getOrigin () const { return origin_; }
-            
+   
     /** \brief Set the origin point of the symmetry
      *  \param[in] origin symmetry origin point
      */
     void setOrigin  (const Eigen::Vector3f origin ) { origin_  = origin;  }
-    
+
     /** \brief Set the direction vector of the symmetry
      *  \param[in] direction symmetry direction
      */
     void setDirection  (const Eigen::Vector3f direction) { direction_ = direction.normalized(); }
-    
+
     /** \brief Project a 3D point on the symmetry axis
      *  \param[in] point  point to be projected
      *  \return projected point
@@ -66,7 +64,7 @@ namespace sym
     {
       return utl::projectPointToLine<float>(point, origin_, origin_ + direction_);
     };
-    
+
     /** \brief Set the origin of the symmetry to be the input point projected on the current symmetry axis
      *  \param[in] point  point who's projection will be used as new origin
      */
@@ -84,7 +82,7 @@ namespace sym
       origin_ = point;
       direction_ = direction.normalized();
     }
-    
+
     /** \brief Set symmetry parameters from two points
      *  \param[in] point1  first point
      *  \param[in] point2  second point
@@ -101,7 +99,7 @@ namespace sym
     {
       fromTwoPoints(points.head(3), points.tail(3));
     }
-    
+
     /** \brief Transform the symmetry axis with an 3D rigid transformation.
      *  \param[in]  transform 3D affine transform
      */
@@ -121,7 +119,7 @@ namespace sym
       file << "direction:\n";
       file << "   " << direction_[0] << " " << direction_[1] << " " << direction_[2] << std::endl;
     }
-    
+
     /** \brief Read symmetry parameters from an ASCII file. Filestream pointer
      * must point to a line starting a valid symmetry record.
      *  \param[in] file input filestream
@@ -152,7 +150,6 @@ namespace sym
       std::getline(filestream,line);
       iss.str(line);
       iss >> direction_[0] >> direction_[1] >> direction_[2];
-      
       return true;
     }    
 
@@ -164,32 +161,6 @@ namespace sym
     {
       return utl::pointToLineDistance<float>(point, origin_, origin_ + direction_);
     };
-    
-//     /** \brief Calculate the angle and distance between two symmetry axes.
-//      *  \param[in]  symmetry_other second symmetry
-//      *  \param[out]  distance  distance between symmetry axes
-//      *  \param[out]  angle     angle between symmetry axes
-//      *  \note maximum angle between two symmetry axes is 90 degrees
-//      */
-//     void difference (const RotationalSymmetry &symmetry_other, float &distance, float &angle) const
-//     {
-//       distance  = utl::lineToLineDistance<float>(origin_, origin_+direction_, symmetry_other.getOrigin(),  symmetry_other.getOrigin()+symmetry_other.getDirection());
-//       angle     = utl::lineLineAngle<float>(origin_, origin_+direction_, symmetry_other.getOrigin(), symmetry_other.getOrigin()+symmetry_other.getDirection());
-// //       angle     = std::min(angle, static_cast<float>(M_PI) - angle);
-//       return;
-//     }
-
-    /** \brief Calculate the difference between two rotational symmetries. Two
-     * measures are calculated:
-     * 1) Angle between symmetry axes
-     * 2) Distance between the projections of a reference point onto the two
-     *    symmetry axes
-     *  \param[in]  symmetry_other second symmetry
-     *  \param[in]  reference_point reference point
-     *  \param[out]  angle     angle between symmetry axes
-     *  \param[out]  distance  distance between projections of the reference point
-     *  \note maximum angle between two symmetry axes is 90 degrees
-     */
     void rotSymDifference (const RotationalSymmetry &symmetry_other, const Eigen::Vector3f &reference_point, float &angle, float &distance) const
     {
       angle     = utl::lineLineAngle<float>(origin_, origin_+direction_, symmetry_other.getOrigin(), symmetry_other.getOrigin()+symmetry_other.getDirection());
@@ -200,7 +171,7 @@ namespace sym
 
       return;
     }    
-    
+
     /** \brief Get a rotation matrix for rotating around the symmetry axis by a
      * specified angle.
      *  \param[in] angle angle of rotation in radians
@@ -209,7 +180,7 @@ namespace sym
     {
       return Eigen::AngleAxisf(angle, direction_ ).toRotationMatrix();
     }
-    
+
     /** \brief Rotate a point around a symmetry axis by a given rotation matrix.
      * This is equivalent to rotating a vector from symmetry axis to the point 
      * by a given rotation matrix.
@@ -240,7 +211,7 @@ namespace sym
     {
       return R * normal;
     }
-    
+
     /** \brief Rotate a normal around a symmetry axis by a given angle. The 
      * angle is specified clockwise around the symmetry axis.
      *  \param[in] normal normal to be rotated
@@ -250,7 +221,7 @@ namespace sym
     {
       return rotateNormal(normal, getRotationAroundAxis(angle));
     }
-    
+
     /** \brief Rotate a pointcloud around a symmetry axis by a given angle. The 
      * angle is specified clockwise around the symmetry axis.
      *  \param[in] cloud_in original cloud
@@ -262,11 +233,10 @@ namespace sym
     {
       // Prepare output cloud
       pcl::copyPointCloud<PointT>(cloud_in, cloud_out);
-      
       for (size_t i = 0; i < cloud_in.size(); i++)
         cloud_out.points[i].getVector3fMap() = rotatePoint(cloud_in.points[i].getVector3fMap(), angle);
     }
-    
+
     /** \brief Rotate a pointcloud around a symmetry axis by a given angle. The 
      * angle is specified clockwise around the symmetry axis.
      *  \param[in] cloud_in original cloud
@@ -279,7 +249,6 @@ namespace sym
     {
       // Prepare output cloud
       pcl::copyPointCloud<PointT>(cloud_in, indices, cloud_out);
-      
       for (size_t i = 0; i < indices.size(); i++)
         cloud_out.points[i].getVector3fMap() = rotatePoint(cloud_in.points[indices[i]].getVector3fMap(), angle);
     }
@@ -294,7 +263,6 @@ namespace sym
     void rotateCloudWithNormals ( const pcl::PointCloud<PointT> &cloud_in, pcl::PointCloud<PointT> &cloud_out, const float angle)  const
     {
       pcl::copyPointCloud<PointT>(cloud_in, cloud_out);
-          
       for (size_t i = 0; i < cloud_in.size(); i++)
       {
         Eigen::Matrix3f R = getRotationAroundAxis(angle);
@@ -302,7 +270,6 @@ namespace sym
         cloud_out.points[i].getNormalVector3fMap()  = rotateNormal (cloud_in.points[i].getNormalVector3fMap(), R);
       }
     }
-
     /** \brief Rotate a pointcloud with normals around a symmetry axis by a given angle. The 
      * angle is specified clockwise around the symmetry axis.
      *  \param[in] cloud_in original cloud
@@ -322,7 +289,6 @@ namespace sym
         cloud_out.points[i].getNormalVector3fMap()  = rotateNormal (cloud_in.points[indices[i]].getNormalVector3fMap(), R);
       }
     }
-    
     /** \brief Get the normal of the plane used to construct the profile curve.
      * The normal is constructed as unit direction vector of a line that goes
      * through the coordinate system origin and is perpendicular to the symmetry
@@ -335,7 +301,6 @@ namespace sym
       Eigen::Vector3f coordinateOriginProjected = projectPoint(Eigen::Vector3f::Zero());
       return (Eigen::Vector3f::Zero()-coordinateOriginProjected).normalized();
     }
-        
     /** \brief Get the profile curve of a cloud under current symmetry axis.
      *  \param[in]  cloud input cloud
      *  \param[out] profile_curve profile curve
@@ -346,7 +311,7 @@ namespace sym
       // Get a vector in the profile curve plane that is perpendicular to the symmetry axis
       Eigen::Vector3f planeNormal = getProfileCurvePlaneNormal();
       Eigen::Vector3f planeVector = direction_.cross(planeNormal);
-      
+
       // Rotate all cloud points onto that plane
       profile_curve.resize(cloud.size());
       for (size_t pointId = 0; pointId < profile_curve.size(); pointId++)
@@ -359,7 +324,7 @@ namespace sym
         profile_curve.points[pointId].getVector3fMap() = pointRotated;
       }
     }
-    
+
     /** \brief Get the profile curve of a cloud under current symmetry axis.
      *  \param[in]  cloud input cloud
      *  \param[out] profile_curve profile curve
@@ -371,39 +336,39 @@ namespace sym
       // Get a vector in the profile curve plane that is perpendicular to the symmetry axis
       Eigen::Vector3f planeNormal = getProfileCurvePlaneNormal();
       Eigen::Vector3f planeVector = direction_.cross(planeNormal);
-      
+
       // Rotate all cloud points onto that plane
       profile_curve.resize(cloud.size());
       for (size_t pointId = 0; pointId < profile_curve.size(); pointId++)
       {
         Eigen::Vector3f point = cloud.points[pointId].getVector3fMap();
         Eigen::Vector3f normal = cloud.points[pointId].getNormalVector3fMap();
-        
+
         // Rotate point
         Eigen::Vector3f pointProjectedOnAxis = projectPoint(point);
         float pointToAxisDistance = (point - pointProjectedOnAxis).norm();
         Eigen::Vector3f pointRotated = pointProjectedOnAxis + planeVector * pointToAxisDistance;
-        
+
         // Rotate normal
         Eigen::Matrix3f F1;   // Coordinate system associated with normal
         F1.col(0) = direction_;
         F1.col(1) = (point - pointProjectedOnAxis).normalized();
         F1.col(2) = F1.col(0).cross(F1.col(1));
-        
+
         Eigen::Matrix3f F2;   // Coordinate system associated with normal
         F2.col(0) = direction_;
         F2.col(1) = (pointRotated - pointProjectedOnAxis).normalized();
         F2.col(2) = F2.col(0).cross(F2.col(1));
-        
+
         Eigen::Vector3f normal_F1 = F1.transpose() * normal;
         Eigen::Vector3f normalRotated = F2 * normal_F1;
-        
+
         // Assign
         profile_curve.points[pointId].getVector3fMap() = pointRotated;
         profile_curve.points[pointId].getNormalVector3fMap() = normalRotated;        
       }
     }    
-    
+
     /** \brief Get cylinder centered on a symmetry axis that bounds the
      * pointcloud.
      *  \param[in]  cloud input cloud
@@ -418,7 +383,7 @@ namespace sym
                               ) const
     {
       cylinder_coeffs.values.resize(7);
-      
+
       // Check that input cloud is not empty
       if (cloud.size() == 0)
       {
@@ -426,25 +391,23 @@ namespace sym
         cylinder_coeffs.values[6] = -1.0f;
         return false;
       }
-      
+
       std::vector<float> alphas (indices.size());
       float radius = 0.0f;
       for (size_t pointIdIt = 0; pointIdIt < indices.size(); pointIdIt++)
       {
         int pointId = indices[pointIdIt];
-        
         Eigen::Vector3f point = cloud.points[pointId].getVector3fMap();
         Eigen::Vector3f pointProjected = projectPoint(point);
         radius = std::max(radius, (point - pointProjected).norm());
         alphas[pointIdIt] = direction_.dot(pointProjected - origin_);
       }
-      
       float alphaMax = utl::vectorMax(alphas);
       float alphaMin = utl::vectorMin(alphas);
-      
+
       Eigen::Vector3f cylinderOrigin    = origin_ + direction_ * alphaMin;
       Eigen::Vector3f cylinderDirection = direction_ * (alphaMax - alphaMin);
-      
+
       cylinder_coeffs.values[0]  = cylinderOrigin[0];
       cylinder_coeffs.values[1]  = cylinderOrigin[1];
       cylinder_coeffs.values[2]  = cylinderOrigin[2];
@@ -452,10 +415,10 @@ namespace sym
       cylinder_coeffs.values[4]  = cylinderDirection[1];
       cylinder_coeffs.values[5]  = cylinderDirection[2];
       cylinder_coeffs.values[6]  = radius;
-      
+
       return true;
     }
-    
+
     /** \brief Get cylinder centered on a symmetry axis that bounds the
      * pointcloud.
      *  \param[in]  cloud input cloud
@@ -472,17 +435,17 @@ namespace sym
       std::vector<int> indices (cloud.size());
       for (size_t pointId = 0; pointId < cloud.size(); pointId++)
         indices[pointId] = pointId;
-      
+
       return getBoundingCylinder<PointT>(cloud, indices, cylinder_coeffs);
     }
-    
+
   protected:
-    
+
     // Member variables
     Eigen::Vector3f origin_;  ///< Point belonging to the symmetry axis. Symmetry is visualized around this point.
     Eigen::Vector3f direction_;  ///< Unit length vector representing the direction of the symmetry axis.
   };
-  
+
   /** \brief Print symmetry details to ostream */
   inline
   std::ostream& operator<< ( std::ostream& os, const RotationalSymmetry& symmetry)
@@ -490,10 +453,10 @@ namespace sym
     os << "origin:    " << symmetry.getOrigin().transpose();
     os << std::endl;
     os << "direction: " << symmetry.getDirection().transpose();
-      
+
     return os;
   }  
-  
+
   /** \brief Visualize a rotational symmetry as a line segment centered at the symmetry origin point
    *  \param[in] visualizer object
    *  \param[in] symmetry rotational symmetry
@@ -516,11 +479,11 @@ namespace sym
     pcl::PointXYZ p1, p2;
     p1.getVector3fMap() = symmetry.getOrigin() + symmetry.getDirection() * length / 2;
     p2.getVector3fMap() = symmetry.getOrigin() - symmetry.getDirection() * length / 2;
-    
+
     visualizer.addLine(p1, p2, id);
     utl::setLineRenderProps(visualizer, id, line_width, color, opacity);
   }
-  
+
   /** \brief Visualize a rotational symmetry around a pointcloud. Symmetry is
    * visualized as a line with endpoints obtained by projecting the pointcloud
    * points onto the symmetry line.
@@ -549,42 +512,42 @@ namespace sym
     float distMax = std::numeric_limits<float>::min();
     float distMin = std::numeric_limits<float>::max();
     Eigen::Vector3f pointMax, pointMin;
-    
+
     for (size_t pointId = 0; pointId < cloud.size(); pointId++)
     {
       Eigen::Vector3f point = cloud.points[pointId].getVector3fMap();
       Eigen::Vector3f pointProjected = utl::projectPointToLine<float>(point, symmetry.getOrigin(), symmetry.getOrigin() + symmetry.getDirection());
-      
+
       float distance = utl::pointToPointDistance<float>(pointProjected, symmetry.getOrigin());
       if ((pointProjected - symmetry.getOrigin()).dot(symmetry.getDirection()) < 0)
         distance *= -1;
-      
+
       if (distance > distMax)
       {
         distMax = distance;
         pointMax = pointProjected;
       }
-      
+
       if (distance < distMin)
       {
         distMin = distance;
         pointMin = pointProjected;
       }
     }
-    
+
     // Scale points
     pointMax += symmetry.getDirection() * length;
     pointMin -= symmetry.getDirection() * length;
-    
+
     // Show symmetry
     pcl::PointXYZ p1, p2;
     p1.getVector3fMap() = pointMax;
     p2.getVector3fMap() = pointMin;
-    
+
     visualizer.addLine(p1, p2, id);
     utl::setLineRenderProps(visualizer, id, line_width, color, opacity);
   }  
-  
+
   /** \brief Calculate the error of fit between a symmetry axis and an oriented
     * point. Error of fit is calculated as the angle between the point normal
     * and the plane containing the symmetry axis and the point itself.
@@ -601,15 +564,15 @@ namespace sym
   {
     Eigen::Vector3f pointProjected = symmetry.projectPoint (point);
     Eigen::Vector3f planeNormal = (point - pointProjected).cross(symmetry.getDirection());
-   
+
     // Calculate angle sine
     float angle_sin = std::abs (planeNormal.dot(normal) / planeNormal.norm());
     angle_sin = utl::clampValue(angle_sin, 0.0f, 1.0f);
-    
+
     // Limit angle sine and return
     return std::asin(angle_sin);
   }
-  
+
   /** \brief Calculate how perpendicular a surface point is to the symmetry
    * axis. Perpendicularity is calculated as:
    *   1 - (angle between symmetry axis and point normal / PI/2)
@@ -630,14 +593,12 @@ namespace sym
   {
     if (angle_threshold == 0.0f)
       return 1.0f;
-    
+
     // Get perpendicular score
     float symAxisNormalAngle = utl::lineLineAngle(symmetry.getDirection(), normal);
-
     // Normalize by angle threshold
     symAxisNormalAngle /= angle_threshold;
     symAxisNormalAngle = std::min (symAxisNormalAngle, 1.0f);
-    
     return 1.0f - symAxisNormalAngle;
   }
 }

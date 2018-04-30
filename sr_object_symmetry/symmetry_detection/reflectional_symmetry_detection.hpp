@@ -33,37 +33,34 @@ void sym::mergeDuplicateReflSymmetries (  const std::vector<sym::ReflectionalSym
   // Construct a graph where vertices represent symmetries and edges indicate
   // symmetries that are similar
   utl::Graph symmetryAdjacency (indices.size());
-  
+
   for (size_t srcIdIt = 0; srcIdIt < indices.size(); srcIdIt++)
   {
     int srcId = indices[srcIdIt];
     sym::ReflectionalSymmetry srcHypothesis = symmetries[srcId];
     Eigen::Vector3f srcReferencePoint = symmetry_reference_points[srcId];
-    
+
     for (size_t tgtIdIt = srcIdIt+1; tgtIdIt < indices.size(); tgtIdIt++)
     {
       int tgtId = indices[tgtIdIt];
       sym::ReflectionalSymmetry tgtHypothesis = symmetries[tgtId];
       Eigen::Vector3f tgtReferencePoint = symmetry_reference_points[tgtId];
-      
       // If segments are too far apart, don't merged their symmetries
       if (max_reference_point_distance > 0.0f && utl::pointToPointDistance<float>(srcReferencePoint, tgtReferencePoint) > max_reference_point_distance)
         continue;
-      
       Eigen::Vector3f referencePoint = (srcReferencePoint + tgtReferencePoint) / 2.0f;
       float angleDiff, distanceDiff;
       srcHypothesis.reflSymDifference(tgtHypothesis, referencePoint, angleDiff, distanceDiff);
-            
       if (angleDiff < max_normal_angle_diff && distanceDiff < max_distance_diff)
         symmetryAdjacency.addEdge(srcIdIt, tgtIdIt);
     }
   }
-    
+
   //----------------------------------------------------------------------------  
   // Find the maximal cliques in the graph
   std::list<std::list<int> > hypothesisCliques;
   utl::bronKerbosch(symmetryAdjacency, hypothesisCliques, 1);
-  
+
   // Find hypothesis clusters that will be merged
   utl::Map hypothesisClusters;  
   while (hypothesisCliques.size() > 0)
@@ -79,28 +76,26 @@ void sym::mergeDuplicateReflSymmetries (  const std::vector<sym::ReflectionalSym
         maxCliqueSize = it->size();
       }
     }
-    
+
     // Add hypotheses from the largest clique to the list of hypothesis clusters
     hypothesisClusters.push_back(std::vector<int>{ std::begin(*largestCliqueIt), std::end(*largestCliqueIt) });
-    
     // Remove hyptheses belonging to the largest clique from existing cliques
     hypothesisCliques.erase(largestCliqueIt);
     for (std::list<std::list<int> >::iterator it = hypothesisCliques.begin(); it != hypothesisCliques.end();)
     {
       for (std::vector<int>::const_iterator elIt = hypothesisClusters.back().begin(); elIt != hypothesisClusters.back().end(); elIt++)
         it->remove(*elIt);
-      
       if (it->size() == 0)
         it = hypothesisCliques.erase(it);
       else
         it++;
     }
   }
-  
+
   //----------------------------------------------------------------------------
   // Select best hypothesis for each cluster
   merged_sym_ids.resize(hypothesisClusters.size());
-  
+
   for (size_t clusterId = 0; clusterId < hypothesisClusters.size(); clusterId++)
   {
     float minScore = std::numeric_limits<float>::max();
@@ -138,7 +133,7 @@ void sym::mergeDuplicateReflSymmetries (  const std::vector<sym::ReflectionalSym
 
   sym::mergeDuplicateReflSymmetries(symmetries, symmetry_reference_points, indices, merged_sym_ids, max_normal_angle_diff, max_distance_diff, max_reference_point_distance);
 }
-  
+
 ////////////////////////////////////////////////////////////////////////////////
 template <typename PointT>
 sym::ReflectionalSymmetryDetection<PointT>::ReflectionalSymmetryDetection () :
@@ -189,13 +184,13 @@ sym::ReflectionalSymmetryDetection<PointT>::detect ()
 {
   //----------------------------------------------------------------------------
   // Initialize computation
-  
+
   if (!cloud_ || cloud_->size() == 0)
   {
     std::cout << "[sym::ReflectionalSymmetryDetection::detect] input cloud is not set or it is empty." << std::endl;
     return false;
   }
-  
+
   cloud_mean_ = Eigen::Vector3f::Zero();
   cloud_ds_->clear();
   symmetries_refined_.clear();
@@ -227,13 +222,11 @@ sym::ReflectionalSymmetryDetection<PointT>::detect ()
 
   //----------------------------------------------------------------------------
   // Get pointcloud boundary
-
   std::vector<int> cloudBoundaryPointIds, cloudNonBoundaryPointIds;
   utl::getCloudBoundary<PointT>(cloud_, 0.01f, cloudBoundaryPointIds, cloudNonBoundaryPointIds);
 
   //----------------------------------------------------------------------------
   // Get initial symmetries
-
   if (symmetries_initial_.size() == 0)
   {
     if (!sym::getInitialReflSymmetries<PointT>(cloud_, symmetries_initial_, cloud_mean_, params_.num_angle_divisions, params_.flatness_threshold))
@@ -249,15 +242,17 @@ sym::ReflectionalSymmetryDetection<PointT>::detect ()
   //----------------------------------------------------------------------------
   // Refine initial symmetries
   std::cout << "Found Initial symmetries:" << symmetries_initial_.size() << std::endl;
+  // Pre-filtering
+
   // These vectors are required to enable paralllizing symmetry detection loop
   std::vector<sym::ReflectionalSymmetry> symmetriesTMP      (symmetries_initial_.size());
   std::vector<float> cloudInlierScoresTMP                   (symmetries_initial_.size());
   std::vector<float> correspInlierScoresTMP                 (symmetries_initial_.size());
-  std::vector<std::vector<float> > pointSymmetryScoresTMP   (symmetries_initial_.size());
-  std::vector<bool>  validSymTableTMP                       (symmetries_initial_.size(), false);
-  std::vector<bool>  filteredSymTableTMP                    (symmetries_initial_.size(), false);
+  std::vector<std::vector<float>> pointSymmetryScoresTMP    (symmetries_initial_.size());
+  std::vector<bool> validSymTableTMP                        (symmetries_initial_.size(), false);
+  std::vector<bool> filteredSymTableTMP                     (symmetries_initial_.size(), false);
   std::vector<pcl::Correspondences> symmetryCorrespTMP      (symmetries_initial_.size());
-  
+
   // NOTE: it turns out that putting parralel for statement here
   // runs more that twice faster than parallelizing the loop that calls
   // reflectional symmetry detection
@@ -266,7 +261,7 @@ sym::ReflectionalSymmetryDetection<PointT>::detect ()
   {
     sym::ReflectionalSymmetry curSymmetry;
     pcl::Correspondences curCorrespondences;
-    
+
     if (!sym::refineReflSymPosition<PointT> ( cloud_,
                                               cloud_ds_,
                                               symmetries_initial_[symId],
@@ -289,7 +284,7 @@ sym::ReflectionalSymmetryDetection<PointT>::detect ()
     // Score symmetry
     std::vector<float> curPointSymmetryScores;
     float curCloudInlierScore, curCorrespInlierScore;
-    
+
     sym::reflSymPointSymmetryScores<PointT> ( cloud_search_tree,
                                               *cloud_ds_,
                                               std::vector<int>(),
@@ -301,11 +296,11 @@ sym::ReflectionalSymmetryDetection<PointT>::detect ()
                                               params_.min_inlier_normal_angle,
                                               params_.max_inlier_normal_angle
                                             );
-    
+
     float inlierScoreSum = 0;
     for (size_t crspId = 0; crspId < curCorrespondences.size(); crspId++)
       inlierScoreSum += (1.0f - curPointSymmetryScores[crspId]);
-      
+
     curCloudInlierScore    = inlierScoreSum / static_cast<float>(cloud_ds_->size());
     curCorrespInlierScore  = inlierScoreSum / static_cast<float>(curCorrespondences.size());
 
@@ -317,13 +312,13 @@ sym::ReflectionalSymmetryDetection<PointT>::detect ()
     validSymTableTMP[symId] = true;
     symmetryCorrespTMP[symId] = curCorrespondences;
   }
-  
+
   // Extract valid symmetries
   for (size_t symIdIt = 0; symIdIt < validSymTableTMP.size(); symIdIt++)
   {
     if (!validSymTableTMP[symIdIt])
       continue;
-    
+
     symmetries_refined_.push_back(symmetriesTMP[symIdIt]);    
     cloud_inlier_scores_.push_back(cloudInlierScoresTMP[symIdIt]);
     corresp_inlier_scores_.push_back(correspInlierScoresTMP[symIdIt]);
@@ -349,7 +344,7 @@ sym::ReflectionalSymmetryDetection<PointT>::filter ()
     {
       symmetry_filtered_ids_.push_back(symId);
     }
-  }  
+  }
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -396,7 +391,6 @@ void sym::ReflectionalSymmetryDetection<PointT>::getPointScores ( typename pcl::
                                                                   std::vector<std::vector<float> > &point_symmetry_scores
                                                                 )
 
-                                                                              
 {
   cloud_ds.reset(new pcl::PointCloud<PointT>);
   *cloud_ds = *cloud_ds_;
