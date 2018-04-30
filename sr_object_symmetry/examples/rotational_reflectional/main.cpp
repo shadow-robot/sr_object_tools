@@ -79,7 +79,6 @@ int main(int argc, char **argv)
         for (size_t symId = 0; symId < Refsymmetry_TMP.size(); symId++)
             std::cout << "Reflectional symmetries ID:" << symId << ": " << Refsymmetry_TMP[symId] << std::endl;
     }
-        
 
     std::cout << "Controls:" << std::endl;
     std::cout << "Numpad 1: Show Point Cloud" << std::endl;

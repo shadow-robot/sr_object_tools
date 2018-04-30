@@ -114,6 +114,9 @@ pcl::PointCloud<pcl::PointXYZRGBNormal>::Ptr convertPlyToCloud(std::string &file
 
     vtkSmartPointer<vtkPolyData> polydata1 = vtkSmartPointer<vtkPolyData>::New();
     pcl::PolygonMesh mesh;
+    // loadPolygonFileSTL
+    // loadPolygonFileOBJ
+    // loadPolygonFileVTK
     pcl::io::loadPolygonFilePLY(fileName, mesh);
     pcl::io::mesh2vtk(mesh, polydata1);
     //make sure that the polygons are triangles!
