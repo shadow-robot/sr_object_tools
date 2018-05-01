@@ -1,7 +1,11 @@
 // Copyright 2017 Aleksandrs Ecins
 // Licensed under GPLv2+
 // Refer to the LICENSE.txt file included.
-
+/*
+ * Copyright (C) 2018 Shadow Robot Company Ltd - All Rights Reserved. Proprietary and Confidential.
+ * Unauthorized copying of the content in this file, via any medium is strictly prohibited.
+ *
+*/
 #ifndef REFLECTIONAL_SYMMETRY_DETECTION_HPP
 #define REFLECTIONAL_SYMMETRY_DETECTION_HPP
 
@@ -19,7 +23,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 inline
 void sym::mergeDuplicateReflSymmetries (  const std::vector<sym::ReflectionalSymmetry> &symmetries,
-                                          const std::vector<Eigen::Vector3f> &symmetry_reference_points,
+                                          const Eigen::Vector3f &symmetry_reference_points,
                                           const std::vector<int> &indices,
                                           std::vector<int> &merged_sym_ids,
                                           const float max_normal_angle_diff,
@@ -38,13 +42,13 @@ void sym::mergeDuplicateReflSymmetries (  const std::vector<sym::ReflectionalSym
   {
     int srcId = indices[srcIdIt];
     sym::ReflectionalSymmetry srcHypothesis = symmetries[srcId];
-    Eigen::Vector3f srcReferencePoint = symmetry_reference_points[srcId];
+    Eigen::Vector3f srcReferencePoint = symmetry_reference_points;
 
     for (size_t tgtIdIt = srcIdIt+1; tgtIdIt < indices.size(); tgtIdIt++)
     {
       int tgtId = indices[tgtIdIt];
       sym::ReflectionalSymmetry tgtHypothesis = symmetries[tgtId];
-      Eigen::Vector3f tgtReferencePoint = symmetry_reference_points[tgtId];
+      Eigen::Vector3f tgtReferencePoint = symmetry_reference_points;
       // If segments are too far apart, don't merged their symmetries
       if (max_reference_point_distance > 0.0f && utl::pointToPointDistance<float>(srcReferencePoint, tgtReferencePoint) > max_reference_point_distance)
         continue;
@@ -120,7 +124,7 @@ void sym::mergeDuplicateReflSymmetries (  const std::vector<sym::ReflectionalSym
 ////////////////////////////////////////////////////////////////////////////////
 inline
 void sym::mergeDuplicateReflSymmetries (  const std::vector<sym::ReflectionalSymmetry> &symmetries,
-                                          const std::vector<Eigen::Vector3f> &symmetry_reference_points,
+                                          const Eigen::Vector3f &symmetry_reference_points,
                                           std::vector<int> &merged_sym_ids,
                                           const float max_normal_angle_diff,
                                           const float max_distance_diff,
@@ -345,21 +349,6 @@ sym::ReflectionalSymmetryDetection<PointT>::filter ()
       symmetry_filtered_ids_.push_back(symId);
     }
   }
-}
-
-////////////////////////////////////////////////////////////////////////////////
-template <typename PointT>
-inline void
-sym::ReflectionalSymmetryDetection<PointT>::merge ()
-{
-  std::vector<Eigen::Vector3f> referencePoints (symmetries_refined_.size(), cloud_mean_);
-  sym::mergeDuplicateReflSymmetries ( symmetries_refined_,
-                                      referencePoints,
-                                      symmetry_filtered_ids_,
-                                      symmetry_merged_ids_,
-                                      params_.symmetry_min_angle_diff,
-                                      params_.symmetry_min_distance_diff
-                                    );
 }
 
 ////////////////////////////////////////////////////////////////////////////////

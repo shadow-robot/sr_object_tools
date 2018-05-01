@@ -1,7 +1,11 @@
 // Copyright 2017 Aleksandrs Ecins
 // Licensed under GPLv2+
 // Refer to the LICENSE.txt file included.
-
+/*
+ * Copyright (C) 2018 Shadow Robot Company Ltd - All Rights Reserved. Proprietary and Confidential.
+ * Unauthorized copying of the content in this file, via any medium is strictly prohibited.
+ *
+*/
 #ifndef ROTATIONAL_SYMMETRY_DETECTION_HPP
 #define ROTATIONAL_SYMMETRY_DETECTION_HPP
 
@@ -18,7 +22,7 @@
 ////////////////////////////////////////////////////////////////////////////////  
 inline
 void sym::mergeDuplicateRotSymmetries ( const std::vector<sym::RotationalSymmetry> &symmetries,
-                                        const std::vector<Eigen::Vector3f> &symmetry_reference_points,
+                                        const Eigen::Vector3f &symmetry_reference_points,
                                         const std::vector<int> &indices,
                                         std::vector<int> &merged_sym_ids,
                                         const float max_angle_diff,
@@ -35,13 +39,13 @@ void sym::mergeDuplicateRotSymmetries ( const std::vector<sym::RotationalSymmetr
   {
     int srcId = indices[srcIdIt];
     sym::RotationalSymmetry srcHypothesis = symmetries[srcId];
-    Eigen::Vector3f srcReferencePoint = symmetry_reference_points[srcId];
+    Eigen::Vector3f srcReferencePoint = symmetry_reference_points;
     
     for (size_t tgtIdIt = srcIdIt+1; tgtIdIt < indices.size(); tgtIdIt++)
     {
       int tgtId = indices[tgtIdIt];
       sym::RotationalSymmetry tgtHypothesis = symmetries[tgtId];
-      Eigen::Vector3f tgtReferencePoint = symmetry_reference_points[srcId];
+      Eigen::Vector3f tgtReferencePoint = symmetry_reference_points;
       
       Eigen::Vector3f referencePoint = (srcReferencePoint + tgtReferencePoint) / 2.0f;
       float angleDiff, distanceDiff;
@@ -75,7 +79,7 @@ void sym::mergeDuplicateRotSymmetries ( const std::vector<sym::RotationalSymmetr
 ////////////////////////////////////////////////////////////////////////////////  
 inline
 void sym::mergeDuplicateRotSymmetries ( const std::vector<sym::RotationalSymmetry> &symmetries,
-                                        const std::vector<Eigen::Vector3f> &symmetry_reference_points,
+                                        const Eigen::Vector3f &symmetry_reference_points,
                                         std::vector<int> &merged_sym_ids,
                                         const float max_normal_angle_diff,
                                         const float max_distance_diff

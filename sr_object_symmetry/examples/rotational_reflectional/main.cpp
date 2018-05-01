@@ -37,8 +37,6 @@ int main(int argc, char **argv)
     // For visualization
     pcl::PointCloud<PointT>::Ptr cloudHighRes(new pcl::PointCloud<PointT>);
     cloudHighRes = symmetries_T.getCloud();
-
-
     // Rotatioanal symmetry detection parameters
     sym::RotSymDetectParams rotDetParams;
     rotDetParams.ref_max_fit_angle = pcl::deg2rad(45.0f);

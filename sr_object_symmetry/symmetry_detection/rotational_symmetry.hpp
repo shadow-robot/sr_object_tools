@@ -1,7 +1,11 @@
 // Copyright 2017 Aleksandrs Ecins
 // Licensed under GPLv2+
 // Refer to the LICENSE.txt file included.
-
+/*
+ * Copyright (C) 2018 Shadow Robot Company Ltd - All Rights Reserved. Proprietary and Confidential.
+ * Unauthorized copying of the content in this file, via any medium is strictly prohibited.
+ *
+*/
 #ifndef ROTATIONAL_SYMMETRY_HPP
 #define ROTATIONAL_SYMMETRY_HPP
 

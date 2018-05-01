@@ -1,7 +1,11 @@
 // Copyright 2017 Aleksandrs Ecins
 // Licensed under GPLv2+
 // Refer to the LICENSE.txt file included.
-
+/*
+ * Copyright (C) 2018 Shadow Robot Company Ltd - All Rights Reserved. Proprietary and Confidential.
+ * Unauthorized copying of the content in this file, via any medium is strictly prohibited.
+ *
+*/
 #ifndef ROTATIONAL_SYMMETRY_DETECTION_H
 #define ROTATIONAL_SYMMETRY_DETECTION_H
 
@@ -44,7 +48,7 @@ namespace sym
    */
   inline
   void mergeDuplicateRotSymmetries  ( const std::vector<sym::RotationalSymmetry> &symmetries,
-                                      const std::vector<Eigen::Vector3f> &symmetry_reference_points,
+                                      const Eigen::Vector3f &symmetry_reference_points,
                                       const std::vector<int> &indices,
                                       std::vector<int> &merged_sym_ids,
                                       const float max_angle_diff = pcl::deg2rad(10.0f),
@@ -61,7 +65,7 @@ namespace sym
    */
   inline
   void mergeDuplicateRotSymmetries  ( const std::vector<sym::RotationalSymmetry> &symmetries,
-                                      const std::vector<Eigen::Vector3f> &symmetry_reference_points,
+                                      const Eigen::Vector3f &symmetry_reference_points,
                                       std::vector<int> &merged_sym_ids,
                                       const float max_normal_angle_diff = pcl::deg2rad(10.0f),
                                       const float max_distance_diff = 0.01f
