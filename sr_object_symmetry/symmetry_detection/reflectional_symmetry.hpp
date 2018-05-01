@@ -20,22 +20,21 @@
 #include <pointcloud/pointcloud.hpp>
 #include <visualization/pcl_visualization.hpp>
 
-
 namespace sym
 {  
   /** \brief Class representing a reflectional symmetry in 3D space. A symmetry
    * is represented as a 3D plane.
-   */  
+   */
   class ReflectionalSymmetry
   {
   public:
-    
+
     /** \brief An empty constructor */
     ReflectionalSymmetry ()
       : origin_ (Eigen::Vector3f::Zero())
       , normal_ (Eigen::Vector3f::Zero())
     {};
-    
+
     /** \brief A constructor from origin point and normal
      *  \param[in] origin origin point
      *  \param[in] normal symmetry plane normal
@@ -52,17 +51,17 @@ namespace sym
     {
       utl::planeCoefficientsToPointNormal<float>(plane_coefficients, origin_, normal_);
     };    
-        
+
     /** \brief Get the normal vector describing the symmetry
      *  \return normal of the symmetry plane
-     */    
+     */
     Eigen::Vector3f getNormal () const { return normal_; }
-    
+
     /** \brief Get the origin point of the symmetry
      *  \return symmetry origin point
-     */        
+     */
     Eigen::Vector3f getOrigin () const { return origin_; }
-    
+
     /** \brief Set the origin point of the symmetry
      *  \param[in] origin symmetry origin point
      */
@@ -70,24 +69,24 @@ namespace sym
     {
       origin_  = origin;
     }
-    
+
     /** \brief Set the normal point of the symmetry
      *  \param[in] normal symmetry normal
-     */    
+     */
     void setNormal  (const Eigen::Vector3f normal)
     {
       normal_ = normal;
     }
-    
+
     /** \brief Project a 3D point on the symmetry plane
      *  \param[in] point  point to be projected
      *  \return projected point
-     */    
+     */
     Eigen::Vector3f projectPoint  (const Eigen::Vector3f &point)  const
     {
       return utl::projectPointToPlane<float>(point, origin_, normal_);
     };
-    
+
     /** \brief Set the origin of the symmetry to be the input point projected on the current symmetry axis
      *  \param[in] point  point who's projection will be used as new origin
      */
@@ -95,12 +94,12 @@ namespace sym
     {
       origin_ = projectPoint(point);
     };
-    
+
     /** \brief Generate a symmetry from two points
      *  \param[in] point1f first point
      *  \param[in] point2 second point
      */
-    inline  
+    inline
     void fromTwoPoints  ( const Eigen::Vector3f &point1, const Eigen::Vector3f &point2)
     {  
       Eigen::Vector3f origin = (point1 + point2) / 2;
@@ -116,7 +115,7 @@ namespace sym
     ReflectionalSymmetry transform  ( const Eigen::Affine3f &transform  ) const
     {
       return ReflectionalSymmetry(transform * origin_, transform.rotation() * normal_);
-    }    
+    }
 
     /** \brief Write symmetry parameters to a filestream in ASCII format.
      *  \param[in] filestream filestream
@@ -128,7 +127,7 @@ namespace sym
       filestream << "normal:\n";
       filestream << "   " << normal_[0] << "  " << normal_[1] << "  " << normal_[2] << "  " << std::endl;
     }
-    
+
     /** \brief Write symmetry parameters to a file in ASCII format.
      *  \param[in] file filename
      */
@@ -141,7 +140,7 @@ namespace sym
         std::cout << "[sym::ReflectionalSymmetry::writeASCII] Parent directory does not exist ('" << parentDirname << "')." << std::endl;
         return false;
       }
-      
+
       // Write to file
       std::ofstream file(filename);
       if (!file.is_open())
@@ -154,10 +153,10 @@ namespace sym
         writeASCII(file);
       }
       file.close();
-      
+
       return true;
     }
-    
+
     /** \brief Read symmetry parameters from an ASCII file. Filestream pointer
      * must point to a line starting a valid symmetry record.
      *  \param[in] file input filestream
@@ -165,7 +164,7 @@ namespace sym
     {
       std::string line;
       std::istringstream iss;
-            
+
       // Read point
       std::getline(filestream,line);
       if (line != "point:")
@@ -187,17 +186,17 @@ namespace sym
       std::getline(filestream,line);
       iss.str(line);
       iss >> normal_[0] >> normal_[1] >> normal_[2];
-      
+
       return true;
     }
-    
+
     /** \brief Read symmetry parameters from an ASCII file.
      *  \param[in] file input filestream
      */
     bool readASCII (const std::string &filename)
     {
       bool readSuccess;
-      
+
       // Check that file exists
       std::ifstream file(filename);
       if (!file.is_open())
@@ -210,10 +209,10 @@ namespace sym
         readSuccess = readASCII(file);
       }
       file.close();
-      
+
       return readSuccess;
     }
-    
+
     /** \brief Return the coefficients of equation of symmetry plane in the form
      * of ax + by + cz = d
      *  \return coefficients of a plane
@@ -225,12 +224,12 @@ namespace sym
       plane[3] = -origin_.dot(normal_);
       return plane;
     }
-    
+
     /** \brief Get the signed distance between a symmetry plane and a point. The
      * sign of the distance depends on the direction of the symetry plane normal.
      *  \param[in] point  point
      *  \return signed distance
-     */    
+     */
     float pointSignedDistance (const Eigen::Vector3f &point)  const
     {
       return utl::pointToPlaneSignedDistance<float>(point, origin_, normal_);
@@ -256,27 +255,27 @@ namespace sym
       Eigen::Vector3f refPointProj2 = symmetry_other.projectPoint(reference_point);
       distance = utl::pointToPointDistance<float>(refPointProj1, refPointProj2);
     }
-    
+
     /** \brief Reflect a point around a symmetry plane
      *  \param[in] point original cloud
      *  \return reflected point
-     */  
+     */
     inline
     Eigen::Vector3f reflectPoint (const Eigen::Vector3f &point) const
     {
       return (point - 2 * normal_ * (normal_.dot(point - origin_)));    
     }
-    
+
     /** \brief Reflect a normal around a symmetry plane
      *  \param[in] normal original cloud
      *  \return reflected normal
-     */  
+     */
     inline
     Eigen::Vector3f reflectNormal (const Eigen::Vector3f &normal) const
     {
       return (normal - 2 * (normal.dot(normal_) * normal_));
     }
-    
+
     /** \brief Reflect a given pointcloud around a symmetry plane
      *  \param[in] cloud_in original cloud
      *  \param[in] cloud_out reflected cloud
@@ -305,24 +304,24 @@ namespace sym
         cloud_out.points[pointId].getNormalVector3fMap()  = reflectNormal (cloud_out.points[pointId].getNormalVector3fMap());
       }
     }
-        
+
   protected:
-        
+
     // Member variables
     Eigen::Vector3f origin_;  ///< Point belonging to the symmetry plane. Symmetry is visualized around this point.
     Eigen::Vector3f normal_;  ///< Normal of the symmetry plane. Note that normal is always reoriented such that it's x coordinate is non-negative
   };
-  
+
   /** \brief Print symmetry details to ostream */
   std::ostream& operator<< ( std::ostream& os, const ReflectionalSymmetry& symmetry)
   {
     os << "origin:             " << symmetry.getOrigin().transpose();
     os << std::endl;
     os << "normal:             " << symmetry.getNormal().transpose();
-      
+
     return os;
   }
-  
+
   /** \brief Visualize symmetry as a rectangular polygon
    *  \param[in] visualizer object
    *  \param[in] symmetry reflectional symmetry
@@ -341,7 +340,7 @@ namespace sym
     // Get symmetry plane parameters
     Eigen::Vector3f origin   = symmetry.getOrigin();
     Eigen::Vector3f normal  = symmetry.getNormal();
-        
+
     // Generate a pose
     Eigen::Affine3f pose;
     pose.translation() = origin;
@@ -380,22 +379,22 @@ namespace sym
     ch2d.setInputCloud(cloud);
     ch2d.setPlaneCoefficients(symmetry.getPlaneCoefficients());
     ch2d.reconstruct(*hullPoints);
-        
+
     // Ideally we would fit a 2D rectangle to the convex hull
-    
+
     // Get the rotation of the symmetry rectangle
     Eigen::Affine3f pose;
-    
+
     pcl::PCA<PointT> pca;
     pca.setInputCloud(hullPoints);
     Eigen::Vector3f cloudMean = pca.getMean().head(3);
     pose.linear().col(0) = pca.getEigenVectors().col(0);
     pose.linear().col(1) = pca.getEigenVectors().col(1);
     pose.linear().col(2) = pca.getEigenVectors().col(2);
-    
+
     if (pose.linear().col(0).cross(pose.linear().col(1)).dot(pose.linear().col(2)) < 0)
       pose.linear().col(2) *= -1.0f;
-                  
+
     // Get dimensions of the rectangle
     float widthMax = std::numeric_limits<float>::min();
     float widthMin = std::numeric_limits<float>::max();
@@ -403,33 +402,33 @@ namespace sym
     float heightMin = std::numeric_limits<float>::max();
     Eigen::Vector3f lineX_point = cloudMean + pose.linear().col(0);
     Eigen::Vector3f lineY_point = cloudMean + pose.linear().col(1);
-    
+
     for (size_t pointId = 0; pointId < hullPoints->size(); pointId++)
     {
       Eigen::Vector3f pointProjected = hullPoints->points[pointId].getVector3fMap();
-      
+
       float height = utl::pointToLineDistance<float>(pointProjected, cloudMean, lineX_point);
       if ((pointProjected - cloudMean).dot(lineY_point - cloudMean) < 0)
         height *= -1;
       heightMax = std::max(heightMax, height);
       heightMin = std::min(heightMin, height);
-      
+
       float width = utl::pointToLineDistance<float>(pointProjected, cloudMean, lineY_point);
       if ((pointProjected - cloudMean).dot(lineX_point - cloudMean) < 0)
-        width *= -1;      
+        width *= -1;
       widthMax = std::max(widthMax, width);
       widthMin = std::min(widthMin, width);
     }
 
     float width = widthMax - widthMin;
-    float height = heightMax - heightMin;    
-    
-    // Recenter the position of the symmetry rectangle    
+    float height = heightMax - heightMin;
+
+    // Recenter the position of the symmetry rectangle
     Eigen::Vector3f symmetryOriginVis = cloudMean;
     symmetryOriginVis += pose.linear().col(1) * (heightMax + heightMin) / 2.0f;
     symmetryOriginVis += pose.linear().col(0) * (widthMax + widthMin) / 2.0f;
-    pose.translation() = symmetryOriginVis;    
-    
+    pose.translation() = symmetryOriginVis;
+
     // Scale dimensions
 //     if (width < height)
 //       width = std::max(width, height / 2.0f);
@@ -439,7 +438,7 @@ namespace sym
     // Show symmetry
     utl::showRectangle3d(visualizer, pose, width*scale, height*scale, id,  color, opacity);
   }
-  
+
   /** \brief Calculate the angle between a normal and a reflection of another
    * normal.
    *  \param[in]  normal1 first normal
@@ -457,13 +456,13 @@ namespace sym
   {
     Eigen::Vector3f normal2Reflected = symmetry.reflectNormal(normal2);
     float dotProd = utl::clampValue(normal1.dot(normal2Reflected), -1.0f, 1.0f);
-    
+
     if (!consisntent_normals)
       dotProd = std::abs(dotProd);
-    
+
     return std::acos(dotProd);
   }
-  
+
   /** \brief Calculate the signed distance between the midpoint of two points
    * and a symmetry plane.
    *  \param[in] point1     first point
@@ -479,7 +478,7 @@ namespace sym
   {
     Eigen::Vector3f midpoint = (point1 + point2) / 2.0f;
     return symmetry.pointSignedDistance(midpoint);
-  }  
+  }
 
 }
 

@@ -23,17 +23,23 @@
 
 class SymmetryDetection
 {
-
-  public:
+  private:
+    std::vector<sym::RotationalSymmetry> rot_symmetries;
+    std::vector<sym::ReflectionalSymmetry> ref_symmetries;
     typedef pcl::PointXYZRGBNormal PointT;
+    pcl::PointCloud<PointT>::Ptr cloudHighRes{new pcl::PointCloud<PointT>};
+  public:
     void loadFile(std::string filename, int sampling)
     {
-        cloudHighRes = new pcl::PointCloud<PointT>;
         cloudHighRes = convertPlyToCloud(filename, sampling);
+    }
+    pcl::PointCloud<PointT>::Ptr getCloud(void)
+    {
+        return cloudHighRes;
     }
 
     template <typename PointT>
-    std::vector<sym::RotationalSymmetry> rotationalDetection(sym::RotSymDetectParams &rot_parameters)
+    void rotationalDetection(sym::RotSymDetectParams &rot_parameters)
     {
         std::vector<sym::RotationalSymmetry> symmetry_TMP;
         std::vector<sym::RotationalSymmetry> symmetries;
@@ -72,14 +78,15 @@ class SymmetryDetection
             {
                 symmetries[symId] = symmetry_TMP[symmetryFilteredIds_TMP[symId]];
             }
+            rot_symmetries.resize(symmetryFilteredIds_TMP.size());
+            rot_symmetries = symmetries;
         }
-        return symmetries;
     }
     template <typename PointT>
-    std::vector<sym::ReflectionalSymmetry> reflectionalDetection(sym::ReflSymDetectParams &refl_parameters)
+    void reflectionalDetection(sym::ReflSymDetectParams &refl_parameters)
     {
         std::vector<sym::ReflectionalSymmetry> symmetry_TMP;
-        std::vector<sym::RotationalSymmetry> symmetries;
+        std::vector<sym::ReflectionalSymmetry> symmetries;
         std::vector<int> symmetryFilteredIds_TMP;
         sym::ReflSymDetectParams reflDetParams;
         reflDetParams = refl_parameters;
@@ -119,21 +126,19 @@ class SymmetryDetection
             {
                 symmetries[symId] = symmetry_TMP[symmetryFilteredIds_TMP[symId]];
             }
+            ref_symmetries.resize(symmetryFilteredIds_TMP.size());
+            ref_symmetries = symmetries;
         }
-        return symmetries;
+    }
+    std::vector<sym::RotationalSymmetry> getRotational(void)
+    {
+        return rot_symmetries;
+    }
+    std::vector<sym::ReflectionalSymmetry> getReflectional(void)
+    {
+        return ref_symmetries;
     }
 
-  protected:
-    pcl::PointCloud<PointT>::Ptr cloudHighRes;
 };
 
-// template <typename PointT>
-// bool SymmetryDetection(sym::ReflSymDetectParams &refl_parameters,
-//                        sym::RotSymDetectParams &rot_parameters,
-//                        std::vector<sym::ReflectionalSymmetry> &ref_symmetries,
-//                        std::vector<sym::RotationalSymmetry> &rot_symmetries)
-// {
-//     RotationalDetection(rot_parameters, rot_symmetries);
-
-// }
 #endif // SYMMETRY_DETECTION_HPP

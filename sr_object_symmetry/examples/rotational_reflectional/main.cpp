@@ -24,21 +24,20 @@ typedef pcl::PointXYZRGBNormal PointT;
 //PointXYZRGBNormal
 int main(int argc, char **argv)
 {
+    // Rotational and reflectional symmetries
+    SymmetryDetection symmetries_T;
+
     std::string dirname, cloudFilename, fileName;
     if (argc > 1)
         fileName = argv[1];
     dirname = "../sample_objects";
     std::cout << "Loading data..." << std::endl;
     cloudFilename = utl::fullfile(dirname, fileName);
+    symmetries_T.loadFile(cloudFilename,15000);
     // For visualization
     pcl::PointCloud<PointT>::Ptr cloudHighRes(new pcl::PointCloud<PointT>);
-    cloudHighRes = convertPlyToCloud(cloudFilename,15000);
-    // For symmetries
-    SymmetryDetection symmetries_T;
-    symmetries_T.loadFile(cloudFilename,15000);
+    cloudHighRes = symmetries_T.getCloud();
 
-    std::vector<sym::RotationalSymmetry> symmetry_TMP;
-    std::vector<sym::ReflectionalSymmetry> Refsymmetry_TMP;
 
     // Rotatioanal symmetry detection parameters
     sym::RotSymDetectParams rotDetParams;
@@ -48,18 +47,17 @@ int main(int argc, char **argv)
     rotDetParams.max_symmetry_score = 0.02f;
     rotDetParams.max_perpendicular_score = 0.6f;
     rotDetParams.min_coverage_score = 0.3f;
-
+    // Detect rotational symmetries
     symmetries_T.rotationalDetection<PointT>(rotDetParams);
-    if(symmetries_T.rotationalDetection.size()=0)
-    //if(!RotationalDetection<PointT>(rotDetParams,symmetry_TMP))
+    if(symmetries_T.getRotational().size() == 0)
         std::cout << "Could not find rotational symmetries" << std::endl;
     else
     {
-        std::cout << "Rotational symmetries: " << symmetries_T.rotationalDetection.size() << std::endl;
-        for (size_t symId = 0; symId < symmetries_T.rotationalDetection.size(); symId++)
-            std::cout << "Rotational symmetries ID:" << symId << ": " << symmetries_T.rotationalDetection[symId] << std::endl;
+        std::cout << "Rotational symmetries: " << symmetries_T.getRotational().size() << std::endl;
+        for (size_t symId = 0; symId < symmetries_T.getRotational().size(); symId++)
+            std::cout << "Rotational symmetries ID:" << symId << ": " << symmetries_T.getRotational()[symId] << std::endl;
     }
-        
+
     // Reflectional symmetry detection parameters
     sym::ReflSymDetectParams reflDetParams;
     reflDetParams.voxel_size = 0.0f;
@@ -74,15 +72,16 @@ int main(int argc, char **argv)
     reflDetParams.symmetry_min_angle_diff = pcl::deg2rad(7.0);
     reflDetParams.symmetry_min_distance_diff = 0.01f;
     reflDetParams.max_reference_point_distance = 0.3f;
-
-    // if(!ReflectionalDetection<PointT>(reflDetParams,Refsymmetry_TMP))
-    //     std::cout << "Could not find reflectional symmetries" << std::endl;
-    // else
-    // {
-    //     std::cout << "Reflectional symmetries: " << Refsymmetry_TMP.size() << std::endl;
-    //     for (size_t symId = 0; symId < Refsymmetry_TMP.size(); symId++)
-    //         std::cout << "Reflectional symmetries ID:" << symId << ": " << Refsymmetry_TMP[symId] << std::endl;
-    // }
+    // Detect reflectional symmetries
+    symmetries_T.reflectionalDetection<PointT>(reflDetParams);
+    if(symmetries_T.getReflectional().size() == 0)
+        std::cout << "Could not find reflectional symmetries" << std::endl;
+    else
+    {
+        std::cout << "Reflectional symmetries: " << symmetries_T.getReflectional().size() << std::endl;
+        for (size_t symId = 0; symId < symmetries_T.getReflectional().size(); symId++)
+            std::cout << "Reflectional symmetries ID:" << symId << ": " << symmetries_T.getReflectional()[symId] << std::endl;
+    }
 
     std::cout << "Controls:" << std::endl;
     std::cout << "Numpad 1: Show Point Cloud" << std::endl;
@@ -124,7 +123,6 @@ int main(int argc, char **argv)
                 utl::showPointCloudColor<PointT>(visualizer, cloudDisplay, "cloud", visState.pointSize_);
                 if (visState.showNormals_)
                     utl::showNormalCloud<PointT>(visualizer, cloudDisplay, 10, 0.02, "normals", visState.pointSize_, utl::green);
-
                 visualizer.addText(text, 0, 150, 24, 1.0, 1.0, 1.0);
             }
             else if (visState.cloudDisplay_ == VisState::ROTATIONAL_SYMMETRIES)
@@ -132,9 +130,9 @@ int main(int argc, char **argv)
                 std::vector<sym::RotationalSymmetry> symmetryDisplay;
                 std::vector<int> symmetryDisplayIds;
                 std::string text;
-                symmetryDisplay = symmetry_TMP;
+                symmetryDisplay = symmetries_T.getRotational();
                 text = "Rotational symmetries";
-                for (size_t symId = 0; symId < symmetry_TMP.size(); symId++)
+                for (size_t symId = 0; symId < symmetries_T.getRotational().size(); symId++)
                 {
                     symmetryDisplayIds.push_back(symId);
                 }
@@ -152,24 +150,20 @@ int main(int argc, char **argv)
                 std::vector<sym::ReflectionalSymmetry> symmetryDisplay;
                 std::vector<int> symmetryDisplayIds;
                 std::string text;
-
                 if (visState.cloudDisplay_ == VisState::REFLECTIONAL_SYMMETRIES)
                 {
-                    symmetryDisplay = Refsymmetry_TMP;
-                    for (size_t symId = 0; symId < Refsymmetry_TMP.size(); symId++)
+                    symmetryDisplay = symmetries_T.getReflectional();
+                    for (size_t symId = 0; symId < symmetries_T.getReflectional().size(); symId++)
                         symmetryDisplayIds.push_back(symId);
                     text = "Reflectional symmetry ";
                 }
-
                 visState.segIterator_ = utl::clampValueCircular<int>(visState.segIterator_, 0, symmetryDisplayIds.size() - 1);
                 int symId = symmetryDisplayIds[visState.segIterator_];
                 //text = "cloudInlierScores Score: " + std::to_string(RefcloudInlierScores_TMP[symId]) + " correspInlierScores Score: " + std::to_string(RefcorrespInlierScores_TMP[symId]);
                 utl::showPointCloudColor<PointT>(visualizer, cloudHighRes, "cloud", visState.pointSize_);
-
                 // Show symmetry
                 if (visState.showSymmetry_)
                     sym::showReflectionalSymmetry(visualizer, symmetryDisplay[symId], "symmetry", 1);
-
                 visualizer.addText(text, 0, 150, 24, 1.0, 1.0, 1.0);
                 visualizer.addText("Symmetry " + std::to_string(visState.segIterator_ + 1) + " / " + std::to_string(symmetryDisplayIds.size()), 15, 125, 24, 1.0, 1.0, 1.0);
             }
