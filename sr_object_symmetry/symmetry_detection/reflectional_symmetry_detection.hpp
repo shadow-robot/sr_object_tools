@@ -247,7 +247,23 @@ sym::ReflectionalSymmetryDetection<PointT>::detect ()
   // Refine initial symmetries
   std::cout << "Found Initial symmetries:" << symmetries_initial_.size() << std::endl;
   // Pre-filtering
+  if(params_.rot_symmetries.size()>0) // rotational symmetriy exist so keep perpendicular ones only
+  {
+    for (size_t symId = 0; symId < symmetries_initial_.size(); symId++)
+    {
+      Eigen::Vector3f rot_symmetry;
+      rot_symmetry = rot_symmetries[0].direction_; // only one rotational symmetry
+      if(rot_symmetry.dot(symmetries_initial_[symId].direction_) > 0.2)
+      {
+        //remove that from list as its not perpendicular
+      }
 
+    }
+    
+
+    scalar = vec1.dot(vec2);
+
+  }
   // These vectors are required to enable paralllizing symmetry detection loop
   std::vector<sym::ReflectionalSymmetry> symmetriesTMP      (symmetries_initial_.size());
   std::vector<float> cloudInlierScoresTMP                   (symmetries_initial_.size());
