@@ -43,7 +43,7 @@ namespace sym
     float symmetry_min_angle_diff       = pcl::deg2rad(7.0);  // Two symmetries are considered similar if the angle between their normals is less than this threshold
     float symmetry_min_distance_diff    = 0.02f;              // Two symmetries are considered similar if the difference between their distances to origin is less than this threshold
     float max_reference_point_distance  = 0.3f;               // Maximum distance between the reference points of two symmetries that can be merged
-    std::vector<sym::RotationalSymmetry> rot_symmetries;
+    std::vector<Eigen::Vector3f> rot_symmetries;
 
   };
   

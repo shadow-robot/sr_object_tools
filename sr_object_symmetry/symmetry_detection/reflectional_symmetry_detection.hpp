@@ -252,16 +252,14 @@ sym::ReflectionalSymmetryDetection<PointT>::detect ()
     for (size_t symId = 0; symId < symmetries_initial_.size(); symId++)
     {
       Eigen::Vector3f rot_symmetry;
-      rot_symmetry = rot_symmetries[0].direction_; // only one rotational symmetry
-      if(rot_symmetry.dot(symmetries_initial_[symId].direction_) > 0.2)
-      {
+      rot_symmetry = params_.rot_symmetries[0]; // only one rotational symmetry
+      double a = rot_symmetry.dot(symmetries_initial_[symId].getNormal());
+      std::cout << "symId:" << symId << " Dot:" << a << std::endl;
+      //{
         //remove that from list as its not perpendicular
-      }
+      //}
 
     }
-    
-
-    scalar = vec1.dot(vec2);
 
   }
   // These vectors are required to enable paralllizing symmetry detection loop
