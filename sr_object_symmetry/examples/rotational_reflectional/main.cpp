@@ -52,7 +52,6 @@ int main(int argc, char **argv)
         std::cout << "Could not find rotational symmetries" << std::endl;
     else
     {
-        
         std::cout << "Rotational symmetries: " << symmetries_T.getRotational().size() << std::endl;
         for (size_t symId = 0; symId < symmetries_T.getRotational().size(); symId++)
         {
@@ -62,7 +61,7 @@ int main(int argc, char **argv)
     }
 
     // Reflectional symmetry detection parameters
-    
+
     reflDetParams.voxel_size = 0.0f;
     reflDetParams.num_angle_divisions = 20;
     reflDetParams.flatness_threshold = 0.005f;
