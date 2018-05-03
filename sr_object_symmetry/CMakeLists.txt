@@ -18,19 +18,6 @@ find_package(PCL 1.7.0 REQUIRED)
 link_directories(${PCL_LIBRARY_DIRS})
 add_definitions(${PCL_DEFINITIONS})
 
-# dynamicEDT3D
-find_package(dynamicEDT3D REQUIRED)
-message (STATUS "")
-if (dynamicEDT3D_FOUND)
-  message (STATUS " ---------------------------")
-  message (STATUS " Found dynamicEDT3D version ${dynamicedt3d_VERSION}")
-  message (STATUS "     * include dirs: ${DYNAMICEDT3D_INCLUDE_DIRS}")
-  message (STATUS "     * libraries:    ${DYNAMICEDT3D_LIBRARIES}")
-else()
-  message (FATAL_ERROR : "dynamicEDT3D NOT FOUND!")  
-endif()
-link_libraries(${DYNAMICEDT3D_LIBRARIES})
-
 # OpenMP
 find_package(OpenMP REQUIRED)
 message (STATUS "")
