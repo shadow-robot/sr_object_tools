@@ -17,7 +17,7 @@
 #include <utilities/pointcloud/pointcloud.hpp>
 #include "utilities/visualization/vis.hpp"
 #include "utilities/pointcloud/mesh_to_cloud.hpp"
-
+#include <pcl/pcl_config.h>
 #include <vector>
 
 typedef pcl::PointXYZRGBNormal PointT;
@@ -111,7 +111,11 @@ int main(int argc, char **argv)
             // First remove everything
             visualizer.removeAllPointClouds();
             visualizer.removeAllShapes();
-            visualizer.removeAllCoordinateSystems();
+            #if PCL_VERSION_COMPARE(<, 1, 8, 0)
+                visualizer.removeCoordinateSystem();
+            #else
+                visualizer.removeAllCoordinateSystems();
+            #endif
             visState.updateDisplay_ = false;
             if (visState.cloudDisplay_ == VisState::CLOUD)
             {

@@ -11,11 +11,11 @@
 // PCL
 #include <pcl/io/point_cloud_image_extractors.h>
 
-// IF PCL my version
+#ifdef PCL_COMMON_COLORS_H
+#include <pcl/common/colors.h>
+#else
 #include <pcl/io/impl/point_cloud_image_extractors.hpp>
-
-// IF PCL 1.8 trunk
-//  #include <pcl/common/colors.h>
+#endif
 
 // CPP tools
 #include <utilities/visualization/color.h>
@@ -31,11 +31,11 @@ namespace utl
     */
 inline Color getRandomColor()
 {
-  Color color;
-  std::cout << "[utl::pclvis::getRandomColor] not implemented yet!" << std::endl;
-  std::abort();
+    Color color;
+    std::cout << "[utl::pclvis::getRandomColor] not implemented yet!" << std::endl;
+    std::abort();
 
-  return color;
+    return color;
 }
 
 /** \brief Generate a random color
@@ -44,28 +44,25 @@ inline Color getRandomColor()
     */
 inline Color getGlasbeyColor(const int id)
 {
-  Color color;
+    Color color;
 
-  //       if (maxId > static_cast<int>(pcl::GLASBEY_LUT_SIZE))
-  //       {
-  //         std::cout << "[smt::pclvis::getGlasbeyColor] Maximum number of Glasbey colors is " << pcl::GLASBEY_LUT_SIZE << ", you requested " << maxId << std::endl;
-  //         std::cout << "[smt::pclvis::getGlasbeyColor] Some ids might have same colors." << std::endl;
-  //       }
+    // IF PCL 1.8 trunk
+#ifdef PCL_COMMON_COLORS_H
+    int tmpId = id % pcl::GlasbeyLUT().size();
+    pcl::RGB color_pcl = pcl::GlasbeyLUT().at(tmpId);
+    color.r = static_cast<float>(color_pcl.r) / 255;
+    color.g = static_cast<float>(color_pcl.g) / 255;
+    color.b = static_cast<float>(color_pcl.b) / 255;
+#else
+    const uint8_t r = rand() % 255;
+    const uint8_t g = rand() % 255;
+    const uint8_t b = rand() % 255;
+    color.r = r;
+    color.g = g;
+    color.b = b;
+#endif
 
-  //       // IF PCL my version
-  //       int tmpId = id % pcl::GLASBEY_LUT_SIZE;
-  //       color.r = static_cast<float>(pcl::GLASBEY_LUT[tmpId * 3 + 0]) / 255;
-  //       color.g = static_cast<float>(pcl::GLASBEY_LUT[tmpId * 3 + 1]) / 255;
-  //       color.b = static_cast<float>(pcl::GLASBEY_LUT[tmpId * 3 + 2]) / 255;
-
-  // IF PCL 1.8 trunk
-  int tmpId = id % pcl::GlasbeyLUT().size();
-  pcl::RGB color_pcl = pcl::GlasbeyLUT().at(tmpId);
-  color.r = static_cast<float>(color_pcl.r) / 255;
-  color.g = static_cast<float>(color_pcl.g) / 255;
-  color.b = static_cast<float>(color_pcl.b) / 255;
-
-  return color;
+    return color;
 }
 
 /** \brief Convert a single point with RGB information to grayscale
@@ -75,12 +72,12 @@ inline Color getGlasbeyColor(const int id)
 template <typename PointT>
 inline void rgb2gray(PointT &point)
 {
-  uint8_t gray = static_cast<uint8_t>(static_cast<float>(point.r) * 0.299 +
-                                      static_cast<float>(point.r) * 0.587 +
-                                      static_cast<float>(point.r) * 0.114);
-  point.r = gray;
-  point.g = gray;
-  point.b = gray;
+    uint8_t gray = static_cast<uint8_t>(static_cast<float>(point.r) * 0.299 +
+                                        static_cast<float>(point.r) * 0.587 +
+                                        static_cast<float>(point.r) * 0.114);
+    point.r = gray;
+    point.g = gray;
+    point.b = gray;
 }
 
 /** \brief Convert color in pointcloud to grayscale
@@ -90,8 +87,8 @@ inline void rgb2gray(PointT &point)
 template <typename PointT>
 inline void rgb2gray(pcl::PointCloud<PointT> &cloud)
 {
-  for (size_t pointId = 0; pointId < cloud.size(); pointId++)
-    rgb2gray<PointT>(cloud.points[pointId]);
+    for (size_t pointId = 0; pointId < cloud.size(); pointId++)
+        rgb2gray<PointT>(cloud.points[pointId]);
 }
 
 /** \brief Change the tint of a point to a given color
@@ -102,12 +99,12 @@ inline void rgb2gray(pcl::PointCloud<PointT> &cloud)
 template <typename PointT>
 inline void tintPoint(PointT &point, const Color &color, const float alpha = 0.3)
 {
-  point.r = static_cast<uint8_t>(std::min(255.0f,
-                                 static_cast<float>(point.r * (1 - alpha) + color.r * alpha * 255.0f)));
-  point.g = static_cast<uint8_t>(std::min(255.0f,
-                                 static_cast<float>(point.g * (1 - alpha) + color.g * alpha * 255.0f)));
-  point.b = static_cast<uint8_t>(std::min(255.0f,
-                                 static_cast<float>(point.b * (1 - alpha) + color.b * alpha * 255.0f)));
+    point.r = static_cast<uint8_t>(std::min(255.0f,
+                                            static_cast<float>(point.r * (1 - alpha) + color.r * alpha * 255.0f)));
+    point.g = static_cast<uint8_t>(std::min(255.0f,
+                                            static_cast<float>(point.g * (1 - alpha) + color.g * alpha * 255.0f)));
+    point.b = static_cast<uint8_t>(std::min(255.0f,
+                                            static_cast<float>(point.b * (1 - alpha) + color.b * alpha * 255.0f)));
 }
 
 /** \brief Change the tint of a pointcloud to a given color
@@ -121,8 +118,8 @@ inline void tintPointCloud(pcl::PointCloud<PointT> &cloud,
                            const Color &color,
                            const float alpha = 0.3)
 {
-  for (size_t pointIdIt = 0; pointIdIt < indices.size(); pointIdIt++)
-    tintPoint<PointT>(cloud.points[indices[pointIdIt]], color, alpha);
+    for (size_t pointIdIt = 0; pointIdIt < indices.size(); pointIdIt++)
+        tintPoint<PointT>(cloud.points[indices[pointIdIt]], color, alpha);
 }
 
 /** \brief Change the tint of a pointcloud to a given color
@@ -133,11 +130,11 @@ inline void tintPointCloud(pcl::PointCloud<PointT> &cloud,
 template <typename PointT>
 inline void tintPointCloud(pcl::PointCloud<PointT> &cloud, const Color &color, const float alpha = 0.3)
 {
-  std::vector<int> indices(cloud.size());
-  for (size_t pointId = 0; pointId < cloud.size(); pointId++)
-    indices[pointId] = pointId;
+    std::vector<int> indices(cloud.size());
+    for (size_t pointId = 0; pointId < cloud.size(); pointId++)
+        indices[pointId] = pointId;
 
-  tintPointCloud<PointT>(cloud, indices, color, alpha);
+    tintPointCloud<PointT>(cloud, indices, color, alpha);
 }
 }
 
