@@ -15,8 +15,8 @@
 
 namespace utl
 {
-/** \brief Calculate the remainder of division of two numbers. Unlike 
-    * standard remainder functions provided by C++ this method return a true 
+/** \brief Calculate the remainder of division of two numbers. Unlike
+    * standard remainder functions provided by C++ this method return a true
     * remainder that is bounded by [0, denom)
     *  \param[in] numer    numenator
     *  \param[in] denom    denominator
@@ -70,7 +70,7 @@ inline Scalar clampValueCircular(const Scalar value, const Scalar minValue, cons
     *  \param[out] bin_counts output histogram
     *  \note value a is assigned to bin b if a \in [b_min, b_max)
     */
-inline void histc(const Eigen::VectorXd &x, const Eigen::VectorXd &bin_ranges, Eigen::VectorXd &bin_counts)
+inline void histc(const Eigen::VectorXd& x, const Eigen::VectorXd& bin_ranges, Eigen::VectorXd& bin_counts)
 {
   // Check input
   if (x.size() < 1 || bin_ranges.size() < 1)
@@ -112,7 +112,7 @@ inline void histc(const Eigen::VectorXd &x, const Eigen::VectorXd &bin_ranges, E
     *  \param[out] hist_out output histogram
     *  \param[out] bin_centers center value of each bin
     */
-inline void hist(const Eigen::VectorXd &x, int nbins, Eigen::VectorXd &hist_out, Eigen::VectorXd &bin_centers)
+inline void hist(const Eigen::VectorXd& x, int nbins, Eigen::VectorXd& hist_out, Eigen::VectorXd& bin_centers)
 {
   // Check that number of bins is at least 1
   if (nbins < 1)
@@ -156,7 +156,8 @@ inline Eigen::Matrix<Scalar, 1, Eigen::Dynamic> normpdf(const Eigen::Matrix<Scal
 
   if (cov.rows() != dim || cov.cols() != dim)
   {
-    std::cout << "[smt::normpdf] covariance matrix must be square and have same dimensionality as data point vector." << std::endl;
+    std::cout << "[smt::normpdf] covariance matrix must be square and have same dimensionality as data point vector."
+              << std::endl;
     abort();
   }
 
@@ -183,8 +184,7 @@ inline Eigen::Matrix<Scalar, 1, Eigen::Dynamic> normpdf(const Eigen::Matrix<Scal
     */
 template <typename Scalar>
 inline Eigen::Matrix<Scalar, 1, Eigen::Dynamic> normpdf(const Eigen::Matrix<Scalar, Eigen::Dynamic, Eigen::Dynamic> x,
-                                                        const Scalar mean_in,
-                                                        const Scalar cov_in)
+                                                        const Scalar mean_in, const Scalar cov_in)
 {
   int dim = x.rows();
 
@@ -251,7 +251,7 @@ inline Eigen::Matrix<Scalar, 1, Eigen::Dynamic> normpdf(const Eigen::Matrix<Scal
     *  \param covar covariance
     *  \return matrix where each column is a sample
     */
-inline Eigen::MatrixXd mvnrnd(const int num_samples, const Eigen::VectorXd &mean, const Eigen::MatrixXd &covar)
+inline Eigen::MatrixXd mvnrnd(const int num_samples, const Eigen::VectorXd& mean, const Eigen::MatrixXd& covar)
 {
   // Check that covariance matrix is square
   if (covar.cols() != covar.rows())
@@ -313,7 +313,8 @@ inline Eigen::MatrixXd mvnrnd(const int num_samples, const Eigen::VectorXd &mean
     *  \return mean of the sample
     */
 template <class Scalar>
-inline Eigen::Matrix<Scalar, Eigen::Dynamic, 1> mean(const Eigen::Matrix<Scalar, Eigen::Dynamic, Eigen::Dynamic> &samples)
+inline Eigen::Matrix<Scalar, Eigen::Dynamic, 1>
+mean(const Eigen::Matrix<Scalar, Eigen::Dynamic, Eigen::Dynamic>& samples)
 {
   return samples.rowwise().mean();
 }
@@ -323,7 +324,8 @@ inline Eigen::Matrix<Scalar, Eigen::Dynamic, 1> mean(const Eigen::Matrix<Scalar,
     *  \return covariance of the sample
     */
 template <class Scalar>
-inline Eigen::Matrix<Scalar, Eigen::Dynamic, Eigen::Dynamic> cov(const Eigen::Matrix<Scalar, Eigen::Dynamic, Eigen::Dynamic> &samples)
+inline Eigen::Matrix<Scalar, Eigen::Dynamic, Eigen::Dynamic>
+cov(const Eigen::Matrix<Scalar, Eigen::Dynamic, Eigen::Dynamic>& samples)
 {
   Eigen::Matrix<Scalar, Eigen::Dynamic, Eigen::Dynamic> centered = samples.colwise() - samples.rowwise().mean();
   return centered * centered.adjoint() / (samples.cols() - 1);
@@ -334,7 +336,7 @@ inline Eigen::Matrix<Scalar, Eigen::Dynamic, Eigen::Dynamic> cov(const Eigen::Ma
     *  \return mean of the vector
     */
 template <class Scalar>
-inline double mean(const std::vector<Scalar> &v)
+inline double mean(const std::vector<Scalar>& v)
 {
   Scalar sum = std::accumulate(v.begin(), v.end(), 0.0);
   return static_cast<double>(sum) / static_cast<double>(v.size());
@@ -345,7 +347,7 @@ inline double mean(const std::vector<Scalar> &v)
     *  \return median of the vector
     */
 template <class Scalar>
-inline Scalar median(const std::vector<Scalar> &v)
+inline Scalar median(const std::vector<Scalar>& v)
 {
   std::vector<Scalar> v_copy = v;
   std::nth_element(v_copy.begin(), v_copy.begin() + v_copy.size() / 2, v_copy.end());
@@ -353,4 +355,4 @@ inline Scalar median(const std::vector<Scalar> &v)
 }
 }
 
-#endif // MATH_UTILITIES_HPP
+#endif  // MATH_UTILITIES_HPP

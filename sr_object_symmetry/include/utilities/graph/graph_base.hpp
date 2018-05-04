@@ -13,15 +13,13 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 template <typename VertexT, typename EdgeT>
-utl::GraphBase<VertexT, EdgeT>::GraphBase() : vertex_list_(0),
-                                              edge_list_(0)
+utl::GraphBase<VertexT, EdgeT>::GraphBase() : vertex_list_(0), edge_list_(0)
 {
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 template <typename VertexT, typename EdgeT>
-utl::GraphBase<VertexT, EdgeT>::GraphBase(const int num_vertices) : vertex_list_(num_vertices),
-                                                                    edge_list_(0)
+utl::GraphBase<VertexT, EdgeT>::GraphBase(const int num_vertices) : vertex_list_(num_vertices), edge_list_(0)
 {
 }
 
@@ -33,7 +31,7 @@ utl::GraphBase<VertexT, EdgeT>::~GraphBase()
 
 ////////////////////////////////////////////////////////////////////////////////
 template <typename VertexT, typename EdgeT>
-inline bool utl::GraphBase<VertexT, EdgeT>::addEdge(const EdgeT &edge)
+inline bool utl::GraphBase<VertexT, EdgeT>::addEdge(const EdgeT& edge)
 {
   int vtx1Id = edge.vtx1Id_;
   int vtx2Id = edge.vtx2Id_;
@@ -122,11 +120,12 @@ inline int utl::GraphBase<VertexT, EdgeT>::getNumEdges() const
 
 ////////////////////////////////////////////////////////////////////////////////
 template <typename VertexT, typename EdgeT>
-inline bool utl::GraphBase<VertexT, EdgeT>::getVertex(const int vtx_id, VertexT &vertex) const
+inline bool utl::GraphBase<VertexT, EdgeT>::getVertex(const int vtx_id, VertexT& vertex) const
 {
   if (vtx_id < 0 || vtx_id >= getNumVertices())
   {
-    std::cout << "[utl::GraphBase::getVertex] requested vertex id is out of bounds ( vtx id: " << vtx_id << ")," << std::endl;
+    std::cout << "[utl::GraphBase::getVertex] requested vertex id is out of bounds ( vtx id: " << vtx_id << "),"
+              << std::endl;
     return false;
   }
 
@@ -136,7 +135,7 @@ inline bool utl::GraphBase<VertexT, EdgeT>::getVertex(const int vtx_id, VertexT 
 
 ////////////////////////////////////////////////////////////////////////////////
 template <typename VertexT, typename EdgeT>
-inline bool utl::GraphBase<VertexT, EdgeT>::getVertexNeighbor(const int vtx_id, const int nbr_it, int &nbr_id) const
+inline bool utl::GraphBase<VertexT, EdgeT>::getVertexNeighbor(const int vtx_id, const int nbr_it, int& nbr_id) const
 {
   VertexT vertex;
   bool success = getVertex(vtx_id, vertex);
@@ -159,7 +158,7 @@ inline bool utl::GraphBase<VertexT, EdgeT>::getVertexNeighbor(const int vtx_id, 
 
 ////////////////////////////////////////////////////////////////////////////////
 template <typename VertexT, typename EdgeT>
-inline bool utl::GraphBase<VertexT, EdgeT>::getVertexNeighbors(const int vtx_id, std::vector<int> &neighbors) const
+inline bool utl::GraphBase<VertexT, EdgeT>::getVertexNeighbors(const int vtx_id, std::vector<int>& neighbors) const
 {
   VertexT vertex;
   bool success = getVertex(vtx_id, vertex);
@@ -192,11 +191,12 @@ inline bool utl::GraphBase<VertexT, EdgeT>::getEdgeId(const int vtx1_id, const i
 
 ////////////////////////////////////////////////////////////////////////////////
 template <typename VertexT, typename EdgeT>
-inline bool utl::GraphBase<VertexT, EdgeT>::getEdge(const int edge_id, EdgeT &edge) const
+inline bool utl::GraphBase<VertexT, EdgeT>::getEdge(const int edge_id, EdgeT& edge) const
 {
   if (edge_id < 0 || edge_id >= getNumEdges())
   {
-    std::cout << "[utl::GraphBase::getEdge] requested edge is out of bounds ( edge id: " << edge_id << ")," << std::endl;
+    std::cout << "[utl::GraphBase::getEdge] requested edge is out of bounds ( edge id: " << edge_id << "),"
+              << std::endl;
     return false;
   }
 
@@ -206,7 +206,7 @@ inline bool utl::GraphBase<VertexT, EdgeT>::getEdge(const int edge_id, EdgeT &ed
 
 ////////////////////////////////////////////////////////////////////////////////
 template <typename VertexT, typename EdgeT>
-inline bool utl::GraphBase<VertexT, EdgeT>::getEdge(const int vtx1_id, const int vtx2_id, EdgeT &edge) const
+inline bool utl::GraphBase<VertexT, EdgeT>::getEdge(const int vtx1_id, const int vtx2_id, EdgeT& edge) const
 {
   int edgeId;
   bool success = utl::GraphBase<VertexT, EdgeT>::getEdgeId(vtx1_id, vtx2_id, edgeId);
@@ -219,7 +219,7 @@ inline bool utl::GraphBase<VertexT, EdgeT>::getEdge(const int vtx1_id, const int
 
 ////////////////////////////////////////////////////////////////////////////////
 template <typename VertexT, typename EdgeT>
-inline bool utl::GraphBase<VertexT, EdgeT>::getEdgeVertexIds(const int edge_id, int &vtx1_id, int &vtx2_id) const
+inline bool utl::GraphBase<VertexT, EdgeT>::getEdgeVertexIds(const int edge_id, int& vtx1_id, int& vtx2_id) const
 {
   EdgeT edge;
   bool success = utl::GraphBase<VertexT, EdgeT>::getEdge(edge_id, edge);
@@ -277,10 +277,8 @@ inline int utl::GraphBase<VertexT, EdgeT>::getVertexNeighborListPosition(const i
 
 ////////////////////////////////////////////////////////////////////////////////
 template <typename VertexT, typename EdgeT>
-inline bool utl::GraphBase<VertexT, EdgeT>::getEdgeNeighborListPositions(const int vtx1_id,
-                                                                         const int vtx2_id,
-                                                                         int &vtx1_nbr_it,
-                                                                         int &vtx2_nbr_it) const
+inline bool utl::GraphBase<VertexT, EdgeT>::getEdgeNeighborListPositions(const int vtx1_id, const int vtx2_id,
+                                                                         int& vtx1_nbr_it, int& vtx2_nbr_it) const
 {
   // Get vertex neighbor list positions
   vtx1_nbr_it = getVertexNeighborListPosition(vtx2_id, vtx1_id);
@@ -289,8 +287,11 @@ inline bool utl::GraphBase<VertexT, EdgeT>::getEdgeNeighborListPositions(const i
   // Check adjacency list for consistency (DEBUG)
   if ((vtx1_nbr_it == -1 && vtx2_nbr_it != -1) || (vtx1_nbr_it != -1 && vtx2_nbr_it == -1))
   {
-    std::cout << "[utl::GraphBase::getEdgeNeighborListPositions] one vertex has another as it's member, but not the other way around. Adjacency list is not consistent!" << std::endl;
-    std::cout << "[utl::GraphBase::getEdgeNeighborListPositions] (vtx 1: " << vtx1_id << ", vtx 2: " << vtx2_id << ")" << std::endl;
+    std::cout << "[utl::GraphBase::getEdgeNeighborListPositions] one vertex has another as it's member, but not the "
+                 "other way around. Adjacency list is not consistent!"
+              << std::endl;
+    std::cout << "[utl::GraphBase::getEdgeNeighborListPositions] (vtx 1: " << vtx1_id << ", vtx 2: " << vtx2_id << ")"
+              << std::endl;
     return false;
   }
 
@@ -298,12 +299,16 @@ inline bool utl::GraphBase<VertexT, EdgeT>::getEdgeNeighborListPositions(const i
   if ((vtx1_nbr_it != -1 && vtx2_nbr_it != -1) &&
       (vertex_list_[vtx1_id].neighbor_edges_[vtx2_nbr_it] != vertex_list_[vtx2_id].neighbor_edges_[vtx1_nbr_it]))
   {
-    std::cout << "[utl::GraphBase::getEdgeNeighborListPositions] neighbors belonging to the same edge have different edge ids!" << std::endl;
-    std::cout << "[utl::GraphBase::getEdgeNeighborListPositions] ( vtx 1: " << vtx1_id << ", edge id: " << vertex_list_[vtx1_id].neighbor_edges_[vtx2_nbr_it] << ")" << std::endl;
-    std::cout << "[utl::GraphBase::getEdgeNeighborListPositions] ( vtx 2: " << vtx2_id << ", edge id: " << vertex_list_[vtx2_id].neighbor_edges_[vtx1_nbr_it] << ")" << std::endl;
+    std::cout << "[utl::GraphBase::getEdgeNeighborListPositions] neighbors belonging to the same edge have different "
+                 "edge ids!"
+              << std::endl;
+    std::cout << "[utl::GraphBase::getEdgeNeighborListPositions] ( vtx 1: " << vtx1_id
+              << ", edge id: " << vertex_list_[vtx1_id].neighbor_edges_[vtx2_nbr_it] << ")" << std::endl;
+    std::cout << "[utl::GraphBase::getEdgeNeighborListPositions] ( vtx 2: " << vtx2_id
+              << ", edge id: " << vertex_list_[vtx2_id].neighbor_edges_[vtx1_nbr_it] << ")" << std::endl;
     return false;
   }
   return true;
 }
 
-#endif // GRAPH_BASE_HPP
+#endif  // GRAPH_BASE_HPP

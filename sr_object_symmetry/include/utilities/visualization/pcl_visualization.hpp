@@ -41,11 +41,12 @@ const Color green(0.0, 1.0, 0.0);
 const Color blue(0.0, 0.0, 1.0);
 const Color white(1.0, 1.0, 1.0);
 const Color black(0.0, 0.0, 0.0);
-const Color bgColor(0.7, 0.7, 1.0); // Background color for the PCL visaualizer
+const Color bgColor(0.7, 0.7, 1.0);  // Background color for the PCL visaualizer
 
 //  /** \brief Convert a single point with RGB information to grayscale
 //   *  \param[in,out]  point point to be converted to grayscale
-//   *  \note conversion is done using the formula used in OpenCV (http://docs.opencv.org/modules/imgproc/doc/miscellaneous_transformations.html)
+//   *  \note conversion is done using the formula used in OpenCV
+//   (http://docs.opencv.org/modules/imgproc/doc/miscellaneous_transformations.html)
 //   */
 //  inline
 //  std::vector<Color> colorizeData ( const std::vector<float> &data,
@@ -54,7 +55,8 @@ const Color bgColor(0.7, 0.7, 1.0); // Background color for the PCL visaualizer
 //  {
 //    // Get LUT
 //    vtkSmartPointer<vtkLookupTable> lut;
-//    pcl::visualization::getColormapLUT(static_cast<pcl::visualization::LookUpTableRepresentationProperties>(colormal_type), lut);
+//    pcl::visualization::getColormapLUT(static_cast<pcl::visualization::LookUpTableRepresentationProperties>(colormal_type),
+//    lut);
 //
 //    // Map data to colors
 //    std::vector<Color> colors (data.size());
@@ -79,17 +81,15 @@ const Color bgColor(0.7, 0.7, 1.0); // Background color for the PCL visaualizer
    *  \param[in] color        color of the cloud
    *  \param[in] opacity      opacity of the cloud
    */
-inline void setPointCloudRenderProps(pcl::visualization::PCLVisualizer &visualizer,
-                                     const std::string &id,
-                                     const float point_size = -1.0,
-                                     const Color &color = Color(),
+inline void setPointCloudRenderProps(pcl::visualization::PCLVisualizer& visualizer, const std::string& id,
+                                     const float point_size = -1.0, const Color& color = Color(),
                                      const float opacity = -1.0)
 {
   if (point_size > 0)
     visualizer.setPointCloudRenderingProperties(pcl::visualization::PCL_VISUALIZER_POINT_SIZE, point_size, id);
   if (color != Color())
-    visualizer.setPointCloudRenderingProperties(pcl::visualization::PCL_VISUALIZER_COLOR, color.r, color.g,
-                                                color.b, id);
+    visualizer.setPointCloudRenderingProperties(pcl::visualization::PCL_VISUALIZER_COLOR, color.r, color.g, color.b,
+                                                id);
   if (opacity > 0)
     visualizer.setPointCloudRenderingProperties(pcl::visualization::PCL_VISUALIZER_OPACITY, opacity, id);
 }
@@ -101,17 +101,15 @@ inline void setPointCloudRenderProps(pcl::visualization::PCLVisualizer &visualiz
    *  \param[in] color        color of the cloud
    *  \param[in] opacity      opacity of the cloud
    */
-inline void setNormalCloudRenderProps(pcl::visualization::PCLVisualizer &visualizer,
-                                      const std::string &id,
-                                      const float line_width = -1.0,
-                                      const Color &color = Color(),
+inline void setNormalCloudRenderProps(pcl::visualization::PCLVisualizer& visualizer, const std::string& id,
+                                      const float line_width = -1.0, const Color& color = Color(),
                                       const float opacity = -1.0)
 {
   if (line_width > 0)
     visualizer.setPointCloudRenderingProperties(pcl::visualization::PCL_VISUALIZER_LINE_WIDTH, line_width, id);
   if (color != Color())
-    visualizer.setPointCloudRenderingProperties(pcl::visualization::PCL_VISUALIZER_COLOR, color.r, color.g,
-                                                color.b, id);
+    visualizer.setPointCloudRenderingProperties(pcl::visualization::PCL_VISUALIZER_COLOR, color.r, color.g, color.b,
+                                                id);
   if (opacity > 0)
     visualizer.setPointCloudRenderingProperties(pcl::visualization::PCL_VISUALIZER_OPACITY, opacity, id);
 }
@@ -124,11 +122,8 @@ inline void setNormalCloudRenderProps(pcl::visualization::PCLVisualizer &visuali
    *  \param[in] opacity      opacity of the cloud
    *  \param[in] representation render representation (one of \ref{RenderingRepresentationProperties})
    */
-inline void setShapeRenderProps(pcl::visualization::PCLVisualizer &visualizer,
-                                const std::string &id,
-                                const Color &color = Color(),
-                                const float opacity = -1.0,
-                                const int representation = -1)
+inline void setShapeRenderProps(pcl::visualization::PCLVisualizer& visualizer, const std::string& id,
+                                const Color& color = Color(), const float opacity = -1.0, const int representation = -1)
 {
   if (color != Color())
     visualizer.setShapeRenderingProperties(pcl::visualization::PCL_VISUALIZER_COLOR, color.r, color.g, color.b, id);
@@ -145,11 +140,8 @@ inline void setShapeRenderProps(pcl::visualization::PCLVisualizer &visualizer,
    *  \param[in] color        color of the cloud
    *  \param[in] opacity      opacity of the cloud
    */
-inline void setLineRenderProps(pcl::visualization::PCLVisualizer &visualizer,
-                               const std::string &id,
-                               const float line_width = -1.0,
-                               const Color &color = Color(),
-                               const float opacity = -1.0)
+inline void setLineRenderProps(pcl::visualization::PCLVisualizer& visualizer, const std::string& id,
+                               const float line_width = -1.0, const Color& color = Color(), const float opacity = -1.0)
 {
   if (line_width > 0)
     visualizer.setShapeRenderingProperties(pcl::visualization::PCL_VISUALIZER_LINE_WIDTH, line_width, id);
@@ -162,11 +154,13 @@ inline void setLineRenderProps(pcl::visualization::PCLVisualizer &visualizer,
 //  /** \brief modify the rendering properties of a colormap
 //   *  \param[in] visualizer     visualizer object
 //   *  \param[in] id             the point cloud object id prefix (default: cloud)
-//   *  \param[in] colormal_type  colormap used \ref pcl::visualization::LookUpTableRepresentationProperties. If -1 colormap is unchanged
+//   *  \param[in] colormal_type  colormap used \ref pcl::visualization::LookUpTableRepresentationProperties. If -1
+//   colormap is unchanged
 //   *  \param[in] range_auto     if true, colormap limits are set automatically from the data
 //   *  \param[in] range_min      range minimum (if NaN colormap range is not updated)
 //   *  \param[in] range_max      range maximum (if NaN colormap range is not updated)
-//   *  \note this function sets colormap properties for clouds. It should be able to set colormap properties for shapes as well
+//   *  \note this function sets colormap properties for clouds. It should be able to set colormap properties for shapes
+//   as well
 //   */
 //  inline
 //  void setColormapRenderProps ( pcl::visualization::PCLVisualizer &visualizer,
@@ -184,19 +178,23 @@ inline void setLineRenderProps(pcl::visualization::PCLVisualizer &visualizer,
 //      if (colormal_type != -1)
 //        visualizer.setPointCloudRenderingProperties (pcl::visualization::PCL_VISUALIZER_LUT, colormal_type, id);
 //      if (range_auto)
-//        visualizer.setPointCloudRenderingProperties (pcl::visualization::PCL_VISUALIZER_LUT_RANGE, pcl::visualization::PCL_VISUALIZER_LUT_RANGE_AUTO, id);
+//        visualizer.setPointCloudRenderingProperties (pcl::visualization::PCL_VISUALIZER_LUT_RANGE,
+//        pcl::visualization::PCL_VISUALIZER_LUT_RANGE_AUTO, id);
 //      else if (!std::isnan(range_min) and !std::isnan(range_max))
-//        visualizer.setPointCloudRenderingProperties (pcl::visualization::PCL_VISUALIZER_LUT_RANGE, range_min, range_max, id);
+//        visualizer.setPointCloudRenderingProperties (pcl::visualization::PCL_VISUALIZER_LUT_RANGE, range_min,
+//        range_max, id);
 //    }
 //    else if (shapeActorMap->find(id) != shapeActorMap->end())
 //    {
 //      if (colormal_type != -1)
 //        visualizer.setShapeRenderingProperties (pcl::visualization::PCL_VISUALIZER_LUT, colormal_type, id);
 //      if (range_auto)
-//        visualizer.setShapeRenderingProperties (pcl::visualization::PCL_VISUALIZER_LUT_RANGE, pcl::visualization::PCL_VISUALIZER_LUT_RANGE_AUTO, id);
+//        visualizer.setShapeRenderingProperties (pcl::visualization::PCL_VISUALIZER_LUT_RANGE,
+//        pcl::visualization::PCL_VISUALIZER_LUT_RANGE_AUTO, id);
 //      // NOTE: this should be uncommented when proper support for shape LUT is implemented in PCL
 ////         else if (!std::isnan(range_min) and !std::isnan(range_max))
-////           visualizer.setShapeRenderingProperties (pcl::visualization::PCL_VISUALIZER_LUT_RANGE, range_min, range_max, id);
+////           visualizer.setShapeRenderingProperties (pcl::visualization::PCL_VISUALIZER_LUT_RANGE, range_min,
+///range_max, id);
 //    }
 //  }
 
@@ -213,12 +211,9 @@ inline void setLineRenderProps(pcl::visualization::PCLVisualizer &visualizer,
    *  \param[in]  opacity     opacity of the cloud
    */
 template <typename PointT>
-inline void showPointCloud(pcl::visualization::PCLVisualizer &visualizer,
-                           const typename pcl::PointCloud<PointT>::ConstPtr &cloud,
-                           const std::string &id = "cloud",
-                           const float point_size = -1.0,
-                           const Color &color = Color(),
-                           const float opacity = -1.0)
+inline void showPointCloud(pcl::visualization::PCLVisualizer& visualizer,
+                           const typename pcl::PointCloud<PointT>::ConstPtr& cloud, const std::string& id = "cloud",
+                           const float point_size = -1.0, const Color& color = Color(), const float opacity = -1.0)
 {
   visualizer.addPointCloud<PointT>(cloud, id);
   setPointCloudRenderProps(visualizer, id, point_size, color, opacity);
@@ -232,10 +227,9 @@ inline void showPointCloud(pcl::visualization::PCLVisualizer &visualizer,
    *  \param[in]  opacity     opacity of the cloud
    */
 template <typename PointT>
-inline void showPointCloudColor(pcl::visualization::PCLVisualizer &visualizer,
-                                const typename pcl::PointCloud<PointT>::ConstPtr &cloud,
-                                const std::string &id = "cloud",
-                                const float point_size = -1.0,
+inline void showPointCloudColor(pcl::visualization::PCLVisualizer& visualizer,
+                                const typename pcl::PointCloud<PointT>::ConstPtr& cloud,
+                                const std::string& id = "cloud", const float point_size = -1.0,
                                 const float opacity = -1.0)
 {
   pcl::visualization::PointCloudColorHandlerRGBField<PointT> color_handler(cloud);
@@ -296,14 +290,10 @@ inline void showPointCloudColor(pcl::visualization::PCLVisualizer &visualizer,
    *  \param[in]  opacity     opacity of the cloud
    */
 template <typename PointT>
-inline void showNormalCloud(pcl::visualization::PCLVisualizer &visualizer,
-                            const typename pcl::PointCloud<PointT>::ConstPtr &cloud,
-                            const int level = 100,
-                            const float scale = 0.02f,
-                            const std::string &id = "normals",
-                            const float line_width = -1.0,
-                            const Color &color = Color(),
-                            const float opacity = -1.0)
+inline void showNormalCloud(pcl::visualization::PCLVisualizer& visualizer,
+                            const typename pcl::PointCloud<PointT>::ConstPtr& cloud, const int level = 100,
+                            const float scale = 0.02f, const std::string& id = "normals", const float line_width = -1.0,
+                            const Color& color = Color(), const float opacity = -1.0)
 {
   visualizer.addPointCloudNormals<PointT>(cloud, level, scale, id);
   setNormalCloudRenderProps(visualizer, id, line_width, color, opacity);
@@ -321,14 +311,10 @@ inline void showNormalCloud(pcl::visualization::PCLVisualizer &visualizer,
    *  \param[in]  opacity     opacity of the cloud
    */
 template <typename PointT>
-inline void showNormalCloud(pcl::visualization::PCLVisualizer &visualizer,
-                            const typename pcl::PointCloud<PointT>::ConstPtr &cloud,
-                            const std::vector<int> indices,
-                            const float scale = 0.02f,
-                            const std::string &id = "normals",
-                            const float point_size = -1.0,
-                            const Color &color = Color(),
-                            const float opacity = -1.0)
+inline void showNormalCloud(pcl::visualization::PCLVisualizer& visualizer,
+                            const typename pcl::PointCloud<PointT>::ConstPtr& cloud, const std::vector<int> indices,
+                            const float scale = 0.02f, const std::string& id = "normals", const float point_size = -1.0,
+                            const Color& color = Color(), const float opacity = -1.0)
 {
   typename pcl::PointCloud<PointT>::Ptr cloudIndexed(new pcl::PointCloud<PointT>);
   pcl::copyPointCloud<PointT>(*cloud, indices, *cloudIndexed);
@@ -347,10 +333,9 @@ inline void showNormalCloud(pcl::visualization::PCLVisualizer &visualizer,
    *  \param[in] opacity     opacity of the displayed points
    */
 template <typename PointT>
-inline void showPointClouds(pcl::visualization::PCLVisualizer &visualizer,
-                            const std::vector<typename pcl::PointCloud<PointT>::Ptr> &clouds,
-                            const std::string &id_prefix = "segment_",
-                            const float point_size = -1.0,
+inline void showPointClouds(pcl::visualization::PCLVisualizer& visualizer,
+                            const std::vector<typename pcl::PointCloud<PointT>::Ptr>& clouds,
+                            const std::string& id_prefix = "segment_", const float point_size = -1.0,
                             const float opacity = -1.0)
 {
   for (size_t cloudId = 0; cloudId < clouds.size(); cloudId++)
@@ -370,11 +355,9 @@ inline void showPointClouds(pcl::visualization::PCLVisualizer &visualizer,
    *  \param[in] opacity     opacity of the displayed points
    */
 template <typename PointT>
-inline void showPointClouds(pcl::visualization::PCLVisualizer &visualizer,
-                            const std::vector<typename pcl::PointCloud<PointT>::Ptr> &clouds,
-                            const Color &color,
-                            const std::string &id_prefix = "segment_",
-                            const float point_size = -1.0,
+inline void showPointClouds(pcl::visualization::PCLVisualizer& visualizer,
+                            const std::vector<typename pcl::PointCloud<PointT>::Ptr>& clouds, const Color& color,
+                            const std::string& id_prefix = "segment_", const float point_size = -1.0,
                             const float opacity = -1.0)
 {
   for (size_t cloudId = 0; cloudId < clouds.size(); cloudId++)
@@ -392,14 +375,10 @@ inline void showPointClouds(pcl::visualization::PCLVisualizer &visualizer,
    *  \param[in] opacity     opacity of the displayed normals
    */
 template <typename PointT>
-inline void showNormalClouds(pcl::visualization::PCLVisualizer &visualizer,
-                             const std::vector<typename pcl::PointCloud<PointT>::Ptr> &clouds,
-                             const int level = 100,
-                             const float scale = 0.02f,
-                             const std::string &id_prefix = "segment_",
-                             const float point_size = -1.0,
-                             const Color &color = Color(),
-                             const float opacity = -1.0)
+inline void showNormalClouds(pcl::visualization::PCLVisualizer& visualizer,
+                             const std::vector<typename pcl::PointCloud<PointT>::Ptr>& clouds, const int level = 100,
+                             const float scale = 0.02f, const std::string& id_prefix = "segment_",
+                             const float point_size = -1.0, const Color& color = Color(), const float opacity = -1.0)
 {
   for (size_t cloudId = 0; cloudId < clouds.size(); cloudId++)
   {
@@ -421,11 +400,9 @@ inline void showNormalClouds(pcl::visualization::PCLVisualizer &visualizer,
    *  \param[in]  opacity           opacity of displayed points
    */
 template <typename PointT>
-inline void showSegmentation(pcl::visualization::PCLVisualizer &visualizer,
-                             const typename pcl::PointCloud<PointT>::ConstPtr &cloud,
-                             const utl::Map &segments,
-                             const std::string &id_prefix = "segment",
-                             const float point_size = -1.0f,
+inline void showSegmentation(pcl::visualization::PCLVisualizer& visualizer,
+                             const typename pcl::PointCloud<PointT>::ConstPtr& cloud, const utl::Map& segments,
+                             const std::string& id_prefix = "segment", const float point_size = -1.0f,
                              const float bg_opacity = 0.1f)
 {
   // Show foreground clouds
@@ -463,13 +440,10 @@ inline void showSegmentation(pcl::visualization::PCLVisualizer &visualizer,
    *  \param[in]  opacity           opacity of displayed points
    */
 template <typename PointT>
-inline void showSegmentationColored(pcl::visualization::PCLVisualizer &visualizer,
-                                    const typename pcl::PointCloud<PointT>::ConstPtr &cloud,
-                                    const utl::Map &segments,
-                                    const std::string &id_prefix = "segment",
-                                    const float tint = 1.0,
-                                    const float point_size = -1.0,
-                                    const float bg_opacity = 0.1f)
+inline void showSegmentationColored(pcl::visualization::PCLVisualizer& visualizer,
+                                    const typename pcl::PointCloud<PointT>::ConstPtr& cloud, const utl::Map& segments,
+                                    const std::string& id_prefix = "segment", const float tint = 1.0,
+                                    const float point_size = -1.0, const float bg_opacity = 0.1f)
 {
   // Show foreground clouds
   std::vector<int> fgIndices;
@@ -505,9 +479,8 @@ inline void showSegmentationColored(pcl::visualization::PCLVisualizer &visualize
 // Foreground segmentation visualization
 //----------------------------------------------------------------------------
 
-inline void showFGsegmentationMesh(pcl::visualization::PCLVisualizer &visualizer,
-                                   const std::vector<pcl::PolygonMesh> &mesh,
-                                   std::vector<int> &segmentation)
+inline void showFGsegmentationMesh(pcl::visualization::PCLVisualizer& visualizer,
+                                   const std::vector<pcl::PolygonMesh>& mesh, std::vector<int>& segmentation)
 {
   // Get segmentation mask
   std::vector<bool> segmentationMask(mesh.size(), false);
@@ -532,16 +505,14 @@ inline void showFGsegmentationMesh(pcl::visualization::PCLVisualizer &visualizer
    *  \param[in] visualizer visualizer object
    *  \param[in] cloud input pointcloud
    *  \param[in] fg_indices indices of the foreground points
-   *  \param[in] id_prefix         the point cloud object id prefix (default: segment)* 
+   *  \param[in] id_prefix         the point cloud object id prefix (default: segment)*
    *  \param[in] point_size size of the points used for visualization
    */
 template <typename PointT>
-inline void showFGSegmentation(pcl::visualization::PCLVisualizer &visualizer,
-                               const typename pcl::PointCloud<PointT>::ConstPtr &cloud,
-                               const std::vector<int> &fg_indices,
-                               const std::string &id_prefix = "segment",
-                               const int point_size = -1.0f,
-                               const float bg_opacity = 0.1f)
+inline void showFGSegmentation(pcl::visualization::PCLVisualizer& visualizer,
+                               const typename pcl::PointCloud<PointT>::ConstPtr& cloud,
+                               const std::vector<int>& fg_indices, const std::string& id_prefix = "segment",
+                               const int point_size = -1.0f, const float bg_opacity = 0.1f)
 {
   std::vector<bool> fg_mask(cloud->size(), false);
   for (size_t pointIt = 0; pointIt < fg_indices.size(); pointIt++)
@@ -572,12 +543,10 @@ inline void showFGSegmentation(pcl::visualization::PCLVisualizer &visualizer,
    *  \param[in] bg_color background color
    */
 template <typename PointT>
-inline void showFGSegmentationColor(pcl::visualization::PCLVisualizer &visualizer,
-                                    const typename pcl::PointCloud<PointT>::ConstPtr &cloud,
-                                    const std::vector<int> &fg_indices,
-                                    const std::string &id_prefix = "segment",
-                                    const int point_size = -1.0f,
-                                    const float bg_opacity = 0.1f)
+inline void showFGSegmentationColor(pcl::visualization::PCLVisualizer& visualizer,
+                                    const typename pcl::PointCloud<PointT>::ConstPtr& cloud,
+                                    const std::vector<int>& fg_indices, const std::string& id_prefix = "segment",
+                                    const int point_size = -1.0f, const float bg_opacity = 0.1f)
 {
   std::vector<bool> fg_mask(cloud->size(), false);
   for (size_t pointIt = 0; pointIt < fg_indices.size(); pointIt++)
@@ -595,7 +564,8 @@ inline void showFGSegmentationColor(pcl::visualization::PCLVisualizer &visualize
   for (size_t pointId = 0; pointId < bgCloud->size(); pointId++)
   {
     PointT curPoint = bgCloud->points[pointId];
-    float gray = static_cast<uint8_t>(std::min(static_cast<float>(curPoint.r + curPoint.g + curPoint.b) / 3.0f, 255.0f));
+    float gray =
+        static_cast<uint8_t>(std::min(static_cast<float>(curPoint.r + curPoint.g + curPoint.b) / 3.0f, 255.0f));
 
     curPoint.r = gray;
     curPoint.g = gray;
@@ -627,12 +597,9 @@ inline void showFGSegmentationColor(pcl::visualization::PCLVisualizer &visualize
    *  \param[in]  opacity     opacity of the graph edge lines
    */
 template <typename PointT, typename NeighborT, typename EdgeT>
-inline void showPointGraph(pcl::visualization::PCLVisualizer &visualizer,
-                           const pcl::PointCloud<PointT> &points,
-                           const utl::GraphBase<NeighborT, EdgeT> &graph,
-                           const std::string &id = "graph",
-                           const float line_width = -1.0,
-                           const Color &color = Color(0.3, 0.3, 0.3),
+inline void showPointGraph(pcl::visualization::PCLVisualizer& visualizer, const pcl::PointCloud<PointT>& points,
+                           const utl::GraphBase<NeighborT, EdgeT>& graph, const std::string& id = "graph",
+                           const float line_width = -1.0, const Color& color = Color(0.3, 0.3, 0.3),
                            const float opacity = -1.0)
 {
   // Create the polydata where we will store all the geometric data
@@ -642,10 +609,10 @@ inline void showPointGraph(pcl::visualization::PCLVisualizer &visualizer,
   vtkSmartPointer<vtkPoints> points_vtk = vtkSmartPointer<vtkPoints>::New();
   for (size_t pointId = 0; pointId < points.size(); pointId++)
   {
-    double pt[3] = {points.points[pointId].x, points.points[pointId].y, points.points[pointId].z};
+    double pt[3] = { points.points[pointId].x, points.points[pointId].y, points.points[pointId].z };
     points_vtk->InsertNextPoint(pt);
   }
-  linesPolyData->SetPoints(points_vtk); // Add the points to the polydata container
+  linesPolyData->SetPoints(points_vtk);  // Add the points to the polydata container
 
   // Create the lines
   vtkSmartPointer<vtkCellArray> lines = vtkSmartPointer<vtkCellArray>::New();
@@ -662,7 +629,7 @@ inline void showPointGraph(pcl::visualization::PCLVisualizer &visualizer,
     line->GetPointIds()->SetId(1, vtx2Id);
     lines->InsertNextCell(line);
   }
-  linesPolyData->SetLines(lines); // Add the lines to the polydata container
+  linesPolyData->SetLines(lines);  // Add the lines to the polydata container
 
   // Add polygon data to the visualizer
   visualizer.addModelFromPolyData(linesPolyData, id);
@@ -680,12 +647,9 @@ inline void showPointGraph(pcl::visualization::PCLVisualizer &visualizer,
    *  \param[in]  opacity       opacity of the graph edge lines
    */
 template <typename PointT>
-inline void showPointGraphWeighted(pcl::visualization::PCLVisualizer &visualizer,
-                                   const pcl::PointCloud<PointT> &points,
-                                   const utl::GraphWeighted &graph,
-                                   const std::string &id = "graph",
-                                   const float line_width = -1.0,
-                                   const float opacity = -1.0)
+inline void showPointGraphWeighted(pcl::visualization::PCLVisualizer& visualizer, const pcl::PointCloud<PointT>& points,
+                                   const utl::GraphWeighted& graph, const std::string& id = "graph",
+                                   const float line_width = -1.0, const float opacity = -1.0)
 {
   // Create the polydata where we will store all the geometric data
   vtkSmartPointer<vtkPolyData> linesPolyData = vtkSmartPointer<vtkPolyData>::New();
@@ -694,10 +658,10 @@ inline void showPointGraphWeighted(pcl::visualization::PCLVisualizer &visualizer
   vtkSmartPointer<vtkPoints> points_vtk = vtkSmartPointer<vtkPoints>::New();
   for (size_t pointId = 0; pointId < points.size(); pointId++)
   {
-    double pt[3] = {points.points[pointId].x, points.points[pointId].y, points.points[pointId].z};
+    double pt[3] = { points.points[pointId].x, points.points[pointId].y, points.points[pointId].z };
     points_vtk->InsertNextPoint(pt);
   }
-  linesPolyData->SetPoints(points_vtk); // Add the points to the polydata container
+  linesPolyData->SetPoints(points_vtk);  // Add the points to the polydata container
 
   // Create lines and scalars
   vtkSmartPointer<vtkCellArray> lines = vtkSmartPointer<vtkCellArray>::New();
@@ -722,8 +686,8 @@ inline void showPointGraphWeighted(pcl::visualization::PCLVisualizer &visualizer
     // Set line scalar
     colors->InsertTuple1(edgeId, weight);
   }
-  linesPolyData->SetLines(lines);                   // Add the lines to the polydata container
-  linesPolyData->GetCellData()->SetScalars(colors); // Add scalars
+  linesPolyData->SetLines(lines);                    // Add the lines to the polydata container
+  linesPolyData->GetCellData()->SetScalars(colors);  // Add scalars
 
   // Add polygon data to the visualizer
   visualizer.addModelFromPolyData(linesPolyData, id);
@@ -738,12 +702,9 @@ inline void showPointGraphWeighted(pcl::visualization::PCLVisualizer &visualizer
    *  \param[in]  color      color of the lines (default gray)
    */
 template <typename PointT>
-inline void showCurve(pcl::visualization::PCLVisualizer &visualizer,
-                      const pcl::PointCloud<PointT> &curve,
-                      const std::string &id_prefix = "curve",
-                      const float line_width = -1.0,
-                      const Color &color = Color(0.4, 0.4, 0.4),
-                      const float opacity = -1.0f)
+inline void showCurve(pcl::visualization::PCLVisualizer& visualizer, const pcl::PointCloud<PointT>& curve,
+                      const std::string& id_prefix = "curve", const float line_width = -1.0,
+                      const Color& color = Color(0.4, 0.4, 0.4), const float opacity = -1.0f)
 {
   if (curve.size() < 2)
   {
@@ -772,13 +733,9 @@ inline void showCurve(pcl::visualization::PCLVisualizer &visualizer,
    *  \param[in]  color           color of the displayed plane
    *  \param[in]  opacity         opacity of the displayed plane
    */
-inline void showRectangle3d(pcl::visualization::PCLVisualizer &visualizer,
-                            const Eigen::Affine3f &pose,
-                            const float width = 0.05,
-                            const float height = 0.05,
-                            const std::string &id = "rectangle",
-                            const Color color = Color(),
-                            const float opacity = -1.0f)
+inline void showRectangle3d(pcl::visualization::PCLVisualizer& visualizer, const Eigen::Affine3f& pose,
+                            const float width = 0.05, const float height = 0.05, const std::string& id = "rectangle",
+                            const Color color = Color(), const float opacity = -1.0f)
 {
   // First generate a square
   float halfWidth = width / 2.0f;
@@ -796,7 +753,8 @@ inline void showRectangle3d(pcl::visualization::PCLVisualizer &visualizer,
   // Display
   visualizer.addPolygon<pcl::PointXYZ>(plane_polygon, id);
   setShapeRenderProps(visualizer, id, color, opacity);
-  visualizer.setShapeRenderingProperties(pcl::visualization::PCL_VISUALIZER_REPRESENTATION, pcl::visualization::PCL_VISUALIZER_REPRESENTATION_SURFACE, id);
+  visualizer.setShapeRenderingProperties(pcl::visualization::PCL_VISUALIZER_REPRESENTATION,
+                                         pcl::visualization::PCL_VISUALIZER_REPRESENTATION_SURFACE, id);
   if (color != Color())
     visualizer.setShapeRenderingProperties(pcl::visualization::PCL_VISUALIZER_COLOR, color.r, color.g, color.b, id);
 
@@ -804,7 +762,8 @@ inline void showRectangle3d(pcl::visualization::PCLVisualizer &visualizer,
     visualizer.setShapeRenderingProperties(pcl::visualization::PCL_VISUALIZER_OPACITY, opacity, id);
 
   visualizer.addPolygon<pcl::PointXYZ>(plane_polygon, id + "_border");
-  visualizer.setShapeRenderingProperties(pcl::visualization::PCL_VISUALIZER_REPRESENTATION, pcl::visualization::PCL_VISUALIZER_REPRESENTATION_WIREFRAME, id + "_border");
+  visualizer.setShapeRenderingProperties(pcl::visualization::PCL_VISUALIZER_REPRESENTATION,
+                                         pcl::visualization::PCL_VISUALIZER_REPRESENTATION_WIREFRAME, id + "_border");
 }
 
 /** \brief Add an oriented rectangle to the visualizer.
@@ -817,13 +776,9 @@ inline void showRectangle3d(pcl::visualization::PCLVisualizer &visualizer,
    *  \param[in]  color           color of the displayed plane
    *  \param[in]  opacity         opacity of the displayed plane
    */
-inline void showRectangle3d(pcl::visualization::PCLVisualizer &visualizer,
-                            const Eigen::Vector3f &point,
-                            const Eigen::Vector3f &normal,
-                            const float width = 0.05,
-                            const float height = 0.05,
-                            const std::string &id = "rectangle",
-                            const Color color = Color(),
+inline void showRectangle3d(pcl::visualization::PCLVisualizer& visualizer, const Eigen::Vector3f& point,
+                            const Eigen::Vector3f& normal, const float width = 0.05, const float height = 0.05,
+                            const std::string& id = "rectangle", const Color color = Color(),
                             const float opacity = -1.0f)
 {
   Eigen::Affine3f pose;
@@ -842,13 +797,9 @@ inline void showRectangle3d(pcl::visualization::PCLVisualizer &visualizer,
    *  \param[in]  color           color of the displayed plane
    *  \param[in]  opacity         opacity of the displayed plane
    */
-inline void showCircle3d(pcl::visualization::PCLVisualizer &visualizer,
-                         const Eigen::Vector3f &center,
-                         const Eigen::Vector3f &normal,
-                         const float radius,
-                         const std::string &id = "circle",
-                         const Color color = Color(),
-                         const float opacity = -1.0f)
+inline void showCircle3d(pcl::visualization::PCLVisualizer& visualizer, const Eigen::Vector3f& center,
+                         const Eigen::Vector3f& normal, const float radius, const std::string& id = "circle",
+                         const Color color = Color(), const float opacity = -1.0f)
 {
   // Create a circular polygon
   int numSteps = 50;
@@ -870,7 +821,8 @@ inline void showCircle3d(pcl::visualization::PCLVisualizer &visualizer,
   // Display
   visualizer.addPolygon<pcl::PointXYZ>(circle, id);
   setShapeRenderProps(visualizer, id, color, opacity);
-  visualizer.setShapeRenderingProperties(pcl::visualization::PCL_VISUALIZER_REPRESENTATION, pcl::visualization::PCL_VISUALIZER_REPRESENTATION_SURFACE, id);
+  visualizer.setShapeRenderingProperties(pcl::visualization::PCL_VISUALIZER_REPRESENTATION,
+                                         pcl::visualization::PCL_VISUALIZER_REPRESENTATION_SURFACE, id);
   if (color != Color())
     visualizer.setShapeRenderingProperties(pcl::visualization::PCL_VISUALIZER_COLOR, color.r, color.g, color.b, id);
 
@@ -887,20 +839,17 @@ inline void showCircle3d(pcl::visualization::PCLVisualizer &visualizer,
    *  \param[in]  visualizer      visualizer object
    *  \param[in]  source_points The source points
    *  \param[in]  target_points The target points
-   *  \param[in]  correspondences The mapping from source points to target points. Each element must be an index into target_points
+   *  \param[in]  correspondences The mapping from source points to target points. Each element must be an index into
+ * target_points
    *  \param[in]  nth display only the Nth correspondence (e.g., skip the rest)
    *  \param[in]  id the polygon object id (default: "correspondences")
    *  \param[in]  line_width   width of the lines
    *  \param[in]  opacity opacity of the lines
    */
 template <typename PointT>
-void showCorrespondences(pcl::visualization::PCLVisualizer &visualizer,
-                         const pcl::PointCloud<PointT> &source_points,
-                         const pcl::PointCloud<PointT> &target_points,
-                         const pcl::Correspondences &correspondences,
-                         const int nth = 1,
-                         const std::string &id = "correspondences",
-                         const float line_width = -1.0f,
+void showCorrespondences(pcl::visualization::PCLVisualizer& visualizer, const pcl::PointCloud<PointT>& source_points,
+                         const pcl::PointCloud<PointT>& target_points, const pcl::Correspondences& correspondences,
+                         const int nth = 1, const std::string& id = "correspondences", const float line_width = -1.0f,
                          const float opacity = -1.0f)
 {
   // Create the polydata where we will store all the geometric data
@@ -912,12 +861,12 @@ void showCorrespondences(pcl::visualization::PCLVisualizer &visualizer,
   {
     int srcId = correspondences[crspId].index_query;
     int tgtId = correspondences[crspId].index_match;
-    double ptSrc[3] = {source_points.points[srcId].x, source_points.points[srcId].y, source_points.points[srcId].z};
-    double ptTgt[3] = {target_points.points[tgtId].x, target_points.points[tgtId].y, target_points.points[tgtId].z};
+    double ptSrc[3] = { source_points.points[srcId].x, source_points.points[srcId].y, source_points.points[srcId].z };
+    double ptTgt[3] = { target_points.points[tgtId].x, target_points.points[tgtId].y, target_points.points[tgtId].z };
     points_vtk->InsertNextPoint(ptSrc);
     points_vtk->InsertNextPoint(ptTgt);
   }
-  linesPolyData->SetPoints(points_vtk); // Add the points to the polydata container
+  linesPolyData->SetPoints(points_vtk);  // Add the points to the polydata container
 
   // Create the lines
   vtkSmartPointer<vtkCellArray> lines = vtkSmartPointer<vtkCellArray>::New();
@@ -928,7 +877,7 @@ void showCorrespondences(pcl::visualization::PCLVisualizer &visualizer,
     line->GetPointIds()->SetId(1, crspId * 2 + 1);
     lines->InsertNextCell(line);
   }
-  linesPolyData->SetLines(lines); // Add the lines to the polydata container
+  linesPolyData->SetLines(lines);  // Add the lines to the polydata container
 
   // Color the lines
   vtkSmartPointer<vtkUnsignedCharArray> colors = vtkSmartPointer<vtkUnsignedCharArray>::New();
@@ -957,12 +906,9 @@ void showCorrespondences(pcl::visualization::PCLVisualizer &visualizer,
    *  \param[in]  pose            camera pose
    *  \param[in]  id              name id of the camera
    */
-inline void showCamera(pcl::visualization::PCLVisualizer &visualizer,
-                       const Eigen::Matrix3f &K,
-                       const int height, const int width,
-                       const Eigen::Affine3f &pose,
-                       const std::string &id = "cam",
-                       const Color &color = Color())
+inline void showCamera(pcl::visualization::PCLVisualizer& visualizer, const Eigen::Matrix3f& K, const int height,
+                       const int width, const Eigen::Affine3f& pose, const std::string& id = "cam",
+                       const Color& color = Color())
 {
   float focal = (K(0, 0) + K(1, 1)) / 2;
   float height_f = static_cast<float>(height);
@@ -1029,7 +975,7 @@ inline void showCamera(pcl::visualization::PCLVisualizer &visualizer,
    *  \param[in]  pose            camera pose
    *  \param[in]  id              name id of the camera
    */
-inline void removeCamera(pcl::visualization::PCLVisualizer &visualizer, const std::string &id = "cam")
+inline void removeCamera(pcl::visualization::PCLVisualizer& visualizer, const std::string& id = "cam")
 {
   visualizer.removeText3D(id);
   visualizer.removeShape(id + "_line1");
@@ -1045,7 +991,7 @@ inline void removeCamera(pcl::visualization::PCLVisualizer &visualizer, const st
 /** \brief Remove all text from the visualizer
    *  \param[in]  visualizer      visualizer object
    */
-inline void removeAllText(pcl::visualization::PCLVisualizer &visualizer)
+inline void removeAllText(pcl::visualization::PCLVisualizer& visualizer)
 {
   pcl::visualization::ShapeActorMapPtr shape_actor_map_ = visualizer.getShapeActorMap();
   pcl::visualization::ShapeActorMap::iterator am_it = shape_actor_map_->begin();
@@ -1066,4 +1012,4 @@ inline void removeAllText(pcl::visualization::PCLVisualizer &visualizer)
   }
 }
 }
-#endif // PCL_VISUALIZATION_UTILITIES_HPP
+#endif  // PCL_VISUALIZATION_UTILITIES_HPP

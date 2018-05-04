@@ -41,12 +41,12 @@ struct ReflSymDetectParams
   float min_corresp_inlier_score = 4.0f;
 
   // Similarity parameters for merging
-  float symmetry_min_angle_diff = pcl::deg2rad(7.0); //  Two symmetries are considered similar if the angle 
-                                                     //  between their normals is less than this threshold
-  float symmetry_min_distance_diff = 0.02f;          //  Two symmetries are considered similar if the difference
-                                                     //  between their distances to origin is less than this threshold
-  float max_reference_point_distance = 0.3f;         //  Maximum distance between the reference points of two
-                                                     //  symmetries that can be merged
+  float symmetry_min_angle_diff = pcl::deg2rad(7.0);  //  Two symmetries are considered similar if the angle
+                                                      //  between their normals is less than this threshold
+  float symmetry_min_distance_diff = 0.02f;           //  Two symmetries are considered similar if the difference
+                                                      //  between their distances to origin is less than this threshold
+  float max_reference_point_distance = 0.3f;          //  Maximum distance between the reference points of two
+                                                      //  symmetries that can be merged
   std::vector<Eigen::Vector3f> rot_symmetries;
 };
 
@@ -61,14 +61,15 @@ struct ReflSymDetectParams
    *  \param[in]  symmetry_scores             symmetry scores
    *  \param[in]  occlusion_scores            occlusion scores
    *  \param[out] merged_sym_ids              ids of symmetries after merging
-   *  \param[in]  max_normal_angle_diff       maximum angle between the normals of two distinct symmetries that will be merged
+   *  \param[in]  max_normal_angle_diff       maximum angle between the normals of two distinct symmetries that will be
+ * merged
    *  \param[in]  max_distance_diff           minimum distance between two symmetries that will be merged
-   *  \param[in]  max_reference_point_distance  maximum distance between the reference points of two symmetries that can be merged
+   *  \param[in]  max_reference_point_distance  maximum distance between the reference points of two symmetries that can
+ * be merged
    */
-inline void mergeDuplicateReflSymmetries(const std::vector<sym::ReflectionalSymmetry> &symmetries,
-                                         const Eigen::Vector3f &symmetry_reference_points,
-                                         const std::vector<int> &indices,
-                                         std::vector<int> &merged_sym_ids,
+inline void mergeDuplicateReflSymmetries(const std::vector<sym::ReflectionalSymmetry>& symmetries,
+                                         const Eigen::Vector3f& symmetry_reference_points,
+                                         const std::vector<int>& indices, std::vector<int>& merged_sym_ids,
                                          const float max_normal_angle_diff = pcl::deg2rad(10.0f),
                                          const float max_distance_diff = 0.01f,
                                          const float max_reference_point_distance = -1.0f);
@@ -79,13 +80,15 @@ inline void mergeDuplicateReflSymmetries(const std::vector<sym::ReflectionalSymm
    *  \param[in]  symmetry_scores             symmetry scores
    *  \param[in]  occlusion_scores            occlusion scores
    *  \param[out] merged_sym_ids              ids of symmetries after merging
-   *  \param[in]  max_normal_angle_diff       maximum angle between the normals of two distinct symmetries that will be merged
+   *  \param[in]  max_normal_angle_diff       maximum angle between the normals of two distinct symmetries that will be
+ * merged
    *  \param[in]  max_distance_diff           minimum distance between two symmetries that will be merged
-   *  \param[in]  max_reference_point_distance  maximum distance between the reference points of two symmetries that can be merged
+   *  \param[in]  max_reference_point_distance  maximum distance between the reference points of two symmetries that can
+ * be merged
    */
-inline void mergeDuplicateReflSymmetries(const std::vector<sym::ReflectionalSymmetry> &symmetries,
-                                         const Eigen::Vector3f &symmetry_reference_points,
-                                         std::vector<int> &merged_sym_ids,
+inline void mergeDuplicateReflSymmetries(const std::vector<sym::ReflectionalSymmetry>& symmetries,
+                                         const Eigen::Vector3f& symmetry_reference_points,
+                                         std::vector<int>& merged_sym_ids,
                                          const float max_normal_angle_diff = pcl::deg2rad(10.0f),
                                          const float max_distance_diff = 0.01f,
                                          const float max_reference_point_distance = -1.0f);
@@ -103,7 +106,7 @@ public:
   ReflectionalSymmetryDetection();
 
   /** \brief Constructor with custom parameters. */
-  explicit ReflectionalSymmetryDetection(const ReflSymDetectParams &params);
+  explicit ReflectionalSymmetryDetection(const ReflSymDetectParams& params);
 
   /** \brief Destructor. */
   ~ReflectionalSymmetryDetection();
@@ -111,17 +114,17 @@ public:
   /** \brief Provide a pointer to the input pointcloud.
      *  \param cloud the const boost shared pointer to a pointcloud
      */
-  inline void setInputCloud(const typename pcl::PointCloud<PointT>::ConstPtr &cloud);
+  inline void setInputCloud(const typename pcl::PointCloud<PointT>::ConstPtr& cloud);
 
   /** \brief Set initial symmetries.
      *  \param initial_symmetries   vector of initial symmetries
      */
-  inline void setInputSymmetries(const std::vector<sym::ReflectionalSymmetry> &symmetries_initial);
+  inline void setInputSymmetries(const std::vector<sym::ReflectionalSymmetry>& symmetries_initial);
 
   /** \brief Set detection parameters.
      *  \param params detection parameters
      */
-  inline void setParameters(const ReflSymDetectParams &params);
+  inline void setParameters(const ReflSymDetectParams& params);
 
   /** \brief Detect reflectional symmetries in the input pointcloud. */
   inline bool detect();
@@ -135,16 +138,15 @@ public:
      *  \param[out] symmetry_filtered_ids   indices of filtered symmetries
      *  \param[out] symmetry_merged_ids     indices of merged symmetries
      */
-  inline void getSymmetries(std::vector<sym::ReflectionalSymmetry> &symmetries,
-                            std::vector<int> &symmetry_filtered_ids);
+  inline void getSymmetries(std::vector<sym::ReflectionalSymmetry>& symmetries,
+                            std::vector<int>& symmetry_filtered_ids);
 
   /** \brief Get scores for the refined symmetries.
      *  \param[out] symmetry_scores           symmetry scores
      *  \param[out] occlusion_scores_         symmetry occlusion scores
      *  \param[out] symmetry_inlier_scores_   symmetry inlier scores
      */
-  inline void getScores(std::vector<float> &cloud_inlier_scores,
-                        std::vector<float> &corresp_inlier_scores);
+  inline void getScores(std::vector<float>& cloud_inlier_scores, std::vector<float>& corresp_inlier_scores);
 
   /** \brief Get point symmetry and occlusion scores for the refined symmetries.
      *  \param[out] cloud_ds                downsampled input cloud
@@ -152,9 +154,9 @@ public:
      *  \param[out] point_symmetry_scores   symmetry scores
      *  \param[out] point_occlusion_scores  occlusion scores
      */
-  inline void getPointScores(typename pcl::PointCloud<PointT>::Ptr &cloud_ds,
-                             std::vector<pcl::Correspondences> &correspondences,
-                             std::vector<std::vector<float>> &point_symmetry_scores);
+  inline void getPointScores(typename pcl::PointCloud<PointT>::Ptr& cloud_ds,
+                             std::vector<pcl::Correspondences>& correspondences,
+                             std::vector<std::vector<float>>& point_symmetry_scores);
 
 private:
   /** \brief Detection parameters. */

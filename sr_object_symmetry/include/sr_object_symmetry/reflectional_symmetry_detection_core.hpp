@@ -37,7 +37,7 @@ namespace sym
   *  \param[out] points        points on a unit sphere.
   *  \return   points on a unit sphere
   */
-inline bool generateSpherePoints(const int num_divs, std::vector<Eigen::Vector3f> &points)
+inline bool generateSpherePoints(const int num_divs, std::vector<Eigen::Vector3f>& points)
 {
   points.resize(0);
 
@@ -98,12 +98,9 @@ inline bool generateSpherePoints(const int num_divs, std::vector<Eigen::Vector3f
    *  \return FALSE if input pointcloud has less than three points (can't run PCA)
    */
 template <typename PointT>
-inline bool
-getInitialReflSymmetries(const typename pcl::PointCloud<PointT>::ConstPtr &cloud,
-                         std::vector<sym::ReflectionalSymmetry> &symmetries,
-                         Eigen::Vector3f &cloud_mean,
-                         int num_divisions,
-                         const float flatness_threhsold)
+inline bool getInitialReflSymmetries(const typename pcl::PointCloud<PointT>::ConstPtr& cloud,
+                                     std::vector<sym::ReflectionalSymmetry>& symmetries, Eigen::Vector3f& cloud_mean,
+                                     int num_divisions, const float flatness_threhsold)
 {
   symmetries.clear();
 
@@ -153,7 +150,7 @@ getInitialReflSymmetries(const typename pcl::PointCloud<PointT>::ConstPtr &cloud
 // Symmetry position refinement
 //----------------------------------------------------------------------------
 
-/** \brief Refine the position of a reflectional symmetry with respect to a 
+/** \brief Refine the position of a reflectional symmetry with respect to a
    * pointcloud by shifting it along the symmetry plane normal. The shift
    * distance is calculated by:
    *  1. finding symmetric correspondences of the cloud
@@ -171,15 +168,15 @@ getInitialReflSymmetries(const typename pcl::PointCloud<PointT>::ConstPtr &cloud
    *  \param[out] correspondences     correspondences used for refinement
    *  \param[in]  search_cylinder_radius    radius of the search cylinder
    *  \param[in]  max_sym_normal_fit_error  maximum normal error of fit (used for correspondence rejection)
-   *  \param[in]  min_sym_corresp_distance  maximum distance between two correspondences (used for correspondence rejection)
+   *  \param[in]  min_sym_corresp_distance  maximum distance between two correspondences (used for correspondence
+ * rejection)
    *  \return     FALSE if input cloud is empty or there were no correspondences found
    */
 template <typename PointT>
-inline bool refineReflSymPosition(const typename pcl::PointCloud<PointT>::ConstPtr &cloud,
-                                  const typename pcl::PointCloud<PointT>::ConstPtr &cloud_ds,
-                                  const sym::ReflectionalSymmetry &symmetry,
-                                  sym::ReflectionalSymmetry &symmetry_refined,
-                                  pcl::Correspondences &correspondences,
+inline bool refineReflSymPosition(const typename pcl::PointCloud<PointT>::ConstPtr& cloud,
+                                  const typename pcl::PointCloud<PointT>::ConstPtr& cloud_ds,
+                                  const sym::ReflectionalSymmetry& symmetry,
+                                  sym::ReflectionalSymmetry& symmetry_refined, pcl::Correspondences& correspondences,
                                   const float search_cylinder_radius = 0.01f,
                                   const float max_sym_normal_fit_error = pcl::deg2rad(10.0f),
                                   const float min_sym_corresp_distance = 0.02f)
@@ -236,8 +233,10 @@ inline bool refineReflSymPosition(const typename pcl::PointCloud<PointT>::ConstP
 
       // NOTE: this is required for faster convergence. Distance along symmetry
       // normal works faster than point to point distnace
-      // If the distance along the symmetry normal between the points of a symmetric correspondence is too small - reject
-      if (std::abs(symmetry.pointSignedDistance(srcPoint) - symmetry.pointSignedDistance(tgtPoint)) < min_sym_corresp_distance)
+      // If the distance along the symmetry normal between the points of a symmetric correspondence is too small -
+      // reject
+      if (std::abs(symmetry.pointSignedDistance(srcPoint) - symmetry.pointSignedDistance(tgtPoint)) <
+          min_sym_corresp_distance)
         continue;
 
       //         // NOTE: Looks like this gives no impovement in speed, neither in accuracy
@@ -285,7 +284,8 @@ inline bool refineReflSymPosition(const typename pcl::PointCloud<PointT>::ConstP
   {
     int queryId = correspondences[crspId].index_query;
     int matchId = correspondences[crspId].index_match;
-    positionFitErrors[crspId] = sym::getReflSymPositionFitError(cloud_ds->points[queryId].getVector3fMap(), cloud->points[matchId].getVector3fMap(), symmetry);
+    positionFitErrors[crspId] = sym::getReflSymPositionFitError(cloud_ds->points[queryId].getVector3fMap(),
+                                                                cloud->points[matchId].getVector3fMap(), symmetry);
   }
 
   // Get the median offset
@@ -304,7 +304,7 @@ inline bool refineReflSymPosition(const typename pcl::PointCloud<PointT>::ConstP
 /** \brief A functor for refining a symmetry candidate in a
    * Levenberg-Marquardt optimization. Given a set of symmetric correspondences
    * between oriented points and an initial reflectional symmetry candidate,
-   * find a relfectional symmetry candidate that minimizes the point to plane 
+   * find a relfectional symmetry candidate that minimizes the point to plane
    * distance between the first point corresponding point and the reflection
    * of the second corresponding point.
    * Symmetry parameters are stored in a 6 dimensional vector
@@ -321,7 +321,7 @@ struct ReflSymRefineFunctor : BaseFunctor<float>
      *  \param[in]  x coefficients of the symmetry plane
      *  \param[out] fvec error vector
      */
-  int operator()(const Eigen::VectorXf &x, Eigen::VectorXf &fvec) const
+  int operator()(const Eigen::VectorXf& x, Eigen::VectorXf& fvec) const
   {
     // Get current rotational symmetry
     ReflectionalSymmetry symmetry(x.head(3), x.tail(3));
@@ -350,7 +350,8 @@ struct ReflSymRefineFunctor : BaseFunctor<float>
     //         Eigen::Vector3f tgtPointReflected   = symmetry.reflectPoint(tgtPoint);
     //         Eigen::Vector3f tgtNormalReflected  = symmetry.reflectNormal(tgtNormal);
     //
-    //         fvec(srcPointIndex) += std::abs(utl::pointToPlaneSignedDistance<float>(srcPoint, tgtPointReflected, tgtNormalReflected));
+    //         fvec(srcPointIndex) += std::abs(utl::pointToPlaneSignedDistance<float>(srcPoint, tgtPointReflected,
+    //         tgtNormalReflected));
     //       }
 
     // Compute fitness
@@ -387,11 +388,17 @@ struct ReflSymRefineFunctor : BaseFunctor<float>
   pcl::Correspondences correspondences_;
 
   /** \brief Dimensionality of the optimization parameter vector. */
-  int inputs() const { return 6; }
+  int inputs() const
+  {
+    return 6;
+  }
 
   /** \brief Number of points. */
   //     int values() const { return this->cloud_ds_->size(); }
-  int values() const { return this->correspondences_.size(); }
+  int values() const
+  {
+    return this->correspondences_.size();
+  }
 };
 
 template <typename PointT>
@@ -416,17 +423,17 @@ struct ReflSymRefineFunctorDiff : Eigen::NumericalDiff<ReflSymRefineFunctor<Poin
    *  \param[out] correspondences           correspondences used for optimization
    *  \param[in]  max_iterations            maximum number of optimization iterations
    *  \param[in]  max_sym_normal_fit_error  maximum normal error of fit (used for correspondence rejection)
-   *  \param[in]  min_sym_corresp_distance  maximum distance between two correspondences (used for correspondence rejection)
-   *  \param[in]  max_sym_corresp_reflected_distance  maximum distance between the first point of a symmetric correspondence and a reflection of the second point (used for correspondence rejection)
+   *  \param[in]  min_sym_corresp_distance  maximum distance between two correspondences (used for correspondence
+ * rejection)
+   *  \param[in]  max_sym_corresp_reflected_distance  maximum distance between the first point of a symmetric
+ * correspondence and a reflection of the second point (used for correspondence rejection)
    *  \return     FALSE if input cloud is empty or there were no correspondences found during any iteration
    */
 template <typename PointT>
-inline bool refineReflSymGlobal(const typename pcl::search::KdTree<PointT> &search_tree,
-                                const typename pcl::PointCloud<PointT>::ConstPtr &cloud_ds,
-                                const Eigen::Vector3f &cloud_mean,
-                                const sym::ReflectionalSymmetry &symmetry,
-                                sym::ReflectionalSymmetry &symmetry_refined,
-                                pcl::Correspondences &correspondences,
+inline bool refineReflSymGlobal(const typename pcl::search::KdTree<PointT>& search_tree,
+                                const typename pcl::PointCloud<PointT>::ConstPtr& cloud_ds,
+                                const Eigen::Vector3f& cloud_mean, const sym::ReflectionalSymmetry& symmetry,
+                                sym::ReflectionalSymmetry& symmetry_refined, pcl::Correspondences& correspondences,
                                 const int max_iterations = 20,
                                 const float max_sym_normal_fit_error = pcl::deg2rad(45.0f),
                                 const float min_sym_corresp_distance = 0.02f,
@@ -501,8 +508,10 @@ inline bool refineReflSymGlobal(const typename pcl::search::KdTree<PointT> &sear
 
       // NOTE: this is required for faster convergence. Distance along symmetry
       // normal works faster than point to point distnace
-      // If the distance along the symmetry normal between the points of a symmetric correspondence is too small - reject
-      if (std::abs(symmetry.pointSignedDistance(srcPoint) - symmetry.pointSignedDistance(tgtPoint)) < min_sym_corresp_distance)
+      // If the distance along the symmetry normal between the points of a symmetric correspondence is too small -
+      // reject
+      if (std::abs(symmetry.pointSignedDistance(srcPoint) - symmetry.pointSignedDistance(tgtPoint)) <
+          min_sym_corresp_distance)
         continue;
 
       // If the distance between the reflected source point and it's nearest neighbor is too big - reject
@@ -563,4 +572,4 @@ inline bool refineReflSymGlobal(const typename pcl::search::KdTree<PointT> &sear
 }
 }
 
-#endif // REFLECTIONAL_SYMMETRY_DETECTION_CORE_HPP
+#endif  // REFLECTIONAL_SYMMETRY_DETECTION_CORE_HPP

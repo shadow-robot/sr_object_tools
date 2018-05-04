@@ -34,11 +34,21 @@ struct BaseFunctor
 
   int m_inputs, m_values;
 
-  BaseFunctor() : m_inputs(InputsAtCompileTime), m_values(ValuesAtCompileTime) {}
-  BaseFunctor(int inputs, int values) : m_inputs(inputs), m_values(values) {}
+  BaseFunctor() : m_inputs(InputsAtCompileTime), m_values(ValuesAtCompileTime)
+  {
+  }
+  BaseFunctor(int inputs, int values) : m_inputs(inputs), m_values(values)
+  {
+  }
 
-  int inputs() const { return m_inputs; }
-  int values() const { return m_values; }
+  int inputs() const
+  {
+    return m_inputs;
+  }
+  int values() const
+  {
+    return m_values;
+  }
 };
-} // namespace sym
+}  // namespace sym
 #endif  // REFINEMENT_BASE_FUNCTOR_HPP

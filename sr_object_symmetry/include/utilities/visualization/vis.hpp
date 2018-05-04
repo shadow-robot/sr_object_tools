@@ -12,9 +12,16 @@
 struct VisState
 {
   VisState()
-      : cloudDisplay_(CLOUD), updateDisplay_(true), showNormals_(false), showOccupancy_(false),
-        showSymmetry_(true), showReconstructedCloud_(false), segIterator_(0), instanceIdIt_(0),
-        pointSize_(5.0), showFullResolution_(true){};
+    : cloudDisplay_(CLOUD)
+    , updateDisplay_(true)
+    , showNormals_(false)
+    , showOccupancy_(false)
+    , showSymmetry_(true)
+    , showReconstructedCloud_(false)
+    , segIterator_(0)
+    , instanceIdIt_(0)
+    , pointSize_(5.0)
+    , showFullResolution_(true){};
 
   enum CloudDisplay
   {
@@ -44,9 +51,9 @@ struct VisState
 };
 
 // Callback
-void keyboard_callback(const pcl::visualization::KeyboardEvent &event, void *cookie)
+void keyboard_callback(const pcl::visualization::KeyboardEvent& event, void* cookie)
 {
-  VisState *visState = reinterpret_cast<VisState *>(cookie);
+  VisState* visState = reinterpret_cast<VisState*>(cookie);
 
   if (event.keyUp())
   {
@@ -111,4 +118,4 @@ void keyboard_callback(const pcl::visualization::KeyboardEvent &event, void *coo
   }
 }
 
-#endif // VIS_HPP_
+#endif  // VIS_HPP_

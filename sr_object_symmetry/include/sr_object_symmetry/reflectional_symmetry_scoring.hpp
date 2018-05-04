@@ -20,31 +20,29 @@ namespace sym
 /** \brief Calculate how well a symmetry hypothesis fits the individual points
    * of a pointcloud.
    * Two measures are calculated:
-   *  1. For points that have a symmetric correspondece the symmetry score is 
+   *  1. For points that have a symmetric correspondece the symmetry score is
    * calculated (angle between the normals of the points making a correspondence).
-   *  2. For all of the points of the cloud the occlusion score is calculated 
+   *  2. For all of the points of the cloud the occlusion score is calculated
    * based on the distance to the closest occluded/occupied cell
    *  \param[in]  cloud_search_tree         a precomputed search tree for the full resolution cloud
    *  \param[in]  cloud_ds                  a downsampled input cloud
    *  \param[in]  symmetry                  input symmetry
    *  \param[out] symmetric_correspondences symmetric correspondences
    *  \param[out] point_symmetry_scores     symmetry scores for points of the cloud that have symmetric correspondences
-   *  \param[in]  max_sym_corresp_reflected_distance  maximum distance between the first point of a symmetric correspondence and a reflection of the second point
+   *  \param[in]  max_sym_corresp_reflected_distance  maximum distance between the first point of a symmetric
+ * correspondence and a reflection of the second point
    *  \param[in]  min_inlier_normal_angle   minimum normal fit angle for an inlier symmetric correspondence
    *  \param[in]  max_inlier_normal_angle   maximum normal fit angle for an inlier symmetric correspondence
    */
 template <typename PointT>
-inline float reflSymPointSymmetryScores(const typename pcl::search::KdTree<PointT> &cloud_search_tree,
-                                        const pcl::PointCloud<PointT> &cloud_ds,
-                                        //                                       const Eigen::Vector4f &table_plane,
-                                        const std::vector<int> &cloud_boundary_point_ids,
-                                        const std::vector<int> &cloud_ds_boundary_point_ids,
-                                        const sym::ReflectionalSymmetry &symmetry,
-                                        pcl::Correspondences &symmetric_correspondences,
-                                        std::vector<float> &point_symmetry_scores,
-                                        const float max_sym_corresp_reflected_distance = 0.01f,
-                                        const float min_inlier_normal_angle = pcl::deg2rad(10.0f),
-                                        const float max_inlier_normal_angle = pcl::deg2rad(15.0f))
+inline float reflSymPointSymmetryScores(
+    const typename pcl::search::KdTree<PointT>& cloud_search_tree, const pcl::PointCloud<PointT>& cloud_ds,
+    //                                       const Eigen::Vector4f &table_plane,
+    const std::vector<int>& cloud_boundary_point_ids, const std::vector<int>& cloud_ds_boundary_point_ids,
+    const sym::ReflectionalSymmetry& symmetry, pcl::Correspondences& symmetric_correspondences,
+    std::vector<float>& point_symmetry_scores, const float max_sym_corresp_reflected_distance = 0.01f,
+    const float min_inlier_normal_angle = pcl::deg2rad(10.0f),
+    const float max_inlier_normal_angle = pcl::deg2rad(15.0f))
 {
   //--------------------------------------------------------------------------
   // Check input
@@ -88,12 +86,16 @@ inline float reflSymPointSymmetryScores(const typename pcl::search::KdTree<Point
     {
       Eigen::Vector3f tgtNormal = cloud->points[neighbours[0]].getNormalVector3fMap();
 
-      // If point belongs to segment boundary, we reduce it's score in half, since normals at the boundary of the segment are usually noisy
-      if (std::find(cloud_ds_boundary_point_ids.begin(), cloud_ds_boundary_point_ids.end(), pointId) != cloud_ds_boundary_point_ids.end() ||
-          std::find(cloud_boundary_point_ids.begin(), cloud_boundary_point_ids.end(), neighbours[0]) != cloud_boundary_point_ids.end())
+      // If point belongs to segment boundary, we reduce it's score in half, since normals at the boundary of the
+      // segment are usually noisy
+      if (std::find(cloud_ds_boundary_point_ids.begin(), cloud_ds_boundary_point_ids.end(), pointId) !=
+              cloud_ds_boundary_point_ids.end() ||
+          std::find(cloud_boundary_point_ids.begin(), cloud_boundary_point_ids.end(), neighbours[0]) !=
+              cloud_boundary_point_ids.end())
         continue;
 
-      //         if (utl::lineLineAngle<float>((srcPoint - tgtPoint).normalized(), symmetry.getNormal()) > pcl::deg2rad(15.0f))
+      //         if (utl::lineLineAngle<float>((srcPoint - tgtPoint).normalized(), symmetry.getNormal()) >
+      //         pcl::deg2rad(15.0f))
       //           continue;
 
       // Calculate error
@@ -114,12 +116,14 @@ inline float reflSymPointSymmetryScores(const typename pcl::search::KdTree<Point
       point_symmetry_scores.push_back(symmetryScore);
     }
 
-    //       else if (std::abs(utl::pointToPlaneSignedDistance<float>(srcPointReflected, table_plane)) < max_sym_corresp_reflected_distance)
+    //       else if (std::abs(utl::pointToPlaneSignedDistance<float>(srcPointReflected, table_plane)) <
+    //       max_sym_corresp_reflected_distance)
     //       {
     //         float symmetryScore = sym::getReflSymNormalFitError (srcNormal, -planeNormal, symmetry, true);
     //         if (symmetryScore > max_inlier_normal_angle)
     //           continue;
-    //         symmetryScore = (symmetryScore - min_inlier_normal_angle) / (max_inlier_normal_angle - min_inlier_normal_angle);
+    //         symmetryScore = (symmetryScore - min_inlier_normal_angle) / (max_inlier_normal_angle -
+    //         min_inlier_normal_angle);
     //         symmetryScore = utl::clampValue(symmetryScore, 0.0f, 1.0f);
     //
     //         // If all checks passed - add correspondence
@@ -134,18 +138,18 @@ inline float reflSymPointSymmetryScores(const typename pcl::search::KdTree<Point
 /** \brief Calculate how well a symmetry hypothesis fits the individual points
    * of a pointcloud.
    * Two measures are calculated:
-   *  1. For points that have a symmetric correspondece the symmetry score is 
+   *  1. For points that have a symmetric correspondece the symmetry score is
    * calculated (angle between the normals of the points making a correspondence).
-   *  2. For all of the points of the cloud the occlusion score is calculated 
+   *  2. For all of the points of the cloud the occlusion score is calculated
    * based on the distance to the closest occluded/occupied cell
    *  \param[in]  cloud                           input cloud
    *  \param[in]  symmetry                        input symmetry
    *  \param[out] point_perpendicularity_scores   occlusion scores for all points of the cloud
    */
 template <typename PointT>
-inline bool reflSymPointPerpendicularScores(const pcl::PointCloud<PointT> &cloud,
-                                            const sym::ReflectionalSymmetry &symmetry,
-                                            std::vector<float> &point_perpendicular_scores,
+inline bool reflSymPointPerpendicularScores(const pcl::PointCloud<PointT>& cloud,
+                                            const sym::ReflectionalSymmetry& symmetry,
+                                            std::vector<float>& point_perpendicular_scores,
                                             const float min_perpendicular_angle = pcl::deg2rad(45.0f),
                                             const float max_perpendicular_angle = pcl::deg2rad(80.0f))
 {
@@ -176,4 +180,4 @@ inline bool reflSymPointPerpendicularScores(const pcl::PointCloud<PointT> &cloud
 }
 }
 
-#endif // REFLECTIONAL_SYMMETRY_SCORING_HPP
+#endif  // REFLECTIONAL_SYMMETRY_SCORING_HPP

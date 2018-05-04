@@ -27,9 +27,8 @@ namespace sym
    *  \return FALSE if input pointcloud has less than three points (can't run PCA)
    */
 template <typename PointT>
-inline bool getInitialRotSymmetries(const typename pcl::PointCloud<PointT>::ConstPtr &cloud,
-                                    std::vector<sym::RotationalSymmetry> &symmetries,
-                                    Eigen::Vector3f &cloud_mean)
+inline bool getInitialRotSymmetries(const typename pcl::PointCloud<PointT>::ConstPtr& cloud,
+                                    std::vector<sym::RotationalSymmetry>& symmetries, Eigen::Vector3f& cloud_mean)
 {
   symmetries.clear();
 
@@ -68,14 +67,13 @@ template <typename PointT>
 struct RotSymRefineFunctor : BaseFunctor<float>
 {
   /** \brief Empty constructor */
-  RotSymRefineFunctor()
-      : max_fit_angle_(1.0f){};
+  RotSymRefineFunctor() : max_fit_angle_(1.0f){};
 
   /** \brief Compute fitness for each input point.
      *  \param[in]  x symmetry axis
      *  \param[out] fvec error vector
      */
-  int operator()(const Eigen::VectorXf &x, Eigen::VectorXf &fvec) const
+  int operator()(const Eigen::VectorXf& x, Eigen::VectorXf& fvec) const
   {
     // Get current rotational symmetry
     RotationalSymmetry symmetry(x.head(3), x.tail(3));
@@ -84,8 +82,7 @@ struct RotSymRefineFunctor : BaseFunctor<float>
     for (size_t i = 0; i < this->cloud_->size(); i++)
     {
       float angle = getRotSymFitError(this->cloud_->points[i].getVector3fMap(),
-                                      this->cloud_->points[i].getNormalVector3fMap(),
-                                      symmetry);
+                                      this->cloud_->points[i].getNormalVector3fMap(), symmetry);
 
       fvec(i) = std::min(angle, max_fit_angle_);
     }
@@ -99,10 +96,16 @@ struct RotSymRefineFunctor : BaseFunctor<float>
   float max_fit_angle_;
 
   /** \brief Dimensionality of the optimization parameter vector. */
-  int inputs() const { return 6; }
+  int inputs() const
+  {
+    return 6;
+  }
 
   /** \brief Number of points. */
-  int values() const { return this->cloud_->size(); }
+  int values() const
+  {
+    return this->cloud_->size();
+  }
 };
 
 template <typename PointT>
@@ -111,4 +114,4 @@ struct RotSymRefineFunctorDiff : Eigen::NumericalDiff<RotSymRefineFunctor<PointT
 };
 }
 
-#endif // ROTATIONAL_SYMMETRY_DETECTION_CORE_HPP
+#endif  // ROTATIONAL_SYMMETRY_DETECTION_CORE_HPP

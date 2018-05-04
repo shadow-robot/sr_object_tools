@@ -20,12 +20,10 @@
 #include <sr_object_symmetry/rotational_symmetry_scoring.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
-inline void sym::mergeDuplicateRotSymmetries(const std::vector<sym::RotationalSymmetry> &symmetries,
-                                             const Eigen::Vector3f &symmetry_reference_points,
-                                             const std::vector<int> &indices,
-                                             std::vector<int> &merged_sym_ids,
-                                             const float max_angle_diff,
-                                             const float max_distance_diff)
+inline void sym::mergeDuplicateRotSymmetries(const std::vector<sym::RotationalSymmetry>& symmetries,
+                                             const Eigen::Vector3f& symmetry_reference_points,
+                                             const std::vector<int>& indices, std::vector<int>& merged_sym_ids,
+                                             const float max_angle_diff, const float max_distance_diff)
 {
   merged_sym_ids.clear();
 
@@ -68,17 +66,17 @@ inline void sym::mergeDuplicateRotSymmetries(const std::vector<sym::RotationalSy
       int hypId = indices[hypothesisCCs[clusterId][hypIt]];
       bestHypId = hypId;
       if (bestHypId == -1)
-        std::cout << "[sym::mergeDuplicateRotSymmetries] Could not select best hypothesis. Probably going to crash now." << std::endl;
+        std::cout << "[sym::mergeDuplicateRotSymmetries] Could not select best hypothesis. Probably going to crash now."
+                  << std::endl;
       merged_sym_ids[clusterId] = bestHypId;
     }
   }
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-inline void sym::mergeDuplicateRotSymmetries(const std::vector<sym::RotationalSymmetry> &symmetries,
-                                             const Eigen::Vector3f &symmetry_reference_points,
-                                             std::vector<int> &merged_sym_ids,
-                                             const float max_normal_angle_diff,
+inline void sym::mergeDuplicateRotSymmetries(const std::vector<sym::RotationalSymmetry>& symmetries,
+                                             const Eigen::Vector3f& symmetry_reference_points,
+                                             std::vector<int>& merged_sym_ids, const float max_normal_angle_diff,
                                              const float max_distance_diff)
 {
   // Create fake indices
@@ -87,27 +85,21 @@ inline void sym::mergeDuplicateRotSymmetries(const std::vector<sym::RotationalSy
     indices[symId] = symId;
 
   // Merge symmetries
-  mergeDuplicateRotSymmetries(symmetries,
-                              symmetry_reference_points,
-                              indices,
-                              merged_sym_ids,
-                              max_normal_angle_diff,
+  mergeDuplicateRotSymmetries(symmetries, symmetry_reference_points, indices, merged_sym_ids, max_normal_angle_diff,
                               max_distance_diff);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 template <typename PointT>
-sym::RotationalSymmetryDetection<PointT>::RotationalSymmetryDetection() : params_(),
-                                                                          cloud_(new pcl::PointCloud<PointT>),
-                                                                          cloud_no_boundary_(new pcl::PointCloud<PointT>)
+sym::RotationalSymmetryDetection<PointT>::RotationalSymmetryDetection()
+  : params_(), cloud_(new pcl::PointCloud<PointT>), cloud_no_boundary_(new pcl::PointCloud<PointT>)
 {
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 template <typename PointT>
-sym::RotationalSymmetryDetection<PointT>::RotationalSymmetryDetection(const sym::RotSymDetectParams &params) : params_(params),
-                                                                                                               cloud_(new pcl::PointCloud<PointT>),
-                                                                                                               cloud_no_boundary_(new pcl::PointCloud<PointT>)
+sym::RotationalSymmetryDetection<PointT>::RotationalSymmetryDetection(const sym::RotSymDetectParams& params)
+  : params_(params), cloud_(new pcl::PointCloud<PointT>), cloud_no_boundary_(new pcl::PointCloud<PointT>)
 {
 }
 
@@ -120,31 +112,29 @@ sym::RotationalSymmetryDetection<PointT>::~RotationalSymmetryDetection()
 ////////////////////////////////////////////////////////////////////////////////
 template <typename PointT>
 inline void
-sym::RotationalSymmetryDetection<PointT>::setInputCloud(const typename pcl::PointCloud<PointT>::ConstPtr &cloud)
+sym::RotationalSymmetryDetection<PointT>::setInputCloud(const typename pcl::PointCloud<PointT>::ConstPtr& cloud)
 {
   cloud_ = cloud;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 template <typename PointT>
-inline void
-sym::RotationalSymmetryDetection<PointT>::setInputSymmetries(const std::vector<sym::RotationalSymmetry> &symmetries_initial)
+inline void sym::RotationalSymmetryDetection<PointT>::setInputSymmetries(
+    const std::vector<sym::RotationalSymmetry>& symmetries_initial)
 {
   symmetries_initial_ = symmetries_initial;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 template <typename PointT>
-inline void
-sym::RotationalSymmetryDetection<PointT>::setParameters(const RotSymDetectParams &params)
+inline void sym::RotationalSymmetryDetection<PointT>::setParameters(const RotSymDetectParams& params)
 {
   params_ = params;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 template <typename PointT>
-inline bool
-sym::RotationalSymmetryDetection<PointT>::detect()
+inline bool sym::RotationalSymmetryDetection<PointT>::detect()
 {
   //--------------------------------------------------------------------------
   // Entry checks
@@ -219,16 +209,12 @@ sym::RotationalSymmetryDetection<PointT>::detect()
     symmetries_refined_[symId] = sym::RotationalSymmetry(x.head(3), x.tail(3));
     symmetries_refined_[symId].setOriginProjected(cloud_mean_);
     // Score symmetry
-    symmetry_scores_[symId] = sym::rotSymCloudSymmetryScore<PointT>(*cloud_no_boundary_,
-                                                                    symmetries_refined_[symId],
-                                                                    point_symmetry_scores_[symId],
-                                                                    params_.min_normal_fit_angle,
-                                                                    params_.max_normal_fit_angle);
-    perpendicular_scores_[symId] = sym::rotSymCloudPerpendicularScores<PointT>(*cloud_no_boundary_,
-                                                                               symmetries_refined_[symId],
-                                                                               point_perpendicular_scores_[symId]);
-    coverage_scores_[symId] = sym::rotSymCloudCoverageAngle<PointT>(*cloud_,
-                                                                    symmetries_refined_[symId]);
+    symmetry_scores_[symId] = sym::rotSymCloudSymmetryScore<PointT>(
+        *cloud_no_boundary_, symmetries_refined_[symId], point_symmetry_scores_[symId], params_.min_normal_fit_angle,
+        params_.max_normal_fit_angle);
+    perpendicular_scores_[symId] = sym::rotSymCloudPerpendicularScores<PointT>(
+        *cloud_no_boundary_, symmetries_refined_[symId], point_perpendicular_scores_[symId]);
+    coverage_scores_[symId] = sym::rotSymCloudCoverageAngle<PointT>(*cloud_, symmetries_refined_[symId]);
     coverage_scores_[symId] /= (M_PI * 2);
   }
 
@@ -237,8 +223,7 @@ sym::RotationalSymmetryDetection<PointT>::detect()
 
 ////////////////////////////////////////////////////////////////////////////////
 template <typename PointT>
-inline void
-sym::RotationalSymmetryDetection<PointT>::filter()
+inline void sym::RotationalSymmetryDetection<PointT>::filter()
 {
   symmetry_filtered_ids_.clear();
   for (size_t symId = 0; symId < symmetries_refined_.size(); symId++)
@@ -263,8 +248,8 @@ sym::RotationalSymmetryDetection<PointT>::filter()
 
 ////////////////////////////////////////////////////////////////////////////////
 template <typename PointT>
-inline void sym::RotationalSymmetryDetection<PointT>::getSymmetries(std::vector<sym::RotationalSymmetry> &symmetries,
-                                                                    std::vector<int> &symmetry_filtered_ids)
+inline void sym::RotationalSymmetryDetection<PointT>::getSymmetries(std::vector<sym::RotationalSymmetry>& symmetries,
+                                                                    std::vector<int>& symmetry_filtered_ids)
 {
   symmetries = symmetries_refined_;
   symmetry_filtered_ids = symmetry_filtered_ids_;
@@ -272,13 +257,13 @@ inline void sym::RotationalSymmetryDetection<PointT>::getSymmetries(std::vector<
 
 ////////////////////////////////////////////////////////////////////////////////
 template <typename PointT>
-inline void sym::RotationalSymmetryDetection<PointT>::getScores(std::vector<float> &symmetry_scores,
-                                                                std::vector<float> &perpendicular_scores,
-                                                                std::vector<float> &coverage_scores)
+inline void sym::RotationalSymmetryDetection<PointT>::getScores(std::vector<float>& symmetry_scores,
+                                                                std::vector<float>& perpendicular_scores,
+                                                                std::vector<float>& coverage_scores)
 {
   symmetry_scores = symmetry_scores_;
   perpendicular_scores = perpendicular_scores_;
   coverage_scores = coverage_scores_;
 }
 
-#endif // ROTATIONAL_SYMMETRY_DETECTION_HPP
+#endif  // ROTATIONAL_SYMMETRY_DETECTION_HPP

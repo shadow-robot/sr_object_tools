@@ -16,11 +16,13 @@ struct Color
   double g;
   double b;
 
-  Color()
-      : r(-1), g(-1), b(-1){}
+  Color() : r(-1), g(-1), b(-1)
+  {
+  }
 
-  Color(const double r, const double g, const double b)
-      : r(r), g(g), b(b){}
+  Color(const double r, const double g, const double b) : r(r), g(g), b(b)
+  {
+  }
 
   std::vector<double> toStdVec()
   {
@@ -31,12 +33,12 @@ struct Color
     return c;
   }
 
-  bool operator==(const Color &rhs) const
+  bool operator==(const Color& rhs) const
   {
     return (r == rhs.r && b == rhs.b && g == rhs.b);
   }
 
-  bool operator!=(const Color &rhs) const
+  bool operator!=(const Color& rhs) const
   {
     return (r != rhs.r && b != rhs.b && g != rhs.b);
   }

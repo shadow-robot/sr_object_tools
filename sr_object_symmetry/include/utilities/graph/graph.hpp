@@ -32,4 +32,4 @@ public:
 };
 }
 
-#endif // GRAPH_UTILITIES_HPP
+#endif  // GRAPH_UTILITIES_HPP

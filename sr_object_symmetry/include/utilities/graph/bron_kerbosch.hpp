@@ -18,14 +18,13 @@ struct CliqueVisitor
   typedef boost::property_map<GraphBoost, boost::vertex_index_t>::type IndexMap;
 
   // Constructor
-  CliqueVisitor(IndexMap &index, std::list<std::list<int>> &cliques)
-      : index_(index), cliques_(cliques)
+  CliqueVisitor(IndexMap& index, std::list<std::list<int>>& cliques) : index_(index), cliques_(cliques)
   {
   }
 
   // This function is called for every clique
   template <typename Clique, typename Graph>
-  void clique(const Clique &c, const Graph &g)
+  void clique(const Clique& c, const Graph& g)
   {
     std::list<int> curClique;
 
@@ -36,8 +35,8 @@ struct CliqueVisitor
     cliques_.push_back(curClique);
   }
 
-  IndexMap &index_;
-  std::list<std::list<int>> &cliques_;
+  IndexMap& index_;
+  std::list<std::list<int>>& cliques_;
 };
 
 namespace utl
@@ -49,9 +48,7 @@ namespace utl
    *  \param[in]  min_clique_size minimum size of a valid clique
    *  \note this is a wrapper around Bron-Kerbosch implementation in Boost library
    */
-int bronKerbosch(const utl::Graph &graph,
-                 std::list<std::list<int>> &cliques,
-                 const int min_clique_size = 2)
+int bronKerbosch(const utl::Graph& graph, std::list<std::list<int>>& cliques, const int min_clique_size = 2)
 {
   typedef boost::adjacency_list<boost::vecS, boost::vecS, boost::undirectedS> GraphBoost;
   typedef boost::property_map<GraphBoost, boost::vertex_index_t>::type IndexMap;
@@ -75,4 +72,4 @@ int bronKerbosch(const utl::Graph &graph,
 }
 }
 
-#endif // BRON_KERBOSCH_HPP
+#endif  // BRON_KERBOSCH_HPP

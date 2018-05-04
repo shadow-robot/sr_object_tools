@@ -39,8 +39,7 @@ public:
      *  \param[in] weight edge weight
      *  \return false if graph is not consistent
     */
-  inline bool
-  addEdge(const int vtx1_id, const int vtx2_id, const float weight)
+  inline bool addEdge(const int vtx1_id, const int vtx2_id, const float weight)
   {
     return utl::GraphBase<Vertex, EdgeWeighted>::addEdge(EdgeWeighted(vtx1_id, vtx2_id, weight));
   }
@@ -52,8 +51,7 @@ public:
      *  \param[out] weight    weight of the edge
      *  \return FALSE if requested edge id is greater than number of edges.
      */
-  inline bool
-  getEdge(const int edge_id, int &vtx1_id, int &vtx2_id, float &weight) const
+  inline bool getEdge(const int edge_id, int& vtx1_id, int& vtx2_id, float& weight) const
   {
     if (edge_id >= getNumEdges())
     {
@@ -80,8 +78,7 @@ public:
      *  \param[in] weight edge weight
      *  \return false if edge does not exist
      */
-  inline bool
-  setEdgeWeight(const int vtx1_id, const int vtx2_id, const float weight)
+  inline bool setEdgeWeight(const int vtx1_id, const int vtx2_id, const float weight)
   {
     // NOTE: this should be replaced by the getEdge method
     // Check if v1 and v2 already exist
@@ -92,7 +89,8 @@ public:
     // If the edge doesn't exist - return false
     if (vtx1NbrIt == -1 && vtx2NbrIt == -1)
     {
-      std::cout << "[utl::GraphWeighted::setEdgeWeight] edge does not exist in the graph (vtx1: " << vtx1_id << ", vtx2: " << vtx2_id << ")." << std::endl;
+      std::cout << "[utl::GraphWeighted::setEdgeWeight] edge does not exist in the graph (vtx1: " << vtx1_id
+                << ", vtx2: " << vtx2_id << ")." << std::endl;
       return false;
     }
 
@@ -108,12 +106,12 @@ public:
      *  \param[in] weight edge weight
      *  \return false if edge does not exist
      */
-  inline bool
-  setEdgeWeight(const int edge_id, const float weight)
+  inline bool setEdgeWeight(const int edge_id, const float weight)
   {
     if (edge_id > getNumEdges())
     {
-      std::cout << "[utl::GraphWeighted::setEdgeWeight] edge does not exist in the graph (edge id: " << edge_id << ", num edges: " << getNumEdges() << ")." << std::endl;
+      std::cout << "[utl::GraphWeighted::setEdgeWeight] edge does not exist in the graph (edge id: " << edge_id
+                << ", num edges: " << getNumEdges() << ")." << std::endl;
       return false;
     }
 
@@ -129,8 +127,7 @@ public:
      *  \param[out] weight edge weight
      *  \return false if edge does not exist
      */
-  inline bool
-  getEdgeWeight(const int vtx1_id, const int vtx2_id, float &weight)
+  inline bool getEdgeWeight(const int vtx1_id, const int vtx2_id, float& weight)
   {
     // NOTE: this should be replaced by the getEdge method
     // Check if v1 and v2 already exist
@@ -141,7 +138,8 @@ public:
     // If the edge doesn't exist - return false
     if (vtx1NbrIt == -1 && vtx2NbrIt == -1)
     {
-      std::cout << "[utl::GraphWeighted::getEdgeWeight] edge does not exist in the graph (vtx1: " << vtx1_id << ", vtx2: " << vtx2_id << ")." << std::endl;
+      std::cout << "[utl::GraphWeighted::getEdgeWeight] edge does not exist in the graph (vtx1: " << vtx1_id
+                << ", vtx2: " << vtx2_id << ")." << std::endl;
       return false;
     }
 
@@ -157,12 +155,12 @@ public:
      *  \param[in] weight edge weight
      *  \return false if edge does not exist
      */
-  inline bool
-  getEdgeWeight(const int edge_id, float &weight)
+  inline bool getEdgeWeight(const int edge_id, float& weight)
   {
     if (edge_id > getNumEdges())
     {
-      std::cout << "[utl::GraphWeighted::setEdgeWeight] edge does not exist in the graph (edge id: " << edge_id << ", num edges: " << getNumEdges() << ")." << std::endl;
+      std::cout << "[utl::GraphWeighted::setEdgeWeight] edge does not exist in the graph (edge id: " << edge_id
+                << ", num edges: " << getNumEdges() << ")." << std::endl;
       return false;
     }
 
@@ -174,4 +172,4 @@ public:
 };
 }
 
-#endif // GRAPH_WEIGHTED_UTILITIES_HPP
+#endif  // GRAPH_WEIGHTED_UTILITIES_HPP

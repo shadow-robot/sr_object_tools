@@ -44,13 +44,13 @@ struct RotSymDetectParams
    *  \param[in]  indices                     indices of the symmetries used
    *  \param[in]  symmetry_scores             symmetry scores for input symmetries
    *  \param[out] merged_sym_ids              ids of symmetries after merging
-   *  \param[in]  max_angle_diff              maximum angle between the axes of two distinct symmetries that will be merged
+   *  \param[in]  max_angle_diff              maximum angle between the axes of two distinct symmetries that will be
+ * merged
    *  \param[in]  max_distance_diff           minimum distance between two symmetries that will be merged
    */
-inline void mergeDuplicateRotSymmetries(const std::vector<sym::RotationalSymmetry> &symmetries,
-                                        const Eigen::Vector3f &symmetry_reference_points,
-                                        const std::vector<int> &indices,
-                                        std::vector<int> &merged_sym_ids,
+inline void mergeDuplicateRotSymmetries(const std::vector<sym::RotationalSymmetry>& symmetries,
+                                        const Eigen::Vector3f& symmetry_reference_points,
+                                        const std::vector<int>& indices, std::vector<int>& merged_sym_ids,
                                         const float max_angle_diff = pcl::deg2rad(10.0f),
                                         const float max_distance_diff = 0.01f);
 
@@ -59,12 +59,13 @@ inline void mergeDuplicateRotSymmetries(const std::vector<sym::RotationalSymmetr
    *  \param[in]  symmetry_reference_points   reference points for input symmetries
    *  \param[in]  symmetry_scores             symmetry scores for input symmetries
    *  \param[out] merged_sym_ids              ids of symmetries after merging
-   *  \param[in]  max_angle_diff              maximum angle between the axes of two distinct symmetries that will be merged
+   *  \param[in]  max_angle_diff              maximum angle between the axes of two distinct symmetries that will be
+ * merged
    *  \param[in]  max_distance_diff           minimum distance between two symmetries that will be merged
    */
-inline void mergeDuplicateRotSymmetries(const std::vector<sym::RotationalSymmetry> &symmetries,
-                                        const Eigen::Vector3f &symmetry_reference_points,
-                                        std::vector<int> &merged_sym_ids,
+inline void mergeDuplicateRotSymmetries(const std::vector<sym::RotationalSymmetry>& symmetries,
+                                        const Eigen::Vector3f& symmetry_reference_points,
+                                        std::vector<int>& merged_sym_ids,
                                         const float max_normal_angle_diff = pcl::deg2rad(10.0f),
                                         const float max_distance_diff = 0.01f);
 
@@ -81,7 +82,7 @@ public:
   RotationalSymmetryDetection();
 
   /** \brief Constructor with custom parameters. */
-  explicit RotationalSymmetryDetection(const RotSymDetectParams &params);
+  explicit RotationalSymmetryDetection(const RotSymDetectParams& params);
 
   /** \brief Destructor. */
   ~RotationalSymmetryDetection();
@@ -89,17 +90,17 @@ public:
   /** \brief Provide a pointer to the input pointcloud.
      *  \param cloud pointer to a pointcloud
      */
-  inline void setInputCloud(const typename pcl::PointCloud<PointT>::ConstPtr &cloud);
+  inline void setInputCloud(const typename pcl::PointCloud<PointT>::ConstPtr& cloud);
 
   /** \brief Set initial symmetries.
      *  \param initial_symmetries   vector of initial symmetries
      */
-  inline void setInputSymmetries(const std::vector<sym::RotationalSymmetry> &symmetries_initial);
+  inline void setInputSymmetries(const std::vector<sym::RotationalSymmetry>& symmetries_initial);
 
   /** \brief Set detection parameters.
      *  \param params detection parameters
      */
-  inline void setParameters(const RotSymDetectParams &params);
+  inline void setParameters(const RotSymDetectParams& params);
 
   /** \brief Detect reflectional symmetries in the input pointcloud. */
   inline bool detect();
@@ -116,25 +117,23 @@ public:
      *  \param[out] symmetry_filtered_ids   indices of filtered symmetries
      *  \param[out] symmetry_merged_ids     indices of merged symmetries
      */
-  inline void getSymmetries(std::vector<sym::RotationalSymmetry> &symmetries,
-                            std::vector<int> &symmetry_filtered_ids);
+  inline void getSymmetries(std::vector<sym::RotationalSymmetry>& symmetries, std::vector<int>& symmetry_filtered_ids);
 
   /** \brief Get scores for the refined symmetries.
      *  \param[out] symmetry_scores           symmetry scores
      *  \param[out] perpendicular_scores_     perpendicular scores
      *  \param[out] coverage_scores_          coverage scores
      */
-  inline void getScores(std::vector<float> &symmetry_scores,
-                        std::vector<float> &perpendicular_scores,
-                        std::vector<float> &coverage_scores);
+  inline void getScores(std::vector<float>& symmetry_scores, std::vector<float>& perpendicular_scores,
+                        std::vector<float>& coverage_scores);
 
   /** \brief Get point symmetry and occlusion scores for the refined symmetries.
      *  \param[out] point_symmetry_scores       symmetry scores
      *  \param[out] point_perpendicular_scores  perpendicular scores
      */
-  inline void getPointScores(std::vector<std::vector<float>> &point_symmetry_scores,
-                             std::vector<std::vector<float>> &point_perpendicular_scores,
-                             std::vector<int> &cloud_no_boundary_point_ids);
+  inline void getPointScores(std::vector<std::vector<float>>& point_symmetry_scores,
+                             std::vector<std::vector<float>>& point_perpendicular_scores,
+                             std::vector<int>& cloud_no_boundary_point_ids);
 
 private:
   /** \brief Detection parameters. */

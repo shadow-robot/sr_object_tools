@@ -15,7 +15,6 @@
 
 namespace utl
 {
-
 /** \brief Given a set of vertices in a graph return all edges between
    * the input set of vertices and the rest of the vertices in the graph.
    *  \param[in]  graph           graph
@@ -23,10 +22,8 @@ namespace utl
    *  \param[in]  cut_edge_graph  a graph only containing the edges belonging to the cut
    */
 template <typename VertexT, typename EdgeT>
-inline void
-getCutEdges(const utl::GraphBase<VertexT, EdgeT> &graph,
-            const std::vector<int> &cut_vertices,
-            utl::GraphBase<VertexT, EdgeT> &cut_edge_graph)
+inline void getCutEdges(const utl::GraphBase<VertexT, EdgeT>& graph, const std::vector<int>& cut_vertices,
+                        utl::GraphBase<VertexT, EdgeT>& cut_edge_graph)
 {
   cut_edge_graph.clear();
 
@@ -53,13 +50,12 @@ getCutEdges(const utl::GraphBase<VertexT, EdgeT> &graph,
 /** \brief Find connected components in the graph.
    *  \param[in]  graph         graph object
    *  \param[in]  min_cc_size   minimum size of a valid connected component (default 0)
-   *  \return    a vector of vectors where each inner vector corresponds to a 
+   *  \return    a vector of vectors where each inner vector corresponds to a
    *             connected component and stores the indices of vertices belonging
    *             to it.
    */
 template <typename NeighborT, typename EdgeT>
-inline utl::Map
-getConnectedComponents(const utl::GraphBase<NeighborT, EdgeT> &graph, const int min_cc_size = 0)
+inline utl::Map getConnectedComponents(const utl::GraphBase<NeighborT, EdgeT>& graph, const int min_cc_size = 0)
 {
   std::vector<bool> visited(graph.getNumVertices(), false);
   utl::Map CCs;
@@ -106,4 +102,4 @@ getConnectedComponents(const utl::GraphBase<NeighborT, EdgeT> &graph, const int 
 }
 }
 
-#endif // GRAPH_ALGORITHMS_HPP
+#endif  // GRAPH_ALGORITHMS_HPP

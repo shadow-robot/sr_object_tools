@@ -23,9 +23,8 @@ namespace sym
    *  \return symmetry score for the whole pointcloud
    */
 template <typename PointT>
-inline float rotSymCloudSymmetryScore(const pcl::PointCloud<PointT> &cloud,
-                                      const sym::RotationalSymmetry &symmetry,
-                                      std::vector<float> &point_symmetry_scores,
+inline float rotSymCloudSymmetryScore(const pcl::PointCloud<PointT>& cloud, const sym::RotationalSymmetry& symmetry,
+                                      std::vector<float>& point_symmetry_scores,
                                       const float min_normal_fit_angle = 0.0f,
                                       const float max_normal_fit_angle = M_PI / 2)
 {
@@ -56,9 +55,9 @@ inline float rotSymCloudSymmetryScore(const pcl::PointCloud<PointT> &cloud,
    *  \return cloud perpendicularity score
    */
 template <typename PointT>
-inline float rotSymCloudPerpendicularScores(const pcl::PointCloud<PointT> &cloud,
-                                            const sym::RotationalSymmetry &symmetry,
-                                            std::vector<float> &point_perpendicular_scores,
+inline float rotSymCloudPerpendicularScores(const pcl::PointCloud<PointT>& cloud,
+                                            const sym::RotationalSymmetry& symmetry,
+                                            std::vector<float>& point_perpendicular_scores,
                                             const float angle_threshold = M_PI / 2)
 {
   // Check that cloud is non-zero
@@ -72,17 +71,18 @@ inline float rotSymCloudPerpendicularScores(const pcl::PointCloud<PointT> &cloud
   point_perpendicular_scores.resize(cloud.size());
 
   for (size_t pointId = 0; pointId < cloud.size(); pointId++)
-    point_perpendicular_scores[pointId] = sym::getRotSymPerpendicularity(cloud.points[pointId].getNormalVector3fMap(), symmetry, angle_threshold);
+    point_perpendicular_scores[pointId] =
+        sym::getRotSymPerpendicularity(cloud.points[pointId].getNormalVector3fMap(), symmetry, angle_threshold);
 
   // Normalize and return
   return utl::mean(point_perpendicular_scores);
 }
 
-/** \brief Get the angle measuring how much the pointcloud "wraps" around 
+/** \brief Get the angle measuring how much the pointcloud "wraps" around
    * the symmetry axis. It is calculated as 2*pi - the maximum angular step
    * between adjacent points of the pointcloud. The maximum angular step is
    * computed as:
-   * 1. For each point find the vector that goes from point projected on the 
+   * 1. For each point find the vector that goes from point projected on the
    *    symmetry axis to the point itself.
    * 2. Choose a random vector.
    * 3. Compute the clockwise angles between the random vector and all other
@@ -94,7 +94,7 @@ inline float rotSymCloudPerpendicularScores(const pcl::PointCloud<PointT> &cloud
    *  \return largest angular step
    */
 template <typename PointT>
-float rotSymCloudCoverageAngle(const pcl::PointCloud<PointT> &cloud, const sym::RotationalSymmetry &symmetry)
+float rotSymCloudCoverageAngle(const pcl::PointCloud<PointT>& cloud, const sym::RotationalSymmetry& symmetry)
 {
   // If cloud is empty - make a warning and return -1.
   if (cloud.empty())
@@ -110,14 +110,16 @@ float rotSymCloudCoverageAngle(const pcl::PointCloud<PointT> &cloud, const sym::
   }
 
   // Get reference vector
-  Eigen::Vector3f referenceVector = cloud.points[0].getVector3fMap() - symmetry.projectPoint(cloud.points[0].getVector3fMap());
+  Eigen::Vector3f referenceVector =
+      cloud.points[0].getVector3fMap() - symmetry.projectPoint(cloud.points[0].getVector3fMap());
 
   // Find angles between vectors formed by all other points and current vector.
   std::vector<float> angles(cloud.size());
   angles[0] = 0.0f;
   for (size_t pointId = 1; pointId < cloud.size(); pointId++)
   {
-    Eigen::Vector3f curVector = cloud.points[pointId].getVector3fMap() - symmetry.projectPoint(cloud.points[pointId].getVector3fMap());
+    Eigen::Vector3f curVector =
+        cloud.points[pointId].getVector3fMap() - symmetry.projectPoint(cloud.points[pointId].getVector3fMap());
     angles[pointId] = utl::vectorVectorAngleCW<float>(referenceVector, curVector, symmetry.getDirection());
   }
 
@@ -134,4 +136,4 @@ float rotSymCloudCoverageAngle(const pcl::PointCloud<PointT> &cloud, const sym::
 }
 }
 
-#endif // ROTATIONAL_SYMMETRY_SCORING_HPP
+#endif  // ROTATIONAL_SYMMETRY_SCORING_HPP

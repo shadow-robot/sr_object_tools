@@ -17,15 +17,15 @@ namespace utl
     *  \note http://stackoverflow.com/questions/25389480/how-to-write-read-an-eigen-matrix-from-binary-file
     */
 template <class Matrix>
-inline bool writeBinary(const std::string filename, const Matrix &matrix)
+inline bool writeBinary(const std::string filename, const Matrix& matrix)
 {
   std::ofstream out(filename.c_str(), std::ios::out | std::ios::binary | std::ios::trunc);
   if (out.is_open())
   {
     typename Matrix::Index rows = matrix.rows(), cols = matrix.cols();
-    out.write((char *)(&rows), sizeof(typename Matrix::Index));
-    out.write((char *)(&cols), sizeof(typename Matrix::Index));
-    out.write((char *)matrix.data(), rows * cols * sizeof(typename Matrix::Scalar));
+    out.write((char*)(&rows), sizeof(typename Matrix::Index));
+    out.write((char*)(&cols), sizeof(typename Matrix::Index));
+    out.write((char*)matrix.data(), rows * cols * sizeof(typename Matrix::Scalar));
     out.close();
     return true;
   }
@@ -42,7 +42,7 @@ inline bool writeBinary(const std::string filename, const Matrix &matrix)
     *  \note http://stackoverflow.com/questions/25389480/how-to-write-read-an-eigen-matrix-from-binary-file
     */
 template <class Matrix>
-inline bool readBinary(const std::string filename, Matrix &matrix)
+inline bool readBinary(const std::string filename, Matrix& matrix)
 {
   std::ifstream in(filename.c_str(), std::ios::in | std::ios::binary);
   if (!in.is_open())
@@ -52,10 +52,10 @@ inline bool readBinary(const std::string filename, Matrix &matrix)
   }
 
   typename Matrix::Index rows = 0, cols = 0;
-  in.read((char *)(&rows), sizeof(typename Matrix::Index));
-  in.read((char *)(&cols), sizeof(typename Matrix::Index));
+  in.read((char*)(&rows), sizeof(typename Matrix::Index));
+  in.read((char*)(&cols), sizeof(typename Matrix::Index));
   matrix.resize(rows, cols);
-  in.read((char *)matrix.data(), rows * cols * sizeof(typename Matrix::Scalar));
+  in.read((char*)matrix.data(), rows * cols * sizeof(typename Matrix::Scalar));
   in.close();
   return true;
 }
@@ -66,7 +66,7 @@ inline bool readBinary(const std::string filename, Matrix &matrix)
     *  \return TRUE if file written successfully
     */
 template <class Matrix>
-inline bool writeASCII(const std::string filename, const Matrix &matrix)
+inline bool writeASCII(const std::string filename, const Matrix& matrix)
 {
   std::ofstream out(filename.c_str(), std::ios::out);
   if (out.is_open())
@@ -89,7 +89,7 @@ inline bool writeASCII(const std::string filename, const Matrix &matrix)
     *  \note Adapted from http://perso.ensta-paristech.fr/~stulp/dmpbbo/EigenFileIO_8tpp_source.html
     */
 template <class Matrix>
-inline bool readASCII(const std::string filename, Matrix &matrix)
+inline bool readASCII(const std::string filename, Matrix& matrix)
 {
   std::ifstream in(filename.c_str(), std::ios::in);
   if (!in.is_open())
@@ -128,4 +128,4 @@ inline bool readASCII(const std::string filename, Matrix &matrix)
 }
 }
 
-#endif // EIGEN_UTILITIES_HPP
+#endif  // EIGEN_UTILITIES_HPP

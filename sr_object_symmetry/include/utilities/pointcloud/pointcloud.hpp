@@ -44,16 +44,19 @@ public:
   /** \brief Methods for downsampling pointclouds. */
   enum CloudDownsampleMethod
   {
-    AVERAGE,         /**< for each voxel downsampled point/normal is an average of points/normals belonging to the voxel. Normals are renormalized to unit length */
-    NEAREST_NEIGHBOR /**< for eaxh voxel downsampled point/normal is chosen to be the point/normal of the input cloud nearest to the voxel centroid */
+    AVERAGE, /**< for each voxel downsampled point/normal is an average of points/normals belonging to the voxel.
+                Normals are renormalized to unit length */
+    NEAREST_NEIGHBOR /**< for eaxh voxel downsampled point/normal is chosen to be the point/normal of the input cloud
+                        nearest to the voxel centroid */
   };
 
   /** \brief Empty constructor. */
-  Downsample() : downsample_method_(AVERAGE),
-                 output_(new pcl::PointCloud<PointT>),
-                 downsample_map_(),
-                 non_nan_point_map_(),
-                 nearest_indices_()
+  Downsample()
+    : downsample_method_(AVERAGE)
+    , output_(new pcl::PointCloud<PointT>)
+    , downsample_map_()
+    , non_nan_point_map_()
+    , nearest_indices_()
   {
     resetComputation();
     this->setSaveLeafLayout(true);
@@ -67,8 +70,7 @@ public:
   /** \brief Provide a pointer to the input dataset
       *  \param cloud the const boost shared pointer to a PointCloud message
       */
-  virtual void
-  setInputCloud(const typename pcl::PCLBase<PointT>::PointCloudConstPtr &cloud)
+  virtual void setInputCloud(const typename pcl::PCLBase<PointT>::PointCloudConstPtr& cloud)
   {
     pcl::VoxelGrid<PointT>::setInputCloud(cloud);
     resetComputation();
@@ -77,8 +79,7 @@ public:
   /** \brief Provide a pointer to the input dataset
       *  \param cloud the const boost shared pointer to a PointCloud message
       */
-  virtual void
-  setIndices(const pcl::IndicesPtr &indices)
+  virtual void setIndices(const pcl::IndicesPtr& indices)
   {
     pcl::VoxelGrid<PointT>::setIndices(indices);
     resetComputation();
@@ -87,8 +88,7 @@ public:
   /** \brief Set downsampling method used.
       *  \param downsample_method downsample method
       */
-  inline void
-  setDownsampleMethod(const CloudDownsampleMethod downsample_method)
+  inline void setDownsampleMethod(const CloudDownsampleMethod downsample_method)
   {
     downsample_method_ = downsample_method;
   }
@@ -96,8 +96,7 @@ public:
   /** \brief Get downsampling method used.
       *  \param downsample_method downsample method
       */
-  inline CloudDownsampleMethod
-  getDownsampleMethod() const
+  inline CloudDownsampleMethod getDownsampleMethod() const
   {
     return downsample_method_;
   }
@@ -105,23 +104,23 @@ public:
   /** \brief Set the voxel grid leaf size.
       *  \param[in] leaf_size the voxel grid leaf size
       */
-  inline void
-  setLeafSize(const float leaf_size)
+  inline void setLeafSize(const float leaf_size)
   {
     pcl::VoxelGrid<PointT>::setLeafSize(leaf_size, leaf_size, leaf_size);
     resetComputation();
   }
 
   /** \brief Get the voxel grid leaf size. */
-  inline float
-  getLeafSize() const { return this->leaf_size_[0]; }
+  inline float getLeafSize() const
+  {
+    return this->leaf_size_[0];
+  }
 
   /** \brief Get downsample map i.e. map from downsampled cloud points to
       * original cloud points.
       *  \param[out] downsample_map  downsample map
       */
-  inline void
-  getDownsampleMap(std::vector<std::vector<int>> &downsample_map)
+  inline void getDownsampleMap(std::vector<std::vector<int>>& downsample_map)
   {
     computeDownsampleMap();
     downsample_map = downsample_map_;
@@ -131,8 +130,7 @@ public:
       * downsampled cloud points.
       *  \param[out] nearest_indices  nearest point indices
       */
-  inline void
-  getNearestPointIndices(std::vector<int> &nearest_indices)
+  inline void getNearestPointIndices(std::vector<int>& nearest_indices)
   {
     computeNearestPointIndices();
     nearest_indices = nearest_indices_;
@@ -148,7 +146,8 @@ private:
   /** \brief Downsample map */
   std::vector<std::vector<int>> downsample_map_;
 
-  /** \brief A map from the points of the donwsampled cloud mask to the indices of the NaN filtered downsampled cloud. */
+  /** \brief A map from the points of the donwsampled cloud mask to the indices of the NaN filtered downsampled cloud.
+   */
   std::vector<int> non_nan_point_map_;
 
   /** \brief Indices of points closest to downsampled points */
@@ -157,8 +156,7 @@ private:
   /** \brief Get downsample map i.e. map from downsampled cloud points to
       * original cloud points.
       */
-  inline void
-  computeDownsampleMap()
+  inline void computeDownsampleMap()
   {
     if (downsample_map_.empty())
     {
@@ -184,8 +182,7 @@ private:
   /** \brief Get indices of points in the original cloud that are closest to
       * downsampled cloud points.
       */
-  inline void
-  computeNearestPointIndices()
+  inline void computeNearestPointIndices()
   {
     if (nearest_indices_.empty())
     {
@@ -208,8 +205,7 @@ private:
   /** \brief Downsample the input pointcloud
       *  \param[out] output filtered pointcloud
       */
-  virtual void
-  applyFilter(pcl::PointCloud<PointT> &output)
+  virtual void applyFilter(pcl::PointCloud<PointT>& output)
   {
     // Downsample if we haven't already
     if (output_->empty())
@@ -244,8 +240,7 @@ private:
   }
 
   /** \brief Reset computation flags. */
-  inline void
-  resetComputation()
+  inline void resetComputation()
   {
     output_.reset(new pcl::PointCloud<PointT>);
     downsample_map_.clear();
@@ -260,8 +255,8 @@ private:
     *  \param[out] plane_coefficients coefficients of a plane (ax + by + cz + d = 0)
     */
 template <typename PointT>
-inline void fitPlane(const typename pcl::PointCloud<PointT>::ConstPtr &cloud,
-                     const std::vector<int> &indices, Eigen::Vector4f &plane_coefficients)
+inline void fitPlane(const typename pcl::PointCloud<PointT>::ConstPtr& cloud, const std::vector<int>& indices,
+                     Eigen::Vector4f& plane_coefficients)
 {
   //----------------------------------------------------------------------------
   // Check that we have a sufficient number of points
@@ -290,7 +285,7 @@ inline void fitPlane(const typename pcl::PointCloud<PointT>::ConstPtr &cloud,
     *  \param[out] plane_coefficients coefficients of a plane (ax + by + cz + d = 0)
     */
 template <typename PointT>
-inline void fitPlane(const typename pcl::PointCloud<PointT>::ConstPtr &cloud, Eigen::Vector4f &plane_coefficients)
+inline void fitPlane(const typename pcl::PointCloud<PointT>::ConstPtr& cloud, Eigen::Vector4f& plane_coefficients)
 {
   // Create fake indices
   std::vector<int> indices(cloud->size());
@@ -301,7 +296,7 @@ inline void fitPlane(const typename pcl::PointCloud<PointT>::ConstPtr &cloud, Ei
   fitPlane<PointT>(cloud, indices, plane_coefficients);
 }
 
-/** \brief @b ConvexHull2D Projects pointcloud to a plane and computes the 
+/** \brief @b ConvexHull2D Projects pointcloud to a plane and computes the
     * 2D convex hull of the projected points. The projection plane can be set
     * by the user. If it is not set it is computed automatically by
     * fitting a plane to the input pointcloud using PCA.
@@ -323,9 +318,7 @@ public:
 
 public:
   /** \brief Empty constructor. */
-  ConvexHull2D() : plane_coefficients_(Eigen::Vector4f::Zero()),
-                   compute_plane_(true),
-                   chull_()
+  ConvexHull2D() : plane_coefficients_(Eigen::Vector4f::Zero()), compute_plane_(true), chull_()
   {
     chull_.setDimension(2);
     chull_.setComputeAreaVolume(true);
@@ -338,8 +331,7 @@ public:
   }
 
   /** \brief Provide a pointer to the input cloud. */
-  void
-  setInputCloud(const PointCloudConstPtr &cloud)
+  void setInputCloud(const PointCloudConstPtr& cloud)
   {
     pcl::PCLBase<PointT>::setInputCloud(cloud);
     resetComputation();
@@ -348,26 +340,29 @@ public:
   }
 
   /** \brief Set coefficients of the plane to which the points will be projected. */
-  inline void
-  setPlaneCoefficients(const Eigen::Vector4f &plane_coefficients)
+  inline void setPlaneCoefficients(const Eigen::Vector4f& plane_coefficients)
   {
     plane_coefficients_ = plane_coefficients;
     compute_plane_ = false;
   }
 
-  /** \brief Get plane coefficients of the plane to which the points will be projected (either set by user or computed automatically). */
-  inline Eigen::Vector4f
-  getPlaneCoefficients() const { return plane_coefficients_; }
+  /** \brief Get plane coefficients of the plane to which the points will be projected (either set by user or computed
+   * automatically). */
+  inline Eigen::Vector4f getPlaneCoefficients() const
+  {
+    return plane_coefficients_;
+  }
 
   /** \brief Get input cloud projected on the 2D plane. Need to run reconstruct first*/
-  inline PointCloudConstPtr
-  getInputCloudProjected() const { return (input_projected_); }
+  inline PointCloudConstPtr getInputCloudProjected() const
+  {
+    return (input_projected_);
+  }
 
   /** \brief Compute a convex hull for all points given.
       * \param[out] points the resultant points lying on the convex hull.
       */
-  void
-  reconstruct(PointCloud &points)
+  void reconstruct(PointCloud& points)
   {
     // Initialize computation and check that points and indices are not empty
     if (!initCompute() || input_->points.empty() || indices_->empty())
@@ -407,8 +402,10 @@ public:
   }
 
   /** \brief Returns the total area of the convex hull. */
-  double
-  getTotalArea() const { return (chull_.getTotalArea()); }
+  double getTotalArea() const
+  {
+    return (chull_.getTotalArea());
+  }
 
 private:
   /** \brief Coefficients of the plane to which the points are projected. */
@@ -424,8 +421,7 @@ private:
   typename pcl::ConvexHull<PointT> chull_;
 
   /** \brief Reset intermideate computation results. */
-  inline void
-  resetComputation()
+  inline void resetComputation()
   {
     input_projected_.reset();
     if (compute_plane_)
@@ -442,18 +438,17 @@ private:
     *  \param[out] graph             graph
     *  \note Note that a point may end up being connected to more than
     * num_neighbors points. Consider points A and B. B is within radius of A
-    * but is not one of the num_neighbors closest points of A. On the other 
-    * hand A is within num_neighbors closest points of B. This means that 
-    * point A will be connected to num_neighbors of it's own neighbors and 
+    * but is not one of the num_neighbors closest points of A. On the other
+    * hand A is within num_neighbors closest points of B. This means that
+    * point A will be connected to num_neighbors of it's own neighbors and
     * also to B.
     */
 template <typename PointT, typename NeighborT, typename EdgeT>
-inline bool getCloudConnectivityNearestK(const typename pcl::PointCloud<PointT>::ConstPtr &cloud,
-                                         const std::vector<int> &indices,
-                                         utl::GraphBase<NeighborT, EdgeT> &graph,
+inline bool getCloudConnectivityNearestK(const typename pcl::PointCloud<PointT>::ConstPtr& cloud,
+                                         const std::vector<int>& indices, utl::GraphBase<NeighborT, EdgeT>& graph,
                                          const int num_neighbours
 
-)
+                                         )
 {
   // Prepare graph structure
   graph.preallocateVertices(cloud->size());
@@ -498,17 +493,16 @@ inline bool getCloudConnectivityNearestK(const typename pcl::PointCloud<PointT>:
     *  \return false if no edges were found, true otherwise
     *  \note Note that a point may end up being connected to more than
     * num_neighbors points. Consider points A and B. B is within radius of A
-    * but is not one of the num_neighbors closest points of A. On the other 
-    * hand A is within num_neighbors closest points of B. This means that 
-    * point A will be connected to num_neighbors of it's own neighbors and 
+    * but is not one of the num_neighbors closest points of A. On the other
+    * hand A is within num_neighbors closest points of B. This means that
+    * point A will be connected to num_neighbors of it's own neighbors and
     * also to B.
     */
 template <typename PointT, typename NeighborT, typename EdgeT>
-inline bool getCloudConnectivityNearestK(const typename pcl::PointCloud<PointT>::ConstPtr &cloud,
-                                         utl::GraphBase<NeighborT, EdgeT> &graph,
-                                         const int num_neighbours
+inline bool getCloudConnectivityNearestK(const typename pcl::PointCloud<PointT>::ConstPtr& cloud,
+                                         utl::GraphBase<NeighborT, EdgeT>& graph, const int num_neighbours
 
-)
+                                         )
 {
   // Create fake indices
   std::vector<int> fake_indices;
@@ -531,17 +525,15 @@ inline bool getCloudConnectivityNearestK(const typename pcl::PointCloud<PointT>:
     *  \return false if no edges were found, true otherwise
     *  \note Note that a point may end up being connected to more than
     * num_neighbors points. Consider points A and B. B is within radius of A
-    * but is not one of the num_neighbors closest points of A. On the other 
-    * hand A is within num_neighbors closest points of B. This means that 
-    * point A will be connected to num_neighbors of it's own neighbors and 
+    * but is not one of the num_neighbors closest points of A. On the other
+    * hand A is within num_neighbors closest points of B. This means that
+    * point A will be connected to num_neighbors of it's own neighbors and
     * also to B.
     */
 template <typename PointT, typename NeighborT, typename EdgeT>
-inline bool getCloudConnectivityRadius(const typename pcl::PointCloud<PointT>::ConstPtr &cloud,
-                                       const std::vector<int> &indices,
-                                       const pcl::search::KdTree<PointT> &search_tree,
-                                       utl::GraphBase<NeighborT, EdgeT> &graph,
-                                       const float radius,
+inline bool getCloudConnectivityRadius(const typename pcl::PointCloud<PointT>::ConstPtr& cloud,
+                                       const std::vector<int>& indices, const pcl::search::KdTree<PointT>& search_tree,
+                                       utl::GraphBase<NeighborT, EdgeT>& graph, const float radius,
                                        const int num_neighbours = 0)
 {
   if (radius <= 0.0f)
@@ -594,11 +586,9 @@ inline bool getCloudConnectivityRadius(const typename pcl::PointCloud<PointT>::C
     *  \return false if no edges were found, true otherwise
     */
 template <typename PointT, typename NeighborT, typename EdgeT>
-inline bool getCloudConnectivityRadius(const typename pcl::PointCloud<PointT>::ConstPtr &cloud,
-                                       const std::vector<int> &indices,
-                                       utl::GraphBase<NeighborT, EdgeT> &graph,
-                                       const float radius,
-                                       const int num_neighbours = 0)
+inline bool getCloudConnectivityRadius(const typename pcl::PointCloud<PointT>::ConstPtr& cloud,
+                                       const std::vector<int>& indices, utl::GraphBase<NeighborT, EdgeT>& graph,
+                                       const float radius, const int num_neighbours = 0)
 {
   // Prepare search tree
   pcl::search::KdTree<PointT> searchTree;
@@ -618,10 +608,9 @@ inline bool getCloudConnectivityRadius(const typename pcl::PointCloud<PointT>::C
     *  \return false if no edges were found, true otherwise
     */
 template <typename PointT, typename NeighborT, typename EdgeT>
-inline bool getCloudConnectivityRadius(const typename pcl::PointCloud<PointT>::ConstPtr &cloud,
-                                       const pcl::search::KdTree<PointT> &search_tree,
-                                       utl::GraphBase<NeighborT, EdgeT> &graph,
-                                       const double radius,
+inline bool getCloudConnectivityRadius(const typename pcl::PointCloud<PointT>::ConstPtr& cloud,
+                                       const pcl::search::KdTree<PointT>& search_tree,
+                                       utl::GraphBase<NeighborT, EdgeT>& graph, const double radius,
                                        const int num_neighbours = 0)
 {
   // Create fake indices
@@ -645,9 +634,8 @@ inline bool getCloudConnectivityRadius(const typename pcl::PointCloud<PointT>::C
     *  \return false if no edges were found, true otherwise
     */
 template <typename PointT, typename NeighborT, typename EdgeT>
-inline bool getCloudConnectivityRadius(const typename pcl::PointCloud<PointT>::ConstPtr &cloud,
-                                       utl::GraphBase<NeighborT, EdgeT> &graph,
-                                       const double radius,
+inline bool getCloudConnectivityRadius(const typename pcl::PointCloud<PointT>::ConstPtr& cloud,
+                                       utl::GraphBase<NeighborT, EdgeT>& graph, const double radius,
                                        const int num_neighbours = 0)
 {
   // Create fake indices
@@ -662,7 +650,7 @@ inline bool getCloudConnectivityRadius(const typename pcl::PointCloud<PointT>::C
 
 /** \brief Given a point in the pointcloud and it's neighbors, check if that
     * point is a boundary point.
-    * The idea is similar to occlusion boundary detection provess described in 
+    * The idea is similar to occlusion boundary detection provess described in
     * "Multi-scale Feature Extraction on Point-Sampled Surfaces" by Pauly et al.:
     *  1. Project all neighboring points onto the tangent plane of the input point.
     *  2. Find the largest angle between vectors connecting the input point to projected neighbors.
@@ -675,10 +663,8 @@ inline bool getCloudConnectivityRadius(const typename pcl::PointCloud<PointT>::C
     *  \note input pointcloud must have normals
     */
 template <typename PointT>
-bool isBoundaryPoint(const typename pcl::PointCloud<PointT> &cloud,
-                     const int point_id,
-                     const std::vector<int> &neighbours,
-                     const float max_angle = pcl::deg2rad(135.0))
+bool isBoundaryPoint(const typename pcl::PointCloud<PointT>& cloud, const int point_id,
+                     const std::vector<int>& neighbours, const float max_angle = pcl::deg2rad(135.0))
 {
   // If there are no neighbours it must be an occlusion
   if (neighbours.empty())
@@ -732,12 +718,9 @@ bool isBoundaryPoint(const typename pcl::PointCloud<PointT> &cloud,
 // NOTE: for some reason this is REEALLLLLY slow. Running this function
 // with fake indices is order of magnitude slower than running without indices
 template <typename PointT>
-bool getCloudBoundary(const typename pcl::PointCloud<PointT>::ConstPtr &cloud,
-                      const std::vector<int> &indices,
-                      const float search_radius,
-                      std::vector<int> &boundary_point_ids,
-                      std::vector<int> &non_boundary_point_ids,
-                      const float max_angle = pcl::deg2rad(135.0))
+bool getCloudBoundary(const typename pcl::PointCloud<PointT>::ConstPtr& cloud, const std::vector<int>& indices,
+                      const float search_radius, std::vector<int>& boundary_point_ids,
+                      std::vector<int>& non_boundary_point_ids, const float max_angle = pcl::deg2rad(135.0))
 {
   if (search_radius <= 0.0f)
   {
@@ -763,8 +746,8 @@ bool getCloudBoundary(const typename pcl::PointCloud<PointT>::ConstPtr &cloud,
     std::vector<int> neighbors;
     tree.radiusSearch(pointIdIt, search_radius, neighbors, distancesSquared);
 
-    if (neighbors.size() < 1) // If there are no neighbors - do nothing. This shouldn't really happen unless search
-      continue;               // radius is 0. In that case function will find no boundary points.
+    if (neighbors.size() < 1)  // If there are no neighbors - do nothing. This shouldn't really happen unless search
+      continue;                // radius is 0. In that case function will find no boundary points.
 
     std::vector<int> neighborsFirstExcluded(neighbors.begin() + 1, neighbors.end());
 
@@ -808,10 +791,8 @@ bool getCloudBoundary(const typename pcl::PointCloud<PointT>::ConstPtr &cloud,
     *  \note input pointcloud must have normals
     */
 template <typename PointT>
-void getCloudBoundary(const typename pcl::PointCloud<PointT>::ConstPtr &cloud,
-                      const float search_radius,
-                      std::vector<int> &boundary_point_ids,
-                      std::vector<int> &non_boundary_point_ids,
+void getCloudBoundary(const typename pcl::PointCloud<PointT>::ConstPtr& cloud, const float search_radius,
+                      std::vector<int>& boundary_point_ids, std::vector<int>& non_boundary_point_ids,
                       const float max_angle = pcl::deg2rad(135.0))
 {
   boundary_point_ids.resize(0);
@@ -829,8 +810,8 @@ void getCloudBoundary(const typename pcl::PointCloud<PointT>::ConstPtr &cloud,
     std::vector<int> neighbors;
     tree.radiusSearch(pointId, search_radius, neighbors, distancesSquared);
 
-    if (neighbors.size() < 1) // If there are no neighbors - do nothing. This shouldn't really happen unless search
-      continue;               // radius is 0. In that case function will find no boundary points.
+    if (neighbors.size() < 1)  // If there are no neighbors - do nothing. This shouldn't really happen unless search
+      continue;                // radius is 0. In that case function will find no boundary points.
 
     std::vector<int> neighborsFirstExcluded(neighbors.begin() + 1, neighbors.end());
 
@@ -850,12 +831,13 @@ void getCloudBoundary(const typename pcl::PointCloud<PointT>::ConstPtr &cloud,
     *  \return pointcloud projected onto a plane
     */
 template <typename PointT>
-inline void
-projectCloudToPlane(const pcl::PointCloud<PointT> &cloud_in, const Eigen::Vector3f &plane_point, const Eigen::Vector3f &plane_normal, pcl::PointCloud<PointT> &cloud_out)
+inline void projectCloudToPlane(const pcl::PointCloud<PointT>& cloud_in, const Eigen::Vector3f& plane_point,
+                                const Eigen::Vector3f& plane_normal, pcl::PointCloud<PointT>& cloud_out)
 {
   cloud_out = cloud_in;
   for (size_t pointId = 0; pointId < cloud_in.size(); pointId++)
-    cloud_out.points[pointId].getVector3fMap() = utl::projectPointToPlane<float>(cloud_out.points[pointId].getVector3fMap(), plane_point, plane_normal);
+    cloud_out.points[pointId].getVector3fMap() =
+        utl::projectPointToPlane<float>(cloud_out.points[pointId].getVector3fMap(), plane_point, plane_normal);
 
   return;
 }
@@ -867,8 +849,8 @@ projectCloudToPlane(const pcl::PointCloud<PointT> &cloud_in, const Eigen::Vector
     *  \return pointcloud projected onto a plane
     */
 template <typename PointT>
-inline void
-projectCloudToPlane(const pcl::PointCloud<PointT> &cloud_in, const Eigen::Vector4f &plane_coefficients, pcl::PointCloud<PointT> &cloud_out)
+inline void projectCloudToPlane(const pcl::PointCloud<PointT>& cloud_in, const Eigen::Vector4f& plane_coefficients,
+                                pcl::PointCloud<PointT>& cloud_out)
 {
   Eigen::Vector3f plane_point, plane_normal;
   utl::planeCoefficientsToPointNormal(plane_coefficients, plane_point, plane_normal);
@@ -885,15 +867,16 @@ projectCloudToPlane(const pcl::PointCloud<PointT> &cloud_in, const Eigen::Vector
     *  \return pointcloud projected onto a line
     */
 template <typename PointT>
-inline void
-projectCloudToLine(const pcl::PointCloud<PointT> &cloud_in, const Eigen::Vector3f &line_point1, const Eigen::Vector3f &line_point2, pcl::PointCloud<PointT> &cloud_out)
+inline void projectCloudToLine(const pcl::PointCloud<PointT>& cloud_in, const Eigen::Vector3f& line_point1,
+                               const Eigen::Vector3f& line_point2, pcl::PointCloud<PointT>& cloud_out)
 {
   cloud_out = cloud_in;
   for (size_t pointId = 0; pointId < cloud_in.size(); pointId++)
-    cloud_out.points[pointId].getVector3fMap() = utl::projectPointToLine<float>(cloud_out.points[pointId].getVector3fMap(), line_point1, line_point2);
+    cloud_out.points[pointId].getVector3fMap() =
+        utl::projectPointToLine<float>(cloud_out.points[pointId].getVector3fMap(), line_point1, line_point2);
 
   return;
 }
 }
 
-#endif // POINTCLOUD_UTILITIES_HPP
+#endif  // POINTCLOUD_UTILITIES_HPP
