@@ -9,15 +9,15 @@
 #ifndef ROTATIONAL_SYMMETRY_DETECTION_HPP
 #define ROTATIONAL_SYMMETRY_DETECTION_HPP
 
-// Utilities
-#include <utilities/geometry/geometry.hpp>
-#include <utilities/graph/graph_algorithms.hpp>
-#include <utilities/pointcloud/pointcloud.hpp>
-
 // Symmetry
 #include <sr_object_symmetry/rotational_symmetry_detection.h>
 #include <sr_object_symmetry/rotational_symmetry_detection_core.hpp>
 #include <sr_object_symmetry/rotational_symmetry_scoring.hpp>
+
+// Utilities
+#include <utilities/geometry/geometry.hpp>
+#include <utilities/graph/graph_algorithms.hpp>
+#include <utilities/pointcloud/pointcloud.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 inline void sym::mergeDuplicateRotSymmetries(const std::vector<sym::RotationalSymmetry>& symmetries,
@@ -154,7 +154,6 @@ inline bool sym::RotationalSymmetryDetection<PointT>::detect()
   symmetry_filtered_ids_.clear();
   symmetry_merged_ids_.clear();
 
-  //----------------------------------------------------------------------------
   // Remove boundary points from the pointcloud
 
   std::vector<int> cloudBoundaryPointIds, cloudNonBoundaryPointIds;
@@ -165,7 +164,7 @@ inline bool sym::RotationalSymmetryDetection<PointT>::detect()
     allPointIds[pointId] = pointId;
   cloud_no_boundary_point_ids_ = utl::vectorDifference(allPointIds, cloudBoundaryPointIds);
   pcl::copyPointCloud<PointT>(*cloud_, cloud_no_boundary_point_ids_, *cloud_no_boundary_);
-  //----------------------------------------------------------------------------
+  
   // Get the initial symmetries
 
   if (symmetries_initial_.size() == 0)
@@ -180,7 +179,6 @@ inline bool sym::RotationalSymmetryDetection<PointT>::detect()
     cloud_mean_ = cloudMeanTMP.head(3);
   }
 
-  //--------------------------------------------------------------------------
   // Refine initial symmetries
 
   symmetries_refined_.resize(symmetries_initial_.size());

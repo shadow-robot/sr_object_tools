@@ -9,15 +9,18 @@
 #ifndef REFLECTIONAL_SYMMETRY_HPP
 #define REFLECTIONAL_SYMMETRY_HPP
 
-// STD includes
-#include <math.h>
-#include <fstream>
-
 // PCL includes
 #include <pcl/point_types.h>
 #include <pcl/point_cloud.h>
 #include <pcl/io/io.h>
 #include <pcl/common/pca.h>
+
+// STD includes
+#include <math.h>
+#include <fstream>
+#include <string>
+#include <limits>
+#include <algorithm>
 
 // utilities
 #include <utilities/filesystem/filesystem.hpp>
@@ -33,19 +36,19 @@ class ReflectionalSymmetry
 {
 public:
   /** \brief An empty constructor */
-  ReflectionalSymmetry() : origin_(Eigen::Vector3f::Zero()), normal_(Eigen::Vector3f::Zero()){};
+  ReflectionalSymmetry() : origin_(Eigen::Vector3f::Zero()), normal_(Eigen::Vector3f::Zero()) {}
 
   /** \brief A constructor from origin point and normal
      *  \param[in] origin origin point
      *  \param[in] normal symmetry plane normal
      */
   ReflectionalSymmetry(const Eigen::Vector3f& origin, const Eigen::Vector3f& normal)
-    : origin_(origin), normal_(normal.normalized()){};
+    : origin_(origin), normal_(normal.normalized()) {}
 
   /** \brief A constructor from plane coefficients (ax + by + cz = d)
      *  \param[in] plane_coefficients plane coefficients
      */
-  ReflectionalSymmetry(const Eigen::Vector4f& plane_coefficients)
+  explicit ReflectionalSymmetry(const Eigen::Vector4f& plane_coefficients)
   {
     utl::planeCoefficientsToPointNormal<float>(plane_coefficients, origin_, normal_);
   };
@@ -313,9 +316,9 @@ public:
 
 protected:
   // Member variables
-  Eigen::Vector3f origin_;  ///< Point belonging to the symmetry plane. Symmetry is visualized around this point.
-  Eigen::Vector3f normal_;  ///< Normal of the symmetry plane. Note that normal is always reoriented such that it's x
-                            ///coordinate is non-negative
+  Eigen::Vector3f origin_;  ///  < Point belonging to the symmetry plane. Symmetry is visualized around this point.
+  Eigen::Vector3f normal_;  ///  < Normal of the symmetry plane. Note that normal is always reoriented such that it's x
+                            ///  coordinate is non-negative
 };
 
 /** \brief Print symmetry details to ostream */

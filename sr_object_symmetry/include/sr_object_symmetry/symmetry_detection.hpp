@@ -15,6 +15,9 @@
 #ifndef SYMMETRY_DETECTION_HPP
 #define SYMMETRY_DETECTION_HPP
 
+#include <string>
+#include <vector>
+
 #include "utilities/eigen.hpp"
 #include <utilities/pointcloud/pointcloud.hpp>
 #include <sr_object_symmetry/rotational_symmetry_detection.hpp>

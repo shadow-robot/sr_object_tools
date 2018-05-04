@@ -12,13 +12,17 @@
 // OpenMP includes
 #include <omp.h>
 
-// Utilities
-#include <utilities/graph/bron_kerbosch.hpp>
-
 // Symmetry
 #include <sr_object_symmetry/reflectional_symmetry_detection.h>
+
+#include <limits>
+#include <list>
+
 #include <sr_object_symmetry/reflectional_symmetry_detection_core.hpp>
 #include <sr_object_symmetry/reflectional_symmetry_scoring.hpp>
+
+// Utilities
+#include <utilities/graph/bron_kerbosch.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 inline void sym::mergeDuplicateReflSymmetries(const std::vector<sym::ReflectionalSymmetry>& symmetries,
@@ -79,6 +83,7 @@ inline void sym::mergeDuplicateReflSymmetries(const std::vector<sym::Reflectiona
     }
 
     // Add hypotheses from the largest clique to the list of hypothesis clusters
+    // NOLINTNEXTLINE
     hypothesisClusters.push_back(std::vector<int>{ std::begin(*largestCliqueIt), std::end(*largestCliqueIt) });
     // Remove hyptheses belonging to the largest clique from existing cliques
     hypothesisCliques.erase(largestCliqueIt);

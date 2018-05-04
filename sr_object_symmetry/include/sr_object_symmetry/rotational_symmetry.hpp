@@ -13,6 +13,10 @@
 #include <pcl/point_types.h>
 #include <pcl/point_cloud.h>
 
+#include <limits>
+#include <algorithm>
+#include <string>
+
 // Utilities includes
 #include <utilities/geometry/geometry.hpp>
 #include <utilities/pointcloud/pointcloud.hpp>
@@ -27,13 +31,13 @@ class RotationalSymmetry
 {
 public:
   /** \brief An empty constructor */
-  RotationalSymmetry() : origin_(Eigen::Vector3f::Zero()), direction_(Eigen::Vector3f::Zero()){};
+  RotationalSymmetry() : origin_(Eigen::Vector3f::Zero()), direction_(Eigen::Vector3f::Zero()) {}
   /** \brief A constructor from origin point and direction
      *  \param[in] origin origin point
      *  \param[in] direction direction
      */
   RotationalSymmetry(const Eigen::Vector3f& origin, const Eigen::Vector3f& direction)
-    : origin_(origin), direction_(direction.normalized()){};
+    : origin_(origin), direction_(direction.normalized()) {}
 
   /** \brief Get the direction vector of the symmetry axis
      *  \return direction vector

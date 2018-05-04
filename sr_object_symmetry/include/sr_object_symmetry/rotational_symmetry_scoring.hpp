@@ -9,6 +9,9 @@
 #ifndef ROTATIONAL_SYMMETRY_SCORING_HPP
 #define ROTATIONAL_SYMMETRY_SCORING_HPP
 
+#include <algorithm>
+#include <vector>
+
 // Symmetry
 #include <sr_object_symmetry/rotational_symmetry.hpp>
 
