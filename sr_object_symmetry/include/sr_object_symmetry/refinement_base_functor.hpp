@@ -2,8 +2,8 @@
 // Licensed under GPLv2+
 // Refer to the LICENSE.txt file included.
 
-#ifndef REFINEMENT_BASE_FUNCTOR_HPP
-#define REFINEMENT_BASE_FUNCTOR_HPP
+#ifndef REFINEMENT_BASE_FUNCTOR_HPP_
+#define REFINEMENT_BASE_FUNCTOR_HPP_
 
 // Eigen
 #include "unsupported/Eigen/NonLinearOptimization"
@@ -51,4 +51,4 @@ struct BaseFunctor
   }
 };
 }  // namespace sym
-#endif  // REFINEMENT_BASE_FUNCTOR_HPP
+#endif  // REFINEMENT_BASE_FUNCTOR_HPP_

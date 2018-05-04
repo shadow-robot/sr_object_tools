@@ -6,8 +6,8 @@
  * Unauthorized copying of the content in this file, via any medium is strictly prohibited.
  *
 */
-#ifndef SR_OBJECT_SYMMETRY_REFLECTIONAL_SYMMETRY_DETECTION_H
-#define SR_OBJECT_SYMMETRY_REFLECTIONAL_SYMMETRY_DETECTION_H
+#ifndef REFLECTIONAL_SYMMETRY_DETECTION_H_
+#define REFLECTIONAL_SYMMETRY_DETECTION_H_
 
 #include <sr_object_symmetry/reflectional_symmetry.hpp>
 #include <sr_object_symmetry/rotational_symmetry_detection.hpp>
@@ -197,4 +197,4 @@ private:
 };
 }  // namespace sym
 
-#endif  // SR_OBJECT_SYMMETRY_REFLECTIONAL_SYMMETRY_DETECTION_H
+#endif  // REFLECTIONAL_SYMMETRY_DETECTION_H_

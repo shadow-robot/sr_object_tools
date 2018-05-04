@@ -2,8 +2,8 @@
 // Licensed under GPLv2+
 // Refer to the LICENSE.txt file included.
 
-#ifndef POINTCLOUD_UTILITIES_HPP
-#define POINTCLOUD_UTILITIES_HPP
+#ifndef POINTCLOUD_POINTCLOUD_HPP_
+#define POINTCLOUD_POINTCLOUD_HPP_
 
 // PCL includes
 #include <pcl/point_types.h>
@@ -15,6 +15,8 @@
 #include <pcl/common/pca.h>
 #include <pcl/common/angles.h>
 #include <pcl/surface/convex_hull.h>
+
+#include <algorithm>
 
 // Utilities
 #include <utilities/graph/graph.hpp>
@@ -44,10 +46,10 @@ public:
   /** \brief Methods for downsampling pointclouds. */
   enum CloudDownsampleMethod
   {
-    AVERAGE, /**< for each voxel downsampled point/normal is an average of points/normals belonging to the voxel.
-                Normals are renormalized to unit length */
-    NEAREST_NEIGHBOR /**< for eaxh voxel downsampled point/normal is chosen to be the point/normal of the input cloud
-                        nearest to the voxel centroid */
+    AVERAGE,  // for each voxel downsampled point/normal is an average of points/normals belonging to the voxel.
+              // Normals are renormalized to unit length
+    NEAREST_NEIGHBOR  // for eaxh voxel downsampled point/normal is chosen to be the point/normal of the input cloud
+                      // nearest to the voxel centroid
   };
 
   /** \brief Empty constructor. */
@@ -63,9 +65,7 @@ public:
   }
 
   /** \brief Destructor. */
-  ~Downsample()
-  {
-  }
+  ~Downsample() {}
 
   /** \brief Provide a pointer to the input dataset
       *  \param cloud the const boost shared pointer to a PointCloud message
@@ -877,6 +877,6 @@ inline void projectCloudToLine(const pcl::PointCloud<PointT>& cloud_in, const Ei
 
   return;
 }
-}
+}  // namespace utl
 
-#endif  // POINTCLOUD_UTILITIES_HPP
+#endif  // POINTCLOUD_POINTCLOUD_HPP_

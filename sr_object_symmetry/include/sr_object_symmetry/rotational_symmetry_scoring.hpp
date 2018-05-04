@@ -6,8 +6,8 @@
  * Unauthorized copying of the content in this file, via any medium is strictly prohibited.
  *
 */
-#ifndef ROTATIONAL_SYMMETRY_SCORING_HPP
-#define ROTATIONAL_SYMMETRY_SCORING_HPP
+#ifndef ROTATIONAL_SYMMETRY_SCORING_HPP_
+#define ROTATIONAL_SYMMETRY_SCORING_HPP_
 
 #include <algorithm>
 #include <vector>
@@ -137,6 +137,6 @@ float rotSymCloudCoverageAngle(const pcl::PointCloud<PointT>& cloud, const sym::
 
   return (2.0f * M_PI) - utl::vectorMax(angleDifference);
 }
-}
+}  // namespace sym
 
-#endif  // ROTATIONAL_SYMMETRY_SCORING_HPP
+#endif  // ROTATIONAL_SYMMETRY_SCORING_HPP_

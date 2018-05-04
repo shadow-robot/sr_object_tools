@@ -6,8 +6,8 @@
  * Unauthorized copying of the content in this file, via any medium is strictly prohibited.
  *
 */
-#ifndef ROTATIONAL_SYMMETRY_HPP
-#define ROTATIONAL_SYMMETRY_HPP
+#ifndef ROTATIONAL_SYMMETRY_HPP_
+#define ROTATIONAL_SYMMETRY_HPP_
 
 // PCL includes
 #include <pcl/point_types.h>
@@ -602,6 +602,6 @@ inline float getRotSymPerpendicularity(const Eigen::Vector3f normal, const sym::
   symAxisNormalAngle = std::min(symAxisNormalAngle, 1.0f);
   return 1.0f - symAxisNormalAngle;
 }
-}
+}  // namespace sym
 
-#endif  // ROTATIONAL_SYMMETRY_HPP
+#endif  // ROTATIONAL_SYMMETRY_HPP_

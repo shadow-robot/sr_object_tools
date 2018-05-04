@@ -2,9 +2,11 @@
 // Licensed under GPLv2+
 // Refer to the LICENSE.txt file included.
 
-#ifndef VIS_HPP_
-#define VIS_HPP_
+#ifndef VISUALIZATION_VIS_HPP_
+#define VISUALIZATION_VIS_HPP_
 
+#include <string>
+#include <algorithm>
 #include <utilities/visualization/pcl_visualization.hpp>
 #include <utilities/geometry/geometry.hpp>
 
@@ -21,7 +23,7 @@ struct VisState
     , segIterator_(0)
     , instanceIdIt_(0)
     , pointSize_(5.0)
-    , showFullResolution_(true){};
+    , showFullResolution_(true) {}
 
   enum CloudDisplay
   {
@@ -118,4 +120,4 @@ void keyboard_callback(const pcl::visualization::KeyboardEvent& event, void* coo
   }
 }
 
-#endif  // VIS_HPP_
+#endif  // VISUALIZATION_VIS_HPP_

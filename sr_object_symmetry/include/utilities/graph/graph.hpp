@@ -2,8 +2,8 @@
 // Licensed under GPLv2+
 // Refer to the LICENSE.txt file included.
 
-#ifndef GRAPH_UTILITIES_HPP
-#define GRAPH_UTILITIES_HPP
+#ifndef GRAPH_GRAPH_HPP_
+#define GRAPH_GRAPH_HPP_
 
 // Utilities includes
 #include <utilities/graph/graph_base.hpp>
@@ -23,13 +23,13 @@ public:
   }
 
   /** \brief Constructor that preallocates memory for vertices. */
-  Graph(const int num_vertices) : utl::GraphBase<utl::Vertex, utl::Edge>(num_vertices)
+  explicit Graph(const int num_vertices) : utl::GraphBase<utl::Vertex, utl::Edge>(num_vertices)
   {
   }
 
   /** \brief Destructor. */
   ~Graph(){};
 };
-}
+}  // namespace utl
 
-#endif  // GRAPH_UTILITIES_HPP
+#endif  // GRAPH_GRAPH_HPP_

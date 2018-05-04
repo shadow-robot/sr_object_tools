@@ -2,8 +2,10 @@
 // Licensed under GPLv2+
 // Refer to the LICENSE.txt file included.
 
-#ifndef GRAPH_PRIMITIVES_HPP
-#define GRAPH_PRIMITIVES_HPP
+#ifndef GRAPH_GRAPH_PRIMITIVES_HPP_
+#define GRAPH_GRAPH_PRIMITIVES_HPP_
+
+#include <vector>
 
 namespace utl
 {
@@ -13,7 +15,7 @@ namespace utl
 struct Vertex
 {
   /** \brief Empty constructor. */
-  Vertex() : neighbors_(0), neighbor_edges_(0){};
+  Vertex() : neighbors_(0), neighbor_edges_(0) {}
 
   /** \brief Vertex neighbor indices. */
   std::vector<int> neighbors_;
@@ -34,10 +36,10 @@ struct Vertex
 struct Edge
 {
   /** \brief Empty constructor. */
-  Edge() : vtx1Id_(0), vtx2Id_(0){};
+  Edge() : vtx1Id_(0), vtx2Id_(0) {}
 
   /** \brief Constructor with vertex initialized. */
-  Edge(const int vtx1_id, const int vtx2_id) : vtx1Id_(vtx1_id), vtx2Id_(vtx2_id){};
+  Edge(const int vtx1_id, const int vtx2_id) : vtx1Id_(vtx1_id), vtx2Id_(vtx2_id) {}
 
   /** \brief Vertex indices. */
   int vtx1Id_;
@@ -56,10 +58,10 @@ struct Edge
 struct EdgeWeighted : public Edge
 {
   /** \brief Empty constructor. */
-  EdgeWeighted() : Edge(), weight_(0){};
+  EdgeWeighted() : Edge(), weight_(0) {}
 
   /** \brief Constructor with vertex initialized. */
-  EdgeWeighted(const int vtx1_id, const int vtx2_id, const float weight) : Edge(vtx1_id, vtx2_id), weight_(weight){};
+  EdgeWeighted(const int vtx1_id, const int vtx2_id, const float weight) : Edge(vtx1_id, vtx2_id), weight_(weight) {}
 
   /** \brief Edge weight. */
   float weight_;
@@ -70,6 +72,6 @@ struct EdgeWeighted : public Edge
     std::cout << vtx1Id_ << " <-> " << vtx2Id_ << " (" << weight_ << ")" << std::endl;
   }
 };
-}
+}  // namespace utl
 
-#endif  //  GRAPH_PRIMITIVES_HPP
+#endif  //  GRAPH_GRAPH_PRIMITIVES_HPP_

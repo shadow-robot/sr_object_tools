@@ -2,12 +2,14 @@
 // Licensed under GPLv2+
 // Refer to the LICENSE.txt file included.
 
-#ifndef EIGEN_UTILITIES_HPP
-#define EIGEN_UTILITIES_HPP
+#ifndef EIGEN_HPP_
+#define EIGEN_HPP_
 
+#include <eigen3/Eigen/Dense>
 #include <iostream>
 #include <fstream>
-#include <eigen3/Eigen/Dense>
+#include <string>
+#include <vector>
 
 namespace utl
 {
@@ -23,9 +25,9 @@ inline bool writeBinary(const std::string filename, const Matrix& matrix)
   if (out.is_open())
   {
     typename Matrix::Index rows = matrix.rows(), cols = matrix.cols();
-    out.write((char*)(&rows), sizeof(typename Matrix::Index));
-    out.write((char*)(&cols), sizeof(typename Matrix::Index));
-    out.write((char*)matrix.data(), rows * cols * sizeof(typename Matrix::Scalar));
+    out.write(reinterpret_cast<char*>(&rows), sizeof(typename Matrix::Index));
+    out.write(reinterpret_cast<char*>(&cols), sizeof(typename Matrix::Index));
+    out.write(reinterpret_cast<char*>(matrix.data()), rows * cols * sizeof(typename Matrix::Scalar));
     out.close();
     return true;
   }
@@ -52,10 +54,10 @@ inline bool readBinary(const std::string filename, Matrix& matrix)
   }
 
   typename Matrix::Index rows = 0, cols = 0;
-  in.read((char*)(&rows), sizeof(typename Matrix::Index));
-  in.read((char*)(&cols), sizeof(typename Matrix::Index));
+  in.read(reinterpret_cast<char*>(&rows), sizeof(typename Matrix::Index));
+  in.read(reinterpret_cast<char*>(&cols), sizeof(typename Matrix::Index));
   matrix.resize(rows, cols);
-  in.read((char*)matrix.data(), rows * cols * sizeof(typename Matrix::Scalar));
+  in.read(reinterpret_cast<char*>(matrix.data()), rows * cols * sizeof(typename Matrix::Scalar));
   in.close();
   return true;
 }
@@ -126,6 +128,6 @@ inline bool readASCII(const std::string filename, Matrix& matrix)
 
   return true;
 }
-}
+}  // namespace utl
 
-#endif  // EIGEN_UTILITIES_HPP
+#endif  // EIGEN_HPP_

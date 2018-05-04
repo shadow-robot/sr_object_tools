@@ -2,14 +2,15 @@
 // Licensed under GPLv2+
 // Refer to the LICENSE.txt file included.
 
-#ifndef GRAPH_BASE_HPP
-#define GRAPH_BASE_HPP
-
-// STD includes
-#include <algorithm>
+#ifndef GRAPH_GRAPH_BASE_HPP_
+#define GRAPH_GRAPH_BASE_HPP_
 
 // Utilities includes
 #include <utilities/graph/graph_base.h>
+
+// STD includes
+#include <algorithm>
+#include <vector>
 
 ////////////////////////////////////////////////////////////////////////////////
 template <typename VertexT, typename EdgeT>
@@ -311,4 +312,4 @@ inline bool utl::GraphBase<VertexT, EdgeT>::getEdgeNeighborListPositions(const i
   return true;
 }
 
-#endif  // GRAPH_BASE_HPP
+#endif  // GRAPH_GRAPH_BASE_HPP_

@@ -6,8 +6,10 @@
  * Unauthorized copying of the content in this file, via any medium is strictly prohibited.
  *
 */
-#ifndef ROTATIONAL_SYMMETRY_DETECTION_CORE_HPP
-#define ROTATIONAL_SYMMETRY_DETECTION_CORE_HPP
+#ifndef ROTATIONAL_SYMMETRY_DETECTION_CORE_HPP_
+#define ROTATIONAL_SYMMETRY_DETECTION_CORE_HPP_
+
+#include <algorithm>
 
 // Symmetry
 #include <sr_object_symmetry/rotational_symmetry.hpp>
@@ -67,7 +69,7 @@ template <typename PointT>
 struct RotSymRefineFunctor : BaseFunctor<float>
 {
   /** \brief Empty constructor */
-  RotSymRefineFunctor() : max_fit_angle_(1.0f){};
+  RotSymRefineFunctor() : max_fit_angle_(1.0f) {}
 
   /** \brief Compute fitness for each input point.
      *  \param[in]  x symmetry axis
@@ -112,6 +114,6 @@ template <typename PointT>
 struct RotSymRefineFunctorDiff : Eigen::NumericalDiff<RotSymRefineFunctor<PointT>>
 {
 };
-}
+}  // namespace sym
 
-#endif  // ROTATIONAL_SYMMETRY_DETECTION_CORE_HPP
+#endif  // ROTATIONAL_SYMMETRY_DETECTION_CORE_HPP_

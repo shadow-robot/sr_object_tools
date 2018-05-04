@@ -2,12 +2,12 @@
 // Licensed under GPLv2+
 // Refer to the LICENSE.txt file included.
 
-#ifndef GRAPH_ALGORITHMS_HPP
-#define GRAPH_ALGORITHMS_HPP
+#ifndef GRAPH_GRAPH_ALGORITHMS_HPP_
+#define GRAPH_GRAPH_ALGORITHMS_HPP_
 
 // STD includes
 #include <queue>
-
+#include <vector>
 // Utilities includes
 #include <utilities/graph/graph_base.hpp>
 #include <utilities/std_vector.hpp>
@@ -100,6 +100,6 @@ inline utl::Map getConnectedComponents(const utl::GraphBase<NeighborT, EdgeT>& g
 
   return CCs;
 }
-}
+}  // namespace utl
 
-#endif  // GRAPH_ALGORITHMS_HPP
+#endif  // GRAPH_GRAPH_ALGORITHMS_HPP_

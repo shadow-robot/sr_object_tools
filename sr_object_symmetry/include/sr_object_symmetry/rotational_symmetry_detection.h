@@ -6,8 +6,8 @@
  * Unauthorized copying of the content in this file, via any medium is strictly prohibited.
  *
 */
-#ifndef SR_OBJECT_SYMMETRY_ROTATIONAL_SYMMETRY_DETECTION_H
-#define SR_OBJECT_SYMMETRY_ROTATIONAL_SYMMETRY_DETECTION_H
+#ifndef SYMMETRY_ROTATIONAL_SYMMETRY_DETECTION_H_
+#define SYMMETRY_ROTATIONAL_SYMMETRY_DETECTION_H_
 
 #include <sr_object_symmetry/rotational_symmetry.hpp>
 #include <vector>
@@ -180,4 +180,4 @@ private:
 };
 }  // namespace sym
 
-#endif  // SR_OBJECT_SYMMETRY_ROTATIONAL_SYMMETRY_DETECTION_H
+#endif  // SYMMETRY_ROTATIONAL_SYMMETRY_DETECTION_H_

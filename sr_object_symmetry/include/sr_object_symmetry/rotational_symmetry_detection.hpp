@@ -6,8 +6,8 @@
  * Unauthorized copying of the content in this file, via any medium is strictly prohibited.
  *
 */
-#ifndef ROTATIONAL_SYMMETRY_DETECTION_HPP
-#define ROTATIONAL_SYMMETRY_DETECTION_HPP
+#ifndef ROTATIONAL_SYMMETRY_DETECTION_HPP_
+#define ROTATIONAL_SYMMETRY_DETECTION_HPP_
 
 // Symmetry
 #include <sr_object_symmetry/rotational_symmetry_detection.h>
@@ -164,7 +164,7 @@ inline bool sym::RotationalSymmetryDetection<PointT>::detect()
     allPointIds[pointId] = pointId;
   cloud_no_boundary_point_ids_ = utl::vectorDifference(allPointIds, cloudBoundaryPointIds);
   pcl::copyPointCloud<PointT>(*cloud_, cloud_no_boundary_point_ids_, *cloud_no_boundary_);
-  
+
   // Get the initial symmetries
 
   if (symmetries_initial_.size() == 0)
@@ -264,4 +264,4 @@ inline void sym::RotationalSymmetryDetection<PointT>::getScores(std::vector<floa
   coverage_scores = coverage_scores_;
 }
 
-#endif  // ROTATIONAL_SYMMETRY_DETECTION_HPP
+#endif  // ROTATIONAL_SYMMETRY_DETECTION_HPP_

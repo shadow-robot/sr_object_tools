@@ -2,10 +2,13 @@
 // Licensed under GPLv2+
 // Refer to the LICENSE.txt file included.
 
-#ifndef GEOMETRY_UTILITIES_HPP
-#define GEOMETRY_UTILITIES_HPP
+#ifndef GEOMETRY_GEOMETRY_HPP_
+#define GEOMETRY_GEOMETRY_HPP_
 
 #include <iostream>
+#include <algorithm>
+#include <vector>
+#include <limits>
 #include <utilities/geometry/math.hpp>
 
 namespace utl
@@ -546,6 +549,7 @@ inline Eigen::Matrix<Scalar, 3, 3> alignVectors(const Eigen::Matrix<Scalar, 1, 3
 
   return R;
 }
-}
+}  // namespace utl
 
-#endif  // GEOMETRY_UTILITIES_HPP
+#endif  // GEOMETRY_GEOMETRY_HPP_
+

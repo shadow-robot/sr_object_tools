@@ -47,8 +47,8 @@
  *
  */
 
-#ifndef MESH_TO_CLOUD_HPP
-#define MESH_TO_CLOUD_HPP
+#ifndef POINTCLOUD_MESH_TO_CLOUD_HPP_
+#define POINTCLOUD_MESH_TO_CLOUD_HPP_
 
 #include <pcl/io/pcd_io.h>
 #include <pcl/io/vtk_lib_io.h>
@@ -59,6 +59,8 @@
 #include <vtkTriangleFilter.h>
 #include <vtkPolyDataMapper.h>
 #include <pcl/filters/voxel_grid.h>
+#include <vector>
+#include <string>
 
 inline double uniform_deviate(int seed)
 {
@@ -108,8 +110,9 @@ inline void randPSurface(vtkPolyData* polydata, std::vector<double>* cumulativeA
   n.normalize();
   float r1 = static_cast<float>(uniform_deviate(rand()));
   float r2 = static_cast<float>(uniform_deviate(rand()));
-  randomPointTriangle(float(A[0]), float(A[1]), float(A[2]), float(B[0]), float(B[1]), float(B[2]), float(C[0]),
-                      float(C[1]), float(C[2]), r1, r2, p);
+  randomPointTriangle(static_cast<float>(A[0]), static_cast<float>(A[1]), static_cast<float>(A[2]),
+                      static_cast<float>(B[0]), static_cast<float>(B[1]), static_cast<float>(B[2]),
+                      static_cast<float>(C[0]), static_cast<float>(C[1]), static_cast<float>(C[2]), r1, r2, p);
 }
 
 void uniform_sampling(vtkSmartPointer<vtkPolyData> polydata, size_t n_samples,
@@ -152,7 +155,6 @@ void uniform_sampling(vtkSmartPointer<vtkPolyData> polydata, size_t n_samples,
 
 using namespace pcl;
 using namespace pcl::io;
-using namespace pcl::console;
 
 const float default_leaf_size = 0.01f;
 
@@ -193,4 +195,4 @@ pcl::PointCloud<pcl::PointXYZRGBNormal>::Ptr convertPlyToCloud(std::string& file
   return cloud_xyzn;
 }
 
-#endif  // MESH_TO_CLOUD_HPP
+#endif  // POINTCLOUD_MESH_TO_CLOUD_HPP_

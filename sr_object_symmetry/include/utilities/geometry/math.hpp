@@ -2,11 +2,13 @@
 // Licensed under GPLv2+
 // Refer to the LICENSE.txt file included.
 
-#ifndef MATH_UTILITIES_HPP
-#define MATH_UTILITIES_HPP
+#ifndef GEOMETRY_MATH_HPP_
+#define GEOMETRY_MATH_HPP_
 
 // STD includes
 #include <iostream>
+#include <algorithm>
+#include <vector>
 #include <cmath>
 #include <random>
 
@@ -353,6 +355,6 @@ inline Scalar median(const std::vector<Scalar>& v)
   std::nth_element(v_copy.begin(), v_copy.begin() + v_copy.size() / 2, v_copy.end());
   return v_copy[v_copy.size() / 2];
 }
-}
+}  // namespace utl
 
-#endif  // MATH_UTILITIES_HPP
+#endif  // GEOMETRY_MATH_HPP_

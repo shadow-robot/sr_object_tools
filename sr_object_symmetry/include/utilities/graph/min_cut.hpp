@@ -2,8 +2,10 @@
 // Licensed under GPLv2+
 // Refer to the LICENSE.txt file included.
 
-#ifndef MIN_CUT_HPP
-#define MIN_CUT_HPP
+#ifndef GRAPH_MIN_CUT_HPP_
+#define GRAPH_MIN_CUT_HPP_
+
+#include <vector>
 
 // Boost includes
 #include <boost/graph/adjacency_list.hpp>
@@ -145,6 +147,6 @@ double mincut(const std::vector<float>& source_potentials, const std::vector<flo
   }
   return flow;
 }
-}
+}  // namespace utl
 
-#endif  // MIN_CUT_HPP
+#endif  // GRAPH_MIN_CUT_HPP_

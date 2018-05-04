@@ -2,13 +2,17 @@
 // Licensed under GPLv2+
 // Refer to the LICENSE.txt file included.
 
-#ifndef STD_VECTOR_UTILITIES_HPP
-#define STD_VECTOR_UTILITIES_HPP
+#ifndef STD_VECTOR_HPP_
+#define STD_VECTOR_HPP_
 
+#include <assert.h>
 // STD includes
 #include <iostream>
 #include <fstream>
-#include <assert.h>
+#include <vector>
+#include <algorithm>
+#include <limits>
+#include <utility>
 
 namespace utl
 {
@@ -49,9 +53,7 @@ enum SortMode
 template <class T>
 struct index_cmp_asc
 {
-  index_cmp_asc(const T arr) : arr(arr)
-  {
-  }
+  explicit index_cmp_asc(const T arr) : arr(arr) {}
   bool operator()(const size_t a, const size_t b) const
   {
     return arr[a] < arr[b];
@@ -65,9 +67,7 @@ struct index_cmp_asc
 template <class T>
 struct index_cmp_dsc
 {
-  index_cmp_dsc(const T arr) : arr(arr)
-  {
-  }
+  explicit index_cmp_dsc(const T arr) : arr(arr) {}
   bool operator()(const size_t a, const size_t b) const
   {
     return arr[a] > arr[b];
@@ -611,6 +611,6 @@ inline std::pair<int, int> nearestValues(const std::vector<Scalar>& vec, const S
 
   return std::pair<int, int>(nearestSmallerIndex, nearestGreaterIndex);
 }
-}
+}  // namespace utl
 
-#endif  // STD_VECTOR_UTILITIES_HPP
+#endif  // STD_VECTOR_HPP_

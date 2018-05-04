@@ -2,14 +2,15 @@
 // Licensed under GPLv2+
 // Refer to the LICENSE.txt file included.
 
-#ifndef PCL_VISUALIZATION_COLOR_HPP
-#define PCL_VISUALIZATION_COLOR_HPP
+#ifndef VISUALIZATION_COLOR_HPP_
+#define VISUALIZATION_COLOR_HPP_
 
-// STD
-#include <iostream>
+
 
 // PCL
 #include <pcl/io/point_cloud_image_extractors.h>
+// CPP tools
+#include <utilities/visualization/color.h>
 
 #ifdef PCL_COMMON_COLORS_H
 #include <pcl/common/colors.h>
@@ -17,8 +18,10 @@
 #include <pcl/io/impl/point_cloud_image_extractors.hpp>
 #endif
 
-// CPP tools
-#include <utilities/visualization/color.h>
+// STD
+#include <iostream>
+#include <vector>
+#include <algorithm>
 
 namespace utl
 {
@@ -138,6 +141,6 @@ inline void tintPointCloud(pcl::PointCloud<PointT>& cloud, const Color& color, c
 
   tintPointCloud<PointT>(cloud, indices, color, alpha);
 }
-}
+}  // namespace utl
 
-#endif  // PCL_VISUALIZATION_COLOR_HPP
+#endif  // VISUALIZATION_COLOR_HPP_

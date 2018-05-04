@@ -2,8 +2,8 @@
 // Licensed under GPLv2+
 // Refer to the LICENSE.txt file included.
 
-#ifndef GRAPH_WEIGHTED_UTILITIES_HPP
-#define GRAPH_WEIGHTED_UTILITIES_HPP
+#ifndef GRAPH_GRAPH_WEIGHTED_UTILITIES_HPP_
+#define GRAPH_GRAPH_WEIGHTED_UTILITIES_HPP_
 
 // Utilities includes
 #include <utilities/graph/graph_base.hpp>
@@ -26,12 +26,12 @@ public:
   }
 
   /** \brief Constructor that preallocates memory for vertices. */
-  GraphWeighted(const int num_vertices) : utl::GraphBase<utl::Vertex, utl::EdgeWeighted>(num_vertices)
+  explicit GraphWeighted(const int num_vertices) : utl::GraphBase<utl::Vertex, utl::EdgeWeighted>(num_vertices)
   {
   }
 
   /** \brief Destructor. */
-  ~GraphWeighted(){};
+  ~GraphWeighted() {}
 
   /** \brief Add an edge to the graph if it doesn't exist already.
      *  \param[in] v1     index of first vertex
@@ -170,6 +170,6 @@ public:
     return true;
   }
 };
-}
+}  // namespace utl
 
-#endif  // GRAPH_WEIGHTED_UTILITIES_HPP
+#endif  // GRAPH_GRAPH_WEIGHTED_UTILITIES_HPP_

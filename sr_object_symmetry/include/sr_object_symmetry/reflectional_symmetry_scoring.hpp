@@ -6,8 +6,8 @@
  * Unauthorized copying of the content in this file, via any medium is strictly prohibited.
  *
 */
-#ifndef REFLECTIONAL_SYMMETRY_SCORING_HPP_NEW
-#define REFLECTIONAL_SYMMETRY_SCORING_HPP_NEW
+#ifndef REFLECTIONAL_SYMMETRY_SCORING_HPP_
+#define REFLECTIONAL_SYMMETRY_SCORING_HPP_
 
 // PCL includes
 #include <pcl/search/kdtree.h>
@@ -178,6 +178,6 @@ inline bool reflSymPointPerpendicularScores(const pcl::PointCloud<PointT>& cloud
 
   return true;
 }
-}
+}  // namespace sym
 
-#endif  // REFLECTIONAL_SYMMETRY_SCORING_HPP
+#endif  // REFLECTIONAL_SYMMETRY_SCORING_HPP_

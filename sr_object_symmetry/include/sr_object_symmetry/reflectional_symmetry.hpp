@@ -6,8 +6,8 @@
  * Unauthorized copying of the content in this file, via any medium is strictly prohibited.
  *
 */
-#ifndef REFLECTIONAL_SYMMETRY_HPP
-#define REFLECTIONAL_SYMMETRY_HPP
+#ifndef REFLECTIONAL_SYMMETRY_HPP_
+#define REFLECTIONAL_SYMMETRY_HPP_
 
 // PCL includes
 #include <pcl/point_types.h>
@@ -473,6 +473,6 @@ inline float getReflSymPositionFitError(const Eigen::Vector3f& point1, const Eig
   Eigen::Vector3f midpoint = (point1 + point2) / 2.0f;
   return symmetry.pointSignedDistance(midpoint);
 }
-}
+}  // namespace sym
 
-#endif  // REFLECTIONAL_SYMMETRY_HPP
+#endif  // REFLECTIONAL_SYMMETRY_HPP_

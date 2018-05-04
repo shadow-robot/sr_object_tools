@@ -6,8 +6,8 @@
  * Unauthorized copying of the content in this file, via any medium is strictly prohibited.
  *
 */
-#ifndef REFLECTIONAL_SYMMETRY_DETECTION_CORE_HPP
-#define REFLECTIONAL_SYMMETRY_DETECTION_CORE_HPP
+#ifndef REFLECTIONAL_SYMMETRY_DETECTION_CORE_HPP_
+#define REFLECTIONAL_SYMMETRY_DETECTION_CORE_HPP_
 
 // PCL
 #include <pcl/search/kdtree.h>
@@ -315,7 +315,7 @@ template <typename PointT>
 struct ReflSymRefineFunctor : BaseFunctor<float>
 {
   /** \brief Empty constructor */
-  ReflSymRefineFunctor(){};
+  ReflSymRefineFunctor() {}
 
   /** \brief Compute fitness for each input point.
      *  \param[in]  x coefficients of the symmetry plane
@@ -570,6 +570,6 @@ inline bool refineReflSymGlobal(const typename pcl::search::KdTree<PointT>& sear
 
   return true;
 }
-}
+}  // namespace sym
 
-#endif  // REFLECTIONAL_SYMMETRY_DETECTION_CORE_HPP
+#endif  // REFLECTIONAL_SYMMETRY_DETECTION_CORE_HPP_

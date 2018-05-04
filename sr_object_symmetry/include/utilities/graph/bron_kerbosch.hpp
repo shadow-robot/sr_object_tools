@@ -2,8 +2,10 @@
 // Licensed under GPLv2+
 // Refer to the LICENSE.txt file included.
 
-#ifndef BRON_KERBOSCH_HPP
-#define BRON_KERBOSCH_HPP
+#ifndef GRAPH_BRON_KERBOSCH_HPP_
+#define GRAPH_BRON_KERBOSCH_HPP_
+
+#include <list>
 
 // Boost includes
 #include <boost/graph/adjacency_list.hpp>
@@ -70,6 +72,6 @@ int bronKerbosch(const utl::Graph& graph, std::list<std::list<int>>& cliques, co
 
   return cliques.size();
 }
-}
+}  // namespace utl
 
-#endif  // BRON_KERBOSCH_HPP
+#endif  // GRAPH_BRON_KERBOSCH_HPP_

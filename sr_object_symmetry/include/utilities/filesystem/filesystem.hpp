@@ -2,11 +2,13 @@
 // Licensed under GPLv2+
 // Refer to the LICENSE.txt file included.
 
-#ifndef FILESYSTEM_UTILITIES_HPP
-#define FILESYSTEM_UTILITIES_HPP
+#ifndef FILESYSTEM_FILESYSTEM_HPP_
+#define FILESYSTEM_FILESYSTEM_HPP_
 
 // STD includes
 #include <iostream>
+#include <algorithm>
+#include <string>
 
 // BOOST
 #include <boost/filesystem.hpp>
@@ -245,6 +247,6 @@ inline std::string fullfile(const std::string& path1, const std::string& path2)
   boost::filesystem::path joinedPath = boost::filesystem::path(path1) / boost::filesystem::path(path2);
   return joinedPath.string();
 }
-}
+}  // namespace utl
 
-#endif  // FILESYSTEM_UTILITIES_HPP
+#endif  // FILESYSTEM_FILESYSTEM_HPP_

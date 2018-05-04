@@ -10,18 +10,17 @@
  * @author Fotios Papadopoulos <fotios@shadowrobot.com>
  * @brief  example on how to use the symmetry libraries
 **/
-
+#include <pcl/pcl_config.h>
+#include <string>
+#include <vector>
 #include "sr_object_symmetry/symmetry_detection.hpp"
 #include "utilities/eigen.hpp"
 #include "utilities/filesystem/filesystem.hpp"
 #include "utilities/pointcloud/mesh_to_cloud.hpp"
 #include "utilities/visualization/vis.hpp"
-#include <pcl/pcl_config.h>
 #include <sr_object_symmetry/reflectional_symmetry_detection.hpp>
 #include <sr_object_symmetry/rotational_symmetry_detection.hpp>
-#include <string>
 #include <utilities/pointcloud/pointcloud.hpp>
-#include <vector>
 
 typedef pcl::PointXYZRGBNormal PointT;
 int main(int argc, char** argv)

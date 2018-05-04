@@ -1,5 +1,12 @@
-#ifndef ALPHANUM__HPP
-#define ALPHANUM__HPP
+
+/*
+ * Copyright (C) 2018 Shadow Robot Company Ltd - All Rights Reserved. Proprietary and Confidential.
+ * Unauthorized copying of the content in this file, via any medium is strictly prohibited.
+ *
+*/
+
+#ifndef FILESYSTEM_ALPHANUM_HPP_
+#define FILESYSTEM_ALPHANUM_HPP_
 
 /*
 The Alphanum Algorithm is an improved sorting algorithm for strings
@@ -47,9 +54,6 @@ freely, subject to the following restrictions:
 #include <iostream>
 #include <typeinfo>
 #endif
-
-// TODO: make comparison with hexadecimal numbers. Extend the alphanum_comp() function by traits to choose between
-// decimal and hexadecimal.
 
 namespace doj
 {
@@ -147,7 +151,6 @@ int alphanum_impl(const char* l, const char* r)
       unsigned long l_int = 0;
       while (*l && alphanum_isdigit(*l))
       {
-        // TODO: this can overflow
         l_int = l_int * 10 + *l - '0';
         ++l;
       }
@@ -156,7 +159,6 @@ int alphanum_impl(const char* l, const char* r)
       unsigned long r_int = 0;
       while (*r && alphanum_isdigit(*r))
       {
-        // TODO: this can overflow
         r_int = r_int * 10 + *r - '0';
         ++r;
       }
@@ -322,6 +324,6 @@ struct alphanum_less : public std::binary_function<Ty, Ty, bool>
     return alphanum_comp(left, right) < 0;
   }
 };
-}
+}  //  namespace doj
 
-#endif
+#endif  // FILESYSTEM_ALPHANUM_HPP_
