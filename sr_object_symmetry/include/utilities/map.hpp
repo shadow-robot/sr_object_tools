@@ -7,7 +7,7 @@
 
 namespace utl
 {
-  typedef std::vector<std::vector<int> > Map;
+typedef std::vector<std::vector<int>> Map;
 }
 
-#endif    // MAP_HPP
+#endif // MAP_HPP

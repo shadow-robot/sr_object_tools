@@ -160,7 +160,6 @@ const float default_leaf_size = 0.01f;
 
 pcl::PointCloud<pcl::PointXYZRGBNormal>::Ptr convertPlyToCloud(std::string &fileName, int number_samples)
 {
-
     vtkSmartPointer<vtkPolyData> polydata1 = vtkSmartPointer<vtkPolyData>::New();
     pcl::PolygonMesh mesh;
     // loadPolygonFileSTL
