@@ -2,10 +2,11 @@
 // Licensed under GPLv2+
 // Refer to the LICENSE.txt file included.
 
-#ifndef PCL_VISUALIZATION_COLOR_H
-#define PCL_VISUALIZATION_COLOR_H
+#ifndef UTILITIES_VISUALIZATION_COLOR_H
+#define UTILITIES_VISUALIZATION_COLOR_H
 
 #include <vector>
+#include <algorithm>
 
 namespace utl
 {
@@ -16,10 +17,10 @@ struct Color
   double b;
 
   Color()
-      : r(-1), g(-1), b(-1){};
+      : r(-1), g(-1), b(-1){}
 
   Color(const double r, const double g, const double b)
-      : r(r), g(g), b(b){};
+      : r(r), g(g), b(b){}
 
   std::vector<double> toStdVec()
   {
@@ -57,6 +58,6 @@ struct Color
 };
 
 typedef std::vector<Color> Colors;
-}
+}  // namespace utl
 
-#endif // PCL_VISUALIZATION_COLOR_H
+#endif  // UTILITIES_VISUALIZATION_COLOR_H

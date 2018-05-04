@@ -2,8 +2,8 @@
 // Licensed under GPLv2+
 // Refer to the LICENSE.txt file included.
 
-#ifndef GRAPH_BASE_H
-#define GRAPH_BASE_H
+#ifndef UTILITIES_GRAPH_GRAPH_BASE_H
+#define UTILITIES_GRAPH_GRAPH_BASE_H
 
 // STD includes
 #include <iostream>
@@ -36,7 +36,7 @@ public:
   GraphBase();
 
   /** \brief Constructor that preallocates memory for vertices. */
-  GraphBase(const int num_vertices);
+  explicit GraphBase(const int num_vertices);
 
   /** \brief Destructor. */
   ~GraphBase();
@@ -206,6 +206,6 @@ protected:
                                int &vtx1_nbr_it,
                                int &vtx2_nbr_it) const;
 };
-}
+}  // namespace utl
 
-#endif // GRAPH_BASE_H
+#endif  // UTILITIES_GRAPH_GRAPH_BASE_H

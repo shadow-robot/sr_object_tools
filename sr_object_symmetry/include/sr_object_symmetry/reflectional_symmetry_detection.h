@@ -6,11 +6,12 @@
  * Unauthorized copying of the content in this file, via any medium is strictly prohibited.
  *
 */
-#ifndef REFLECTIONAL_SYMMETRY_DETECTION_H
-#define REFLECTIONAL_SYMMETRY_DETECTION_H
+#ifndef SR_OBJECT_SYMMETRY_REFLECTIONAL_SYMMETRY_DETECTION_H
+#define SR_OBJECT_SYMMETRY_REFLECTIONAL_SYMMETRY_DETECTION_H
 
 #include <sr_object_symmetry/reflectional_symmetry.hpp>
 #include <sr_object_symmetry/rotational_symmetry_detection.hpp>
+#include <vector>
 
 namespace sym
 {
@@ -40,9 +41,12 @@ struct ReflSymDetectParams
   float min_corresp_inlier_score = 4.0f;
 
   // Similarity parameters for merging
-  float symmetry_min_angle_diff = pcl::deg2rad(7.0); // Two symmetries are considered similar if the angle between their normals is less than this threshold
-  float symmetry_min_distance_diff = 0.02f;          // Two symmetries are considered similar if the difference between their distances to origin is less than this threshold
-  float max_reference_point_distance = 0.3f;         // Maximum distance between the reference points of two symmetries that can be merged
+  float symmetry_min_angle_diff = pcl::deg2rad(7.0); //  Two symmetries are considered similar if the angle 
+                                                     //  between their normals is less than this threshold
+  float symmetry_min_distance_diff = 0.02f;          //  Two symmetries are considered similar if the difference
+                                                     //  between their distances to origin is less than this threshold
+  float max_reference_point_distance = 0.3f;         //  Maximum distance between the reference points of two
+                                                     //  symmetries that can be merged
   std::vector<Eigen::Vector3f> rot_symmetries;
 };
 
@@ -99,7 +103,7 @@ public:
   ReflectionalSymmetryDetection();
 
   /** \brief Constructor with custom parameters. */
-  ReflectionalSymmetryDetection(const ReflSymDetectParams &params);
+  explicit ReflectionalSymmetryDetection(const ReflSymDetectParams &params);
 
   /** \brief Destructor. */
   ~ReflectionalSymmetryDetection();
@@ -189,6 +193,6 @@ private:
   /** \brief Indices of the merged symmetries. */
   std::vector<int> symmetry_merged_ids_;
 };
-}
+}  // namespace sym
 
-#endif // REFLECTIONAL_SYMMETRY_DETECTION_H
+#endif  // SR_OBJECT_SYMMETRY_REFLECTIONAL_SYMMETRY_DETECTION_H

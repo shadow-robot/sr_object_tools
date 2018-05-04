@@ -6,10 +6,11 @@
  * Unauthorized copying of the content in this file, via any medium is strictly prohibited.
  *
 */
-#ifndef ROTATIONAL_SYMMETRY_DETECTION_H
-#define ROTATIONAL_SYMMETRY_DETECTION_H
+#ifndef SR_OBJECT_SYMMETRY_ROTATIONAL_SYMMETRY_DETECTION_H
+#define SR_OBJECT_SYMMETRY_ROTATIONAL_SYMMETRY_DETECTION_H
 
 #include <sr_object_symmetry/rotational_symmetry.hpp>
+#include <vector>
 
 namespace sym
 {
@@ -80,7 +81,7 @@ public:
   RotationalSymmetryDetection();
 
   /** \brief Constructor with custom parameters. */
-  RotationalSymmetryDetection(const RotSymDetectParams &params);
+  explicit RotationalSymmetryDetection(const RotSymDetectParams &params);
 
   /** \brief Destructor. */
   ~RotationalSymmetryDetection();
@@ -178,6 +179,6 @@ private:
   /** \brief Indices of the merged symmetries. */
   std::vector<int> symmetry_merged_ids_;
 };
-}
+}  // namespace sym
 
-#endif // ROTATIONAL_SYMMETRY_DETECTION_H
+#endif  // SR_OBJECT_SYMMETRY_ROTATIONAL_SYMMETRY_DETECTION_H
