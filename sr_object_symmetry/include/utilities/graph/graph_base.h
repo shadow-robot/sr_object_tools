@@ -2,8 +2,8 @@
 // Licensed under GPLv2+
 // Refer to the LICENSE.txt file included.
 
-#ifndef GRAPH_GRAPH_BASE_H_
-#define GRAPH_GRAPH_BASE_H_
+#ifndef UTILITIES_GRAPH_GRAPH_BASE_H
+#define UTILITIES_GRAPH_GRAPH_BASE_H
 
 // STD includes
 #include <iostream>
@@ -188,4 +188,4 @@ protected:
 };
 }  // namespace utl
 
-#endif  // GRAPH_GRAPH_BASE_H_
+#endif  // UTILITIES_GRAPH_GRAPH_BASE_H
