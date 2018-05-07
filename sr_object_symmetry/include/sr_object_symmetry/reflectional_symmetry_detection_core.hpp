@@ -14,6 +14,7 @@
 #include <pcl/registration/correspondence_rejection_one_to_one.h>
 
 #include <limits>
+#include <vector>
 
 // Symmetry
 #include <sr_object_symmetry/refinement_base_functor.hpp>

@@ -6,6 +6,7 @@
 #define GRAPH_MIN_CUT_HPP_
 
 #include <vector>
+#include <string>
 
 // Boost includes
 #include <boost/graph/adjacency_list.hpp>
