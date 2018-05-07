@@ -141,15 +141,15 @@ int alphanum_impl(const char* l, const char* r)
 #ifdef ALPHANUM_LOCALE
       // get the left number
       char* end;
-      unsigned long l_int = strtoul(l, &end, 0);
+      unsigned long l_int = strtoul(l, &end, 0);  // NOLINT
       l = end;
 
       // get the right number
-      unsigned long r_int = strtoul(r, &end, 0);
+      unsigned long r_int = strtoul(r, &end, 0);  // NOLINT
       r = end;
 #else
       // get the left number
-      unsigned long l_int = 0;
+      unsigned long l_int = 0;  // NOLINT
       while (*l && alphanum_isdigit(*l))
       {
         l_int = l_int * 10 + *l - '0';
@@ -157,7 +157,7 @@ int alphanum_impl(const char* l, const char* r)
       }
 
       // get the right number
-      unsigned long r_int = 0;
+      unsigned long r_int = 0;  // NOLINT
       while (*r && alphanum_isdigit(*r))
       {
         r_int = r_int * 10 + *r - '0';
@@ -166,7 +166,7 @@ int alphanum_impl(const char* l, const char* r)
 #endif
 
       // if the difference is not equal to zero, we have a comparison result
-      const long diff = l_int - r_int;
+      const long diff = l_int - r_int;  // NOLINT
       if (diff != 0)
         return diff;
 
@@ -181,7 +181,7 @@ int alphanum_impl(const char* l, const char* r)
     return +1;
   return 0;
 }
-}
+}  // namespace
 
 /**
    Compare left and right with the same semantics as strcmp(), but with the

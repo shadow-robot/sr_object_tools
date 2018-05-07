@@ -91,7 +91,7 @@ inline void randomPointTriangle(float a1, float a2, float a3, float b1, float b2
 inline void randPSurface(vtkPolyData* polydata, std::vector<double>* cumulativeAreas, double totalArea,
                          Eigen::Vector3f& p, Eigen::Vector3f& n, Eigen::Vector3f& c)
 {
-  float r = static_cast<float>(uniform_deviate(rand()) * totalArea);
+  float r = static_cast<float>(uniform_deviate(rand()) * totalArea);  // NOLINT
 
   std::vector<double>::iterator low = std::lower_bound(cumulativeAreas->begin(), cumulativeAreas->end(), r);
   vtkIdType el = vtkIdType(low - cumulativeAreas->begin());
@@ -108,8 +108,8 @@ inline void randPSurface(vtkPolyData* polydata, std::vector<double>* cumulativeA
   Eigen::Vector3f v2 = Eigen::Vector3f(B[0], B[1], B[2]) - Eigen::Vector3f(C[0], C[1], C[2]);
   n = v1.cross(v2);
   n.normalize();
-  float r1 = static_cast<float>(uniform_deviate(rand()));
-  float r2 = static_cast<float>(uniform_deviate(rand()));
+  float r1 = static_cast<float>(uniform_deviate(rand()));  // NOLINT
+  float r2 = static_cast<float>(uniform_deviate(rand()));  // NOLINT
   randomPointTriangle(static_cast<float>(A[0]), static_cast<float>(A[1]), static_cast<float>(A[2]),
                       static_cast<float>(B[0]), static_cast<float>(B[1]), static_cast<float>(B[2]),
                       static_cast<float>(C[0]), static_cast<float>(C[1]), static_cast<float>(C[2]), r1, r2, p);
@@ -153,8 +153,8 @@ void uniform_sampling(vtkSmartPointer<vtkPolyData> polydata, size_t n_samples,
   }
 }
 
-using namespace pcl;
-using namespace pcl::io;
+using namespace pcl;  // NOLINT
+using namespace pcl::io;  // NOLINT
 
 const float default_leaf_size = 0.01f;
 

@@ -55,9 +55,9 @@ inline Color getGlasbeyColor(const int id)
   color.g = static_cast<float>(color_pcl.g) / 255;
   color.b = static_cast<float>(color_pcl.b) / 255;
 #else
-  const uint8_t r = rand() % 255;
-  const uint8_t g = rand() % 255;
-  const uint8_t b = rand() % 255;
+  const uint8_t r = rand() % 255;  // NOLINT
+  const uint8_t g = rand() % 255;  // NOLINT
+  const uint8_t b = rand() % 255;  // NOLINT
   color.r = r;
   color.g = g;
   color.b = b;

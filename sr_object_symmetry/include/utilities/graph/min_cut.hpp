@@ -24,9 +24,9 @@ typedef boost::adjacency_list<
     boost::vecS,                                        // Container used for edges
     boost::directedS,                                   // Directional graph
     boost::property<boost::vertex_name_t, std::string,  // Vertex properties
-                    boost::property<boost::vertex_index_t, long,
+                    boost::property<boost::vertex_index_t, long,  // NOLINT
                                     boost::property<boost::vertex_color_t, boost::default_color_type,
-                                                    boost::property<boost::vertex_distance_t, long,
+                                                    boost::property<boost::vertex_distance_t, long,  // NOLINT
                                                                     boost::property<boost::vertex_predecessor_t,
                                                                                     Traits::edge_descriptor> > > > >,
 
