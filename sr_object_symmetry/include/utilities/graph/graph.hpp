@@ -28,7 +28,7 @@ public:
   }
 
   /** \brief Destructor. */
-  ~Graph(){};
+  ~Graph() {}
 };
 }  // namespace utl
 

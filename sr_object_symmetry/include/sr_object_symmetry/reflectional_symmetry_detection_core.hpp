@@ -13,6 +13,8 @@
 #include <pcl/search/kdtree.h>
 #include <pcl/registration/correspondence_rejection_one_to_one.h>
 
+#include <limits>
+
 // Symmetry
 #include <sr_object_symmetry/refinement_base_functor.hpp>
 #include <sr_object_symmetry/reflectional_symmetry.hpp>

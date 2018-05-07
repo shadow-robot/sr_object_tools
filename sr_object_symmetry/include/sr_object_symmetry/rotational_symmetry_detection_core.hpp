@@ -10,6 +10,7 @@
 #define ROTATIONAL_SYMMETRY_DETECTION_CORE_HPP_
 
 #include <algorithm>
+#include <vector>
 
 // Symmetry
 #include <sr_object_symmetry/rotational_symmetry.hpp>

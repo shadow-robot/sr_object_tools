@@ -102,7 +102,8 @@ int alphanum_impl(const char* l, const char* r)
   {
     STRING,
     NUMBER
-  } mode = STRING;
+  }
+  mode = STRING;
 
   while (*l && *r)
   {

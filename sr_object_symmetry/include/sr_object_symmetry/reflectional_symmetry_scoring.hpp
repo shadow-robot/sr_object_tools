@@ -12,6 +12,8 @@
 // PCL includes
 #include <pcl/search/kdtree.h>
 
+#include <vector>
+
 // Symmetry
 #include <sr_object_symmetry/reflectional_symmetry.hpp>
 

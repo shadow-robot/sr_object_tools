@@ -16,6 +16,7 @@
 #include <limits>
 #include <algorithm>
 #include <string>
+#include <vector>
 
 // Utilities includes
 #include <utilities/geometry/geometry.hpp>

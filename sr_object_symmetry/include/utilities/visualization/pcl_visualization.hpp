@@ -23,6 +23,7 @@
 
 #include <vector>
 #include <algorithm>
+#include <string>
 
 // Utilities
 #include <utilities/std_vector.hpp>

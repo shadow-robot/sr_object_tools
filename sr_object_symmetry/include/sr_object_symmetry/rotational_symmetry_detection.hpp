@@ -14,6 +14,8 @@
 #include <sr_object_symmetry/rotational_symmetry_detection_core.hpp>
 #include <sr_object_symmetry/rotational_symmetry_scoring.hpp>
 
+#include <vector>
+
 // Utilities
 #include <utilities/geometry/geometry.hpp>
 #include <utilities/graph/graph_algorithms.hpp>

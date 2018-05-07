@@ -13,6 +13,7 @@
 #include <algorithm>
 #include <limits>
 #include <utility>
+#include <string>
 
 namespace utl
 {
