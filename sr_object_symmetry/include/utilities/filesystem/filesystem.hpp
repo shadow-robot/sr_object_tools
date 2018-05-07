@@ -2,8 +2,8 @@
 // Licensed under GPLv2+
 // Refer to the LICENSE.txt file included.
 
-#ifndef FILESYSTEM_FILESYSTEM_HPP_
-#define FILESYSTEM_FILESYSTEM_HPP_
+#ifndef UTILITIES_FILESYSTEM_FILESYSTEM_H
+#define UTILITIES_FILESYSTEM_FILESYSTEM_H
 
 // STD includes
 #include <iostream>
@@ -250,4 +250,4 @@ inline std::string fullfile(const std::string& path1, const std::string& path2)
 }
 }  // namespace utl
 
-#endif  // FILESYSTEM_FILESYSTEM_HPP_
+#endif  // UTILITIES_FILESYSTEM_FILESYSTEM_H

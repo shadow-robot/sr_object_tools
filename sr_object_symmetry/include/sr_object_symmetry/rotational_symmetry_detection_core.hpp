@@ -6,8 +6,8 @@
  * Unauthorized copying of the content in this file, via any medium is strictly prohibited.
  *
 */
-#ifndef ROTATIONAL_SYMMETRY_DETECTION_CORE_HPP_
-#define ROTATIONAL_SYMMETRY_DETECTION_CORE_HPP_
+#ifndef SR_OBJECT_SYMMETRY_ROTATIONAL_SYMMETRY_DETECTION_CORE_H
+#define SR_OBJECT_SYMMETRY_ROTATIONAL_SYMMETRY_DETECTION_CORE_H
 
 #include <algorithm>
 #include <vector>
@@ -117,4 +117,4 @@ struct RotSymRefineFunctorDiff : Eigen::NumericalDiff<RotSymRefineFunctor<PointT
 };
 }  // namespace sym
 
-#endif  // ROTATIONAL_SYMMETRY_DETECTION_CORE_HPP_
+#endif  // SR_OBJECT_SYMMETRY_ROTATIONAL_SYMMETRY_DETECTION_CORE_H

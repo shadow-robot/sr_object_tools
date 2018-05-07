@@ -2,8 +2,8 @@
 // Licensed under GPLv2+
 // Refer to the LICENSE.txt file included.
 
-#ifndef VISUALIZATION_PCL_VISUALIZATION_HPP_
-#define VISUALIZATION_PCL_VISUALIZATION_HPP_
+#ifndef UTILITIES_VISUALIZATION_PCL_VISUALIZATION_H
+#define UTILITIES_VISUALIZATION_PCL_VISUALIZATION_H
 
 // PCL
 #include <pcl/visualization/pcl_visualizer.h>
@@ -901,4 +901,4 @@ inline void removeAllText(pcl::visualization::PCLVisualizer& visualizer)
 }
 }  // namespace utl
 
-#endif  // VISUALIZATION_PCL_VISUALIZATION_HPP_
+#endif  // UTILITIES_VISUALIZATION_PCL_VISUALIZATION_H

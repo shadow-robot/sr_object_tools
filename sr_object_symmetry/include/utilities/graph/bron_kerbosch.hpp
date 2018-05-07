@@ -2,8 +2,8 @@
 // Licensed under GPLv2+
 // Refer to the LICENSE.txt file included.
 
-#ifndef GRAPH_BRON_KERBOSCH_HPP_
-#define GRAPH_BRON_KERBOSCH_HPP_
+#ifndef UTILITIES_GRAPH_BRON_KERBOSCH_H
+#define UTILITIES_GRAPH_BRON_KERBOSCH_H
 
 #include <list>
 
@@ -74,4 +74,4 @@ int bronKerbosch(const utl::Graph& graph, std::list<std::list<int>>& cliques, co
 }
 }  // namespace utl
 
-#endif  // GRAPH_BRON_KERBOSCH_HPP_
+#endif  // UTILITIES_GRAPH_BRON_KERBOSCH_H

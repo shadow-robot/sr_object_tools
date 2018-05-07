@@ -2,8 +2,8 @@
 // Licensed under GPLv2+
 // Refer to the LICENSE.txt file included.
 
-#ifndef STD_VECTOR_HPP_
-#define STD_VECTOR_HPP_
+#ifndef UTILITIES_STD_VECTOR_H
+#define UTILITIES_STD_VECTOR_H
 
 #include <assert.h>
 // STD includes
@@ -614,4 +614,4 @@ inline std::pair<int, int> nearestValues(const std::vector<Scalar>& vec, const S
 }
 }  // namespace utl
 
-#endif  // STD_VECTOR_HPP_
+#endif  // UTILITIES_STD_VECTOR_H

@@ -12,8 +12,8 @@
 // Licensed under GPLv2+
 // Refer to the LICENSE.txt file included.
 
-#ifndef SYMMETRY_DETECTION_HPP_
-#define SYMMETRY_DETECTION_HPP_
+#ifndef SR_OBJECT_SYMMETRY_SYMMETRY_DETECTION_H
+#define SR_OBJECT_SYMMETRY_SYMMETRY_DETECTION_H
 
 #include <string>
 #include <vector>
@@ -157,4 +157,4 @@ public:
   }
 };
 
-#endif  // SYMMETRY_DETECTION_HPP_
+#endif  // SR_OBJECT_SYMMETRY_SYMMETRY_DETECTION_H

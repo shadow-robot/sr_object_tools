@@ -2,8 +2,8 @@
 // Licensed under GPLv2+
 // Refer to the LICENSE.txt file included.
 
-#ifndef GEOMETRY_MATH_HPP_
-#define GEOMETRY_MATH_HPP_
+#ifndef UTILITIES_GEOMETRY_MATH_H
+#define UTILITIES_GEOMETRY_MATH_H
 
 // STD includes
 #include <iostream>
@@ -357,4 +357,4 @@ inline Scalar median(const std::vector<Scalar>& v)
 }
 }  // namespace utl
 
-#endif  // GEOMETRY_MATH_HPP_
+#endif  // UTILITIES_GEOMETRY_MATH_H

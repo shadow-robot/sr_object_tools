@@ -5,8 +5,8 @@
  *
 */
 
-#ifndef FILESYSTEM_ALPHANUM_HPP_
-#define FILESYSTEM_ALPHANUM_HPP_
+#ifndef UTILITIES_FILESYSTEM_ALPHANUM_H
+#define UTILITIES_FILESYSTEM_ALPHANUM_H
 
 /*
 The Alphanum Algorithm is an improved sorting algorithm for strings
@@ -327,4 +327,4 @@ struct alphanum_less : public std::binary_function<Ty, Ty, bool>
 };
 }  //  namespace doj
 
-#endif  // FILESYSTEM_ALPHANUM_HPP_
+#endif  // UTILITIES_FILESYSTEM_ALPHANUM_H

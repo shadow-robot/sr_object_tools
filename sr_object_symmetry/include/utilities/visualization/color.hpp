@@ -5,8 +5,6 @@
 #ifndef UTILITIES_VISUALIZATION_COLOR_H
 #define UTILITIES_VISUALIZATION_COLOR_H
 
-
-
 // PCL
 #include <pcl/io/point_cloud_image_extractors.h>
 // CPP tools

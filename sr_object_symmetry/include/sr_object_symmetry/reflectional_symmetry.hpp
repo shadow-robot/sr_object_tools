@@ -6,8 +6,8 @@
  * Unauthorized copying of the content in this file, via any medium is strictly prohibited.
  *
 */
-#ifndef REFLECTIONAL_SYMMETRY_HPP_
-#define REFLECTIONAL_SYMMETRY_HPP_
+#ifndef SR_OBJECT_SYMMETRY_REFLECTIONAL_SYMMETRY_H
+#define SR_OBJECT_SYMMETRY_REFLECTIONAL_SYMMETRY_H
 
 // PCL includes
 #include <pcl/point_types.h>
@@ -475,4 +475,4 @@ inline float getReflSymPositionFitError(const Eigen::Vector3f& point1, const Eig
 }
 }  // namespace sym
 
-#endif  // REFLECTIONAL_SYMMETRY_HPP_
+#endif  // SR_OBJECT_SYMMETRY_REFLECTIONAL_SYMMETRY_H

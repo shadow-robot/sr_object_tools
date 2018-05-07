@@ -2,8 +2,8 @@
 // Licensed under GPLv2+
 // Refer to the LICENSE.txt file included.
 
-#ifndef GRAPH_GRAPH_PRIMITIVES_HPP_
-#define GRAPH_GRAPH_PRIMITIVES_HPP_
+#ifndef UTILITIES_GRAPH_GRAPH_PRIMITIVES_H
+#define UTILITIES_GRAPH_GRAPH_PRIMITIVES_H
 
 #include <vector>
 
@@ -74,4 +74,4 @@ struct EdgeWeighted : public Edge
 };
 }  // namespace utl
 
-#endif  //  GRAPH_GRAPH_PRIMITIVES_HPP_
+#endif  //  UTILITIES_GRAPH_GRAPH_PRIMITIVES_H

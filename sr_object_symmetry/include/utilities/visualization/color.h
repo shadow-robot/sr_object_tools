@@ -2,8 +2,8 @@
 // Licensed under GPLv2+
 // Refer to the LICENSE.txt file included.
 
-#ifndef VISUALIZATION_COLOR_H_
-#define VISUALIZATION_COLOR_H_
+#ifndef UTILITIES_VISUALIZATION_COLOR_H
+#define UTILITIES_VISUALIZATION_COLOR_H
 
 #include <vector>
 #include <algorithm>
@@ -62,4 +62,4 @@ struct Color
 typedef std::vector<Color> Colors;
 }  // namespace utl
 
-#endif  // VISUALIZATION_COLOR_H_
+#endif  // UTILITIES_VISUALIZATION_COLOR_H

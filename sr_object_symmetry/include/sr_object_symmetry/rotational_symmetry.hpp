@@ -6,8 +6,8 @@
  * Unauthorized copying of the content in this file, via any medium is strictly prohibited.
  *
 */
-#ifndef ROTATIONAL_SYMMETRY_HPP_
-#define ROTATIONAL_SYMMETRY_HPP_
+#ifndef SR_OBJECT_SYMMETRY_ROTATIONAL_SYMMETRY_H
+#define SR_OBJECT_SYMMETRY_ROTATIONAL_SYMMETRY_H
 
 // PCL includes
 #include <pcl/point_types.h>
@@ -605,4 +605,4 @@ inline float getRotSymPerpendicularity(const Eigen::Vector3f normal, const sym::
 }
 }  // namespace sym
 
-#endif  // ROTATIONAL_SYMMETRY_HPP_
+#endif  // SR_OBJECT_SYMMETRY_ROTATIONAL_SYMMETRY_H

@@ -2,8 +2,8 @@
 // Licensed under GPLv2+
 // Refer to the LICENSE.txt file included.
 
-#ifndef VISUALIZATION_VIS_HPP_
-#define VISUALIZATION_VIS_HPP_
+#ifndef UTILITIES_VISUALIZATION_VIS_H
+#define UTILITIES_VISUALIZATION_VIS_H
 
 #include <string>
 #include <algorithm>
@@ -120,4 +120,4 @@ void keyboard_callback(const pcl::visualization::KeyboardEvent& event, void* coo
   }
 }
 
-#endif  // VISUALIZATION_VIS_HPP_
+#endif  // UTILITIES_VISUALIZATION_VIS_H

@@ -2,8 +2,8 @@
 // Licensed under GPLv2+
 // Refer to the LICENSE.txt file included.
 
-#ifndef EIGEN_HPP_
-#define EIGEN_HPP_
+#ifndef UTILITIES_EIGEN_H
+#define UTILITIES_EIGEN_H
 
 #include <eigen3/Eigen/Dense>
 #include <iostream>
@@ -130,4 +130,4 @@ inline bool readASCII(const std::string filename, Matrix& matrix)
 }
 }  // namespace utl
 
-#endif  // EIGEN_HPP_
+#endif  // UTILITIES_EIGEN_H

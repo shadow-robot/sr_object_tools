@@ -6,8 +6,8 @@
  * Unauthorized copying of the content in this file, via any medium is strictly prohibited.
  *
 */
-#ifndef REFLECTIONAL_SYMMETRY_DETECTION_CORE_HPP_
-#define REFLECTIONAL_SYMMETRY_DETECTION_CORE_HPP_
+#ifndef SR_OBJECT_SYMMETRY_REFLECTIONAL_SYMMETRY_DETECTION_CORE_H
+#define SR_OBJECT_SYMMETRY_REFLECTIONAL_SYMMETRY_DETECTION_CORE_H
 
 // PCL
 #include <pcl/search/kdtree.h>
@@ -575,4 +575,4 @@ inline bool refineReflSymGlobal(const typename pcl::search::KdTree<PointT>& sear
 }
 }  // namespace sym
 
-#endif  // REFLECTIONAL_SYMMETRY_DETECTION_CORE_HPP_
+#endif  // SR_OBJECT_SYMMETRY_REFLECTIONAL_SYMMETRY_DETECTION_CORE_H

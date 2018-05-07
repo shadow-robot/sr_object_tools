@@ -47,8 +47,8 @@
  *
  */
 
-#ifndef POINTCLOUD_MESH_TO_CLOUD_HPP_
-#define POINTCLOUD_MESH_TO_CLOUD_HPP_
+#ifndef UTILITIES_POINTCLOUD_MESH_TO_CLOUD_H
+#define UTILITIES_POINTCLOUD_MESH_TO_CLOUD_H
 
 #include <pcl/io/pcd_io.h>
 #include <pcl/io/vtk_lib_io.h>
@@ -195,4 +195,4 @@ pcl::PointCloud<pcl::PointXYZRGBNormal>::Ptr convertPlyToCloud(std::string& file
   return cloud_xyzn;
 }
 
-#endif  // POINTCLOUD_MESH_TO_CLOUD_HPP_
+#endif  // UTILITIES_POINTCLOUD_MESH_TO_CLOUD_H

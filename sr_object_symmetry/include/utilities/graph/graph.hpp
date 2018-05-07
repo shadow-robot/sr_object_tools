@@ -2,8 +2,8 @@
 // Licensed under GPLv2+
 // Refer to the LICENSE.txt file included.
 
-#ifndef GRAPH_GRAPH_HPP_
-#define GRAPH_GRAPH_HPP_
+#ifndef UTILITIES_GRAPH_GRAPH_H
+#define UTILITIES_GRAPH_GRAPH_H
 
 // Utilities includes
 #include <utilities/graph/graph_base.hpp>
@@ -32,4 +32,4 @@ public:
 };
 }  // namespace utl
 
-#endif  // GRAPH_GRAPH_HPP_
+#endif  // UTILITIES_GRAPH_GRAPH_H

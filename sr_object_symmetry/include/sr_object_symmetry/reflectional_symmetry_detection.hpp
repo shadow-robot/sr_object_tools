@@ -6,8 +6,8 @@
  * Unauthorized copying of the content in this file, via any medium is strictly prohibited.
  *
 */
-#ifndef REFLECTIONAL_SYMMETRY_DETECTION_HPP_
-#define REFLECTIONAL_SYMMETRY_DETECTION_HPP_
+#ifndef SR_OBJECT_SYMMETRY_REFLECTIONAL_SYMMETRY_DETECTION_H
+#define SR_OBJECT_SYMMETRY_REFLECTIONAL_SYMMETRY_DETECTION_H
 
 // OpenMP includes
 #include <omp.h>
@@ -388,4 +388,4 @@ sym::ReflectionalSymmetryDetection<PointT>::getPointScores(typename pcl::PointCl
   point_symmetry_scores = point_symmetry_scores_;
 }
 
-#endif  // REFLECTIONAL_SYMMETRY_DETECTION_HPP_
+#endif  // SR_OBJECT_SYMMETRY_REFLECTIONAL_SYMMETRY_DETECTION_H

@@ -2,8 +2,8 @@
 // Licensed under GPLv2+
 // Refer to the LICENSE.txt file included.
 
-#ifndef POINTCLOUD_POINTCLOUD_HPP_
-#define POINTCLOUD_POINTCLOUD_HPP_
+#ifndef UTILITIES_POINTCLOUD_POINTCLOUD_H
+#define UTILITIES_POINTCLOUD_POINTCLOUD_H
 
 // PCL includes
 #include <pcl/point_types.h>
@@ -880,4 +880,4 @@ inline void projectCloudToLine(const pcl::PointCloud<PointT>& cloud_in, const Ei
 }
 }  // namespace utl
 
-#endif  // POINTCLOUD_POINTCLOUD_HPP_
+#endif  // UTILITIES_POINTCLOUD_POINTCLOUD_H

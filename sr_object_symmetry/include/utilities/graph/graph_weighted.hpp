@@ -2,8 +2,8 @@
 // Licensed under GPLv2+
 // Refer to the LICENSE.txt file included.
 
-#ifndef GRAPH_GRAPH_WEIGHTED_UTILITIES_HPP_
-#define GRAPH_GRAPH_WEIGHTED_UTILITIES_HPP_
+#ifndef UTILITIES_GRAPH_GRAPH_WEIGHTED_UTILITIES_H
+#define UTILITIES_GRAPH_GRAPH_WEIGHTED_UTILITIES_H
 
 // Utilities includes
 #include <utilities/graph/graph_base.hpp>
@@ -172,4 +172,4 @@ public:
 };
 }  // namespace utl
 
-#endif  // GRAPH_GRAPH_WEIGHTED_UTILITIES_HPP_
+#endif  // UTILITIES_GRAPH_GRAPH_WEIGHTED_UTILITIES_H

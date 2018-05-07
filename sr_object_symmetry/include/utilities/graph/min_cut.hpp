@@ -2,8 +2,8 @@
 // Licensed under GPLv2+
 // Refer to the LICENSE.txt file included.
 
-#ifndef GRAPH_MIN_CUT_HPP_
-#define GRAPH_MIN_CUT_HPP_
+#ifndef UTILITIES_GRAPH_MIN_CUT_H
+#define UTILITIES_GRAPH_MIN_CUT_H
 
 #include <vector>
 #include <string>
@@ -150,4 +150,4 @@ double mincut(const std::vector<float>& source_potentials, const std::vector<flo
 }
 }  // namespace utl
 
-#endif  // GRAPH_MIN_CUT_HPP_
+#endif  // UTILITIES_GRAPH_MIN_CUT_H
