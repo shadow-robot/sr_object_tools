@@ -6,8 +6,8 @@
  * Unauthorized copying of the content in this file, via any medium is strictly prohibited.
  *
 */
-#ifndef SR_OBJECT_SYMMETRY_ROTATIONAL_SYMMETRY_DETECTION_H
-#define SR_OBJECT_SYMMETRY_ROTATIONAL_SYMMETRY_DETECTION_H
+#ifndef SR_OBJECT_SYMMETRY_ROTATIONAL_SYMMETRY_DETECTION_HPP
+#define SR_OBJECT_SYMMETRY_ROTATIONAL_SYMMETRY_DETECTION_HPP
 
 // Symmetry
 #include <sr_object_symmetry/rotational_symmetry_detection.h>
@@ -266,4 +266,4 @@ inline void sym::RotationalSymmetryDetection<PointT>::getScores(std::vector<floa
   coverage_scores = coverage_scores_;
 }
 
-#endif  // SR_OBJECT_SYMMETRY_ROTATIONAL_SYMMETRY_DETECTION_H
+#endif  // SR_OBJECT_SYMMETRY_ROTATIONAL_SYMMETRY_DETECTION_HPP

@@ -2,8 +2,8 @@
 // Licensed under GPLv2+
 // Refer to the LICENSE.txt file included.
 
-#ifndef UTILITIES_VISUALIZATION_COLOR_H
-#define UTILITIES_VISUALIZATION_COLOR_H
+#ifndef UTILITIES_VISUALIZATION_COLOR_HPP
+#define UTILITIES_VISUALIZATION_COLOR_HPP
 
 // PCL
 #include <pcl/io/point_cloud_image_extractors.h>
@@ -141,4 +141,4 @@ inline void tintPointCloud(pcl::PointCloud<PointT>& cloud, const Color& color, c
 }
 }  // namespace utl
 
-#endif  // UTILITIES_VISUALIZATION_COLOR_H
+#endif  // UTILITIES_VISUALIZATION_COLOR_HPP

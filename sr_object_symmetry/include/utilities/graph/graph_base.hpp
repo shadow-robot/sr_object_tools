@@ -2,8 +2,8 @@
 // Licensed under GPLv2+
 // Refer to the LICENSE.txt file included.
 
-#ifndef UTILITIES_GRAPH_GRAPH_BASE_H
-#define UTILITIES_GRAPH_GRAPH_BASE_H
+#ifndef UTILITIES_GRAPH_GRAPH_BASE_HPP
+#define UTILITIES_GRAPH_GRAPH_BASE_HPP
 
 // Utilities includes
 #include <utilities/graph/graph_base.h>
@@ -312,4 +312,4 @@ inline bool utl::GraphBase<VertexT, EdgeT>::getEdgeNeighborListPositions(const i
   return true;
 }
 
-#endif  // UTILITIES_GRAPH_GRAPH_BASE_H
+#endif  // UTILITIES_GRAPH_GRAPH_BASE_HPP
