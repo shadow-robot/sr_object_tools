@@ -1,7 +1,9 @@
-//  Copyright 2017 Aleksandrs Ecins
-//  Copyright (C) 2018 Shadow Robot Company Ltd
-￼//  Licensed under GPLv2+
-￼//  Refer to the LICENSE.txt file included
+/**
+ * Copyright 2017 Aleksandrs Ecins
+ * Copyright (C) 2018 Shadow Robot Company Ltd
+￼ * Licensed under GPLv2+
+ * Refer to the LICENSE.txt file included
+**/
 
 #ifndef UTILITIES_GEOMETRY_MATH_H
 #define UTILITIES_GEOMETRY_MATH_H

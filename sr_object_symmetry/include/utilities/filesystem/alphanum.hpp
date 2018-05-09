@@ -1,4 +1,4 @@
-//  Copyright (C) 2018 Shadow Robot Company Ltd 
+//  Copyright (C) 2018 Shadow Robot Company Ltd
 
 #ifndef UTILITIES_FILESYSTEM_ALPHANUM_H
 #define UTILITIES_FILESYSTEM_ALPHANUM_H

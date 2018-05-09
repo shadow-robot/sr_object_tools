@@ -1,7 +1,9 @@
-//  Copyright 2017 Aleksandrs Ecins
-//  Copyright (C) 2018 Shadow Robot Company Ltd
-￼//  Licensed under GPLv2+
-￼//  Refer to the LICENSE.txt file included
+/**
+ * Copyright 2017 Aleksandrs Ecins
+ * Copyright (C) 2018 Shadow Robot Company Ltd
+￼ * Licensed under GPLv2+
+ * Refer to the LICENSE.txt file included
+**/
 
 #ifndef SR_OBJECT_SYMMETRY_ROTATIONAL_SYMMETRY_DETECTION_CORE_H
 #define SR_OBJECT_SYMMETRY_ROTATIONAL_SYMMETRY_DETECTION_CORE_H
