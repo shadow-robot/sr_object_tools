@@ -1,16 +1,7 @@
-/*
- * Copyright (C) 2018 Shadow Robot Company Ltd - All Rights Reserved. Proprietary and Confidential.
- * Unauthorized copying of the content in this file, via any medium is strictly prohibited.
- *
-*/
-/**
- * @file   symmetry_detection.hpp
- * @author Fotios Papadopoulos <fotios@shadowrobot.com>
- * @brief  Extracts rotational and reflectional symmetries from point clouds
-**/
 // Copyright 2017 Aleksandrs Ecins
-// Licensed under GPLv2+
-// Refer to the LICENSE.txt file included.
+// Copyright (C) 2018 Shadow Robot Company Ltd 
+￼// Licensed under GPLv2+
+￼// Refer to the LICENSE.txt file included
 
 #ifndef SR_OBJECT_SYMMETRY_SYMMETRY_DETECTION_H
 #define SR_OBJECT_SYMMETRY_SYMMETRY_DETECTION_H

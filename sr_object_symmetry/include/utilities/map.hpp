@@ -1,6 +1,7 @@
 // Copyright 2017 Aleksandrs Ecins
-// Licensed under GPLv2+
-// Refer to the LICENSE.txt file included.
+// Copyright (C) 2018 Shadow Robot Company Ltd 
+￼// Licensed under GPLv2+
+￼// Refer to the LICENSE.txt file included
 
 #ifndef UTILITIES_MAP_H
 #define UTILITIES_MAP_H

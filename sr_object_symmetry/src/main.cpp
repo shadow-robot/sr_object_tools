@@ -1,15 +1,7 @@
-/*
- * Copyright (C) 2018 Shadow Robot Company Ltd - All Rights Reserved.
- * Proprietary and Confidential.
- * Unauthorized copying of the content in this file, via any medium is strictly
- * prohibited.
- *
-*/
-/**
- * @file   symmmain.cpp
- * @author Fotios Papadopoulos <fotios@shadowrobot.com>
- * @brief  example on how to use the symmetry libraries
-**/
+// Copyright (C) 2018 Shadow Robot Company Ltd 
+￼// Licensed under GPLv2+
+￼// Refer to the LICENSE.txt file included.
+
 #include <pcl/pcl_config.h>
 #include <string>
 #include <vector>
