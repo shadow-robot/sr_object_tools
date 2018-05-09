@@ -1,0 +1,56 @@
+<launch>
+  <!-- Rotational parameters -->
+  <arg name="ref_max_fit_angle" default="45.0"/> <!-- This will overwrite the current yaml files -->
+  <arg name="min_normal_fit_angle" default="10.0"/> <!-- This will overwrite the current yaml files -->
+  <arg name="max_normal_fit_angle" default="60.0"/> <!-- This will overwrite the current yaml files -->
+  <arg name="max_symmetry_score" default="0.02"/> <!-- This will overwrite the current yaml files -->
+  <arg name="max_perpendicular_score" default="0.6"/> <!-- This will overwrite the current yaml files -->
+  <arg name="min_coverage_score" default="0.3"/> <!-- This will overwrite the current yaml files -->
+  <!-- Reflectional parameters -->
+  <arg name="voxel_size" default="0.0"/> <!-- This will overwrite the current yaml files -->
+  <arg name="num_angle_divisions" default="20"/> <!-- This will overwrite the current yaml files -->
+  <arg name="flatness_threshold" default="0.005"/> <!-- This will overwrite the current yaml files -->
+  <arg name="refine_iterations" default="20"/> <!-- This will overwrite the current yaml files -->
+  <arg name="max_correspondence_reflected_distance" default="0.01"/> <!-- This will overwrite the current yaml files -->
+  <arg name="min_inlier_normal_angle" default="15.0"/> <!-- This will overwrite the current yaml files -->
+  <arg name="max_inlier_normal_angle" default="20.0"/> <!-- This will overwrite the current yaml files -->
+  <arg name="min_cloud_inlier_score" default="0.15"/> <!-- Symmetry filtering parameters -->
+  <arg name="min_corresp_inlier_score" default="0.90"/> <!-- Symmetry filtering parameters -->
+  <!-- Two symmetries are considered similar if the angle between their normals is less than this threshold -->
+  <arg name="symmetry_min_angle_diff" default="7.0"/>
+  <!-- Two symmetries are considered similar if the difference between their distances to origin is less than this threshold -->
+  <arg name="symmetry_min_distance_diff" default="0.01"/>
+  <!-- Maximum distance between the reference points of two symmetries that can be merged -->
+  <arg name="max_reference_point_distance" default="0.3"/> 
+  <!-- General parameters -->
+  <!-- This will show you the symmetries and prompt you to accept/reject -->
+  <arg name="visualization" default="true"/>
+  <!-- This will overwrite the current yaml files -->
+  <arg name="overwrite" default="true"/>
+  <arg name="yaml_path" default="$(find sr_object_symmetry)/yaml"/>
+  <arg name="objects_path" default="$(find sr_object_symmetry)/sample_objects"/>
+  
+
+  <node pkg="sr_object_symmetry" type="sr_object_symmetry" name="sr_object_symmetry" output="screen">
+    <param name="ref_max_fit_angle" value="$(arg ref_max_fit_angle)"/>
+    <param name="min_normal_fit_angle" value="$(arg min_normal_fit_angle)"/>
+    <param name="max_normal_fit_angle" value="$(arg max_normal_fit_angle)"/>
+    <param name="max_symmetry_score" value="$(arg max_symmetry_score)"/>
+    <param name="max_perpendicular_score" value="$(arg max_perpendicular_score)"/>
+    <param name="min_coverage_score" value="$(arg min_coverage_score)"/>
+    <param name="voxel_size" value="$(arg voxel_size)"/>
+    <param name="num_angle_divisions" value="$(arg num_angle_divisions)"/>
+    <param name="flatness_threshold" value="$(arg flatness_threshold)"/>
+    <param name="refine_iterations" value="$(arg refine_iterations)"/>
+    <param name="max_correspondence_reflected_distance" value="$(arg max_correspondence_reflected_distance)"/>
+    <param name="min_inlier_normal_angle" value="$(arg min_inlier_normal_angle)"/>
+    <param name="max_inlier_normal_angle" value="$(arg max_inlier_normal_angle)"/>
+    <param name="min_cloud_inlier_score" value="$(arg min_cloud_inlier_score)"/>
+    <param name="min_corresp_inlier_score" value="$(arg min_corresp_inlier_score)"/>
+    <param name="symmetry_min_angle_diff" value="$(arg symmetry_min_angle_diff)"/>
+    <param name="symmetry_min_distance_diff" value="$(arg symmetry_min_distance_diff)"/>
+    <param name="max_reference_point_distance" value="$(arg max_reference_point_distance)"/>
+    <param name="visualization" value="$(arg visualization)"/>
+    <param name="overwrite" value="$(arg overwrite)"/>
+  </node>
+</launch>
