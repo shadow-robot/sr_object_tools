@@ -1,4 +1,4 @@
-// Copyright (C) 2018 Shadow Robot Company Ltd 
+//  Copyright (C) 2018 Shadow Robot Company Ltd 
 /**
  * @file   mesh_to_cloud.hpp
  * @author Fotios Papadopoulos <fotios@shadowrobot.com>

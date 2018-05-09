@@ -1,6 +1,6 @@
-// Copyright (C) 2018 Shadow Robot Company Ltd 
-￼// Licensed under GPLv2+
-￼// Refer to the LICENSE.txt file included.
+//  Copyright (C) 2018 Shadow Robot Company Ltd
+￼//  Licensed under GPLv2+
+￼//  Refer to the LICENSE.txt file included
 
 #include <pcl/pcl_config.h>
 #include <string>

@@ -1,7 +1,7 @@
-// Copyright 2017 Aleksandrs Ecins
-// Copyright (C) 2018 Shadow Robot Company Ltd 
-￼// Licensed under GPLv2+
-￼// Refer to the LICENSE.txt file included
+//  Copyright 2017 Aleksandrs Ecins
+//  Copyright (C) 2018 Shadow Robot Company Ltd
+￼//  Licensed under GPLv2+
+￼//  Refer to the LICENSE.txt file included
 
 #ifndef UTILITIES_GRAPH_MIN_CUT_H
 #define UTILITIES_GRAPH_MIN_CUT_H
