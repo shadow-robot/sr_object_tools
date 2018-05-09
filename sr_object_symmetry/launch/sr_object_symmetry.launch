@@ -27,8 +27,12 @@
   <arg name="visualization" default="true"/>
   <!-- This will overwrite the current yaml files -->
   <arg name="overwrite" default="true"/>
-  <arg name="yaml_path" default="$(find sr_object_symmetry)/yaml"/>
+  <!-- The ouput path for the yaml files -->
+  <arg name="yaml_path" default="$(find sr_object_symmetry)/sample_objects"/>
+  <!-- The input path for the object files -->
   <arg name="objects_path" default="$(find sr_object_symmetry)/sample_objects"/>
+  <!-- The sampling size for the objects -->
+  <arg name="object_sampling" default="15000"/>
   
 
   <node pkg="sr_object_symmetry" type="sr_object_symmetry" name="sr_object_symmetry" output="screen">

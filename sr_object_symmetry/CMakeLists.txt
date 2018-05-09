@@ -162,8 +162,8 @@ add_executable(${PROJECT_NAME} src/main.cpp)
 
 ## Specify libraries to link a library or executable target against
 target_link_libraries(${PROJECT_NAME}
-#   ${catkin_LIBRARIES}
-${PCL_LIBRARIES}
+  ${catkin_LIBRARIES}
+  ${PCL_LIBRARIES}
 )
 
 #############
