@@ -247,7 +247,6 @@ inline bool sym::ReflectionalSymmetryDetection<PointT>::detect()
 
   //----------------------------------------------------------------------------
   // Refine initial symmetries
-  std::cout << "Found Initial symmetries:" << symmetries_initial_.size() << std::endl;
   // Pre-filtering
   if (params_.rot_symmetries.size() > 0)  // rotational symmetriy exist so keep perpendicular ones only
   {
@@ -267,7 +266,6 @@ inline bool sym::ReflectionalSymmetryDetection<PointT>::detect()
     {
       symmetries_initial_.resize(pre_symmetries.size());
       symmetries_initial_ = pre_symmetries;
-      std::cout << "Pre-filtered symmetries:" << symmetries_initial_.size() << std::endl;
     }
   }
   // These vectors are required to enable paralllizing symmetry detection loop
@@ -334,7 +332,6 @@ inline bool sym::ReflectionalSymmetryDetection<PointT>::detect()
     point_symmetry_scores_.push_back(pointSymmetryScoresTMP[symIdIt]);
     correspondences_.push_back(symmetryCorrespTMP[symIdIt]);
   }
-  std::cout << "Refined symmetries:" << symmetries_refined_.size() << std::endl;
   return (symmetries_refined_.size() > 0);
 }
 

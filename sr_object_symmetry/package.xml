@@ -14,7 +14,7 @@
   <depend>libpcl-all-dev</depend>
   <depend>roscpp</depend>
   <depend>std_msgs</depend>
-
+  <depend>yaml-cpp</depend>
   <export>
 
   </export>

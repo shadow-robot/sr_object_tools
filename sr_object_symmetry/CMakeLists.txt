@@ -10,6 +10,9 @@ find_package(catkin REQUIRED COMPONENTS
   roscpp
 )
 
+find_package(PkgConfig REQUIRED)
+pkg_check_modules(YAML_CPP REQUIRED yaml-cpp)
+
 ## System dependencies are found with CMake's conventions
 find_package(Boost REQUIRED COMPONENTS regex)
 
@@ -133,6 +136,7 @@ include_directories(
   ${catkin_INCLUDE_DIRS}
   ${PCL_INCLUDE_DIRS}
   ${DYNAMICEDT3D_INCLUDE_DIRS}
+  ${YAML_CPP_INCLUDEDIR}
 )
 
 ## Declare a C++ library
@@ -164,6 +168,7 @@ add_executable(${PROJECT_NAME} src/main.cpp)
 target_link_libraries(${PROJECT_NAME}
   ${catkin_LIBRARIES}
   ${PCL_LIBRARIES}
+  ${YAML_CPP_LIBRARIES}
 )
 
 #############

@@ -56,5 +56,8 @@
     <param name="max_reference_point_distance" value="$(arg max_reference_point_distance)"/>
     <param name="visualization" value="$(arg visualization)"/>
     <param name="overwrite" value="$(arg overwrite)"/>
+    <param name="yaml_path" value="$(arg yaml_path)"/>
+    <param name="objects_path" value="$(arg objects_path)"/>
+    <param name="object_sampling" value="$(arg object_sampling)"/>
   </node>
 </launch>

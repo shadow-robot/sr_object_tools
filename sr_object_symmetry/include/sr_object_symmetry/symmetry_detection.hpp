@@ -55,7 +55,6 @@ public:
     rsd.getSymmetries(symmetry_TMP, symmetryFilteredIds_TMP);
     rsd.getScores(rot_symmetry_scores, rot_perpendicular_scores, rot_coverage_scores);
     // Merge
-    // std::cout << "Filtered rotational symmetries:" << symmetryFilteredIds_TMP.size() << std::endl;
     if (symmetryFilteredIds_TMP.size() > 0)
     {
       symmetry_filtered.resize(symmetryFilteredIds_TMP.size());
