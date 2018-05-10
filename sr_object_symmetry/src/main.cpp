@@ -82,10 +82,14 @@ int main(int argc, char** argv)
           files.push_back(fname);
       }
       closedir(dir);
-    } else if (s.st_mode & S_IFREG) {
+    }
+    else if (s.st_mode & S_IFREG)
+    {
       files.push_back(objectsPath);
     }
-  } else {
+  }
+  else
+  {
     return 0;
   }
   for (size_t fileIndex = 0; fileIndex < files.size(); fileIndex++)
@@ -106,7 +110,7 @@ int main(int argc, char** argv)
       for (size_t symId = 0; symId < symmetries_T.getRotational().size(); symId++)
       {
         reflDetParams.rot_symmetries.push_back(symmetries_T.getRotational()[symId].getDirection());
-        std::cout << "Rotational symmetries ID:" << symId << ": " << symmetries_T.getRotational()[symId] << std::endl;
+        std::cout << "Rotational symmetry ID:" << symId << ":" << symmetries_T.getRotational()[symId] << std::endl;
       }
     }
 
@@ -118,7 +122,7 @@ int main(int argc, char** argv)
     {
       std::cout << "Reflectional symmetries: " << symmetries_T.getReflectional().size() << std::endl;
       for (size_t symId = 0; symId < symmetries_T.getReflectional().size(); symId++)
-        std::cout << "Reflectional symmetries ID:" << symId << ": " << symmetries_T.getReflectional()[symId] << std::endl;
+        std::cout << "Reflectional symmetry ID:" << symId << ":" << symmetries_T.getReflectional()[symId] << std::endl;
     }
     std::cout << "Controls:" << std::endl;
     std::cout << "Numpad 1: Show Point Cloud" << std::endl;
@@ -129,10 +133,10 @@ int main(int argc, char** argv)
     //  Visualize
     VisState visState;
     pcl::visualization::PCLVisualizer visualizer;
-    visualizer.setCameraPosition(0.0, 0.0, -1.0, //  camera position
-                                 0.0, 0.0, 1.0,  //  viewpoint
-                                 0.0, -1.0, 0.0, //  normal
-                                 0.0);           //  viewport
+    visualizer.setCameraPosition(0.0, 0.0, -1.0,  //  camera position
+                                 0.0, 0.0, 1.0,   //  viewpoint
+                                 0.0, -1.0, 0.0,  //  normal
+                                 0.0);            //  viewport
     visualizer.setBackgroundColor(utl::bgColor.r, utl::bgColor.g, utl::bgColor.b);
     visualizer.registerKeyboardCallback(keyboard_callback, reinterpret_cast<void *>(&visState));
     visState.updateDisplay_ = true;
@@ -163,7 +167,8 @@ int main(int argc, char** argv)
           }
           utl::showPointCloudColor<PointT>(visualizer, cloudDisplay, "cloud", visState.pointSize_);
           if (visState.showNormals_)
-            utl::showNormalCloud<PointT>(visualizer, cloudDisplay, 10, 0.02, "normals", visState.pointSize_, utl::green);
+            utl::showNormalCloud<PointT>(visualizer, cloudDisplay, 10, 0.02, "normals",
+                                         visState.pointSize_, utl::green);
           visualizer.addText(text, 0, 150, 24, 1.0, 1.0, 1.0);
         }
         else if (visState.cloudDisplay_ == VisState::ROTATIONAL_SYMMETRIES)
@@ -176,7 +181,8 @@ int main(int argc, char** argv)
           {
             symmetryDisplayIds.push_back(symId);
           }
-          visState.segIterator_ = utl::clampValueCircular<int>(visState.segIterator_, 0, symmetryDisplayIds.size() - 1);
+          visState.segIterator_ = utl::clampValueCircular<int>(visState.segIterator_, 0,
+                                                               symmetryDisplayIds.size() - 1);
           int symId = symmetryDisplayIds[visState.segIterator_];
           utl::showPointCloudColor<PointT>(visualizer, cloudHighRes, "cloud", visState.pointSize_);
           //  Show symmetry
@@ -200,7 +206,8 @@ int main(int argc, char** argv)
               symmetryDisplayIds.push_back(symId);
             text = "Reflectional symmetry ";
           }
-          visState.segIterator_ = utl::clampValueCircular<int>(visState.segIterator_, 0, symmetryDisplayIds.size() - 1);
+          visState.segIterator_ = utl::clampValueCircular<int>(visState.segIterator_, 0,
+                                                               symmetryDisplayIds.size() - 1);
           int symId = symmetryDisplayIds[visState.segIterator_];
           text = "cloudInlierScores Score: " + std::to_string(symmetries_T.getReflectionalScores()[symId]);
           utl::showPointCloudColor<PointT>(visualizer, cloudHighRes, "cloud", visState.pointSize_);
