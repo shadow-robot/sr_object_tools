@@ -99,12 +99,12 @@ int main(int argc, char **argv)
   {
     // Create new Symmetries object
     SymmetryDetection symmetries_T;
+    reflDetParams.rot_symmetries.clear();
     yamlFile = yamlPath + "/" + utl::getBasenameNoExtension(files[fileIndex].c_str()) + ".yaml";
     // First check if file exists, if not then extract symmetries
     if ((utl::isFile(yamlFile) == false) || (overWrite == true))
     {
-      YAML::Emitter yamlOut;
-      yamlOut << YAML::BeginMap;
+      
       ROS_INFO_STREAM("Loading object: " << files[fileIndex].c_str());
       symmetries_T.loadFile(files[fileIndex].c_str(), objectSampling);
       // Detect rotational symmetries
@@ -115,21 +115,9 @@ int main(int argc, char **argv)
       }
       else
       {
-        yamlOut << YAML::Key << "rotational" << YAML::Value << YAML::BeginSeq;
         ROS_INFO_STREAM("Rotational symmetries: " << symmetries_T.getRotational().size());
         for (size_t symId = 0; symId < symmetries_T.getRotational().size(); symId++)
-        {
-          yamlOut << YAML::BeginMap << YAML::Key << "origin" << YAML::Value << YAML::Flow <<
-                     YAML::BeginSeq << symmetries_T.getRotational()[symId].getOrigin()[0] <<
-                     symmetries_T.getRotational()[symId].getOrigin()[1] <<
-                     symmetries_T.getRotational()[symId].getOrigin()[2] << YAML::EndSeq;
-          yamlOut << YAML::Key << "direction" << YAML::Value << YAML::Flow << YAML::BeginSeq <<
-                     symmetries_T.getRotational()[symId].getDirection()[0] <<
-                     symmetries_T.getRotational()[symId].getDirection()[1] <<
-                     symmetries_T.getRotational()[symId].getDirection()[2] << YAML::EndSeq << YAML::EndMap;
           reflDetParams.rot_symmetries.push_back(symmetries_T.getRotational()[symId].getDirection());
-        }
-        yamlOut << YAML::EndSeq;
       }
       // Detect reflectional symmetries
       symmetries_T.reflectionalDetection<PointT>(reflDetParams);
@@ -137,31 +125,8 @@ int main(int argc, char **argv)
         ROS_WARN("Could not find reflectional symmetries");
       else
       {
-        yamlOut << YAML::Key << "reflectional" << YAML::Value << YAML::BeginSeq;
         ROS_INFO_STREAM("Reflectional symmetries: " << symmetries_T.getReflectional().size());
-        for (size_t symId = 0; symId < symmetries_T.getReflectional().size(); symId++)
-        {
-          yamlOut << YAML::BeginMap << YAML::Key << "origin" << YAML::Value << YAML::Flow <<
-                     YAML::BeginSeq << symmetries_T.getReflectional()[symId].getOrigin()[0] <<
-                     symmetries_T.getReflectional()[symId].getOrigin()[1] <<
-                     symmetries_T.getReflectional()[symId].getOrigin()[2] << YAML::EndSeq;
-          yamlOut << YAML::Key << "normal" << YAML::Value << YAML::Flow << YAML::BeginSeq <<
-                     symmetries_T.getReflectional()[symId].getNormal()[0] <<
-                     symmetries_T.getReflectional()[symId].getNormal()[1] <<
-                     symmetries_T.getReflectional()[symId].getNormal()[2] << YAML::EndSeq << YAML::EndMap;
-        }
-        yamlOut << YAML::EndSeq;
       }
-      yamlOut << YAML::EndMap;
-      // Saving
-      // First check if the output folder exists, if not then create it
-      if (!utl::isDirectory(yamlPath))
-        utl::createDir(yamlPath);
-      std::ofstream fout(yamlFile);
-      fout << yamlOut.c_str();
-      fout.close();
-      ROS_INFO_STREAM("Yaml saved as:" << yamlFile);
-
       if (visEnable)
       {
         // For visualization
@@ -282,6 +247,50 @@ int main(int argc, char **argv)
           boost::this_thread::sleep(boost::posix_time::milliseconds(10));
         }
       }
+      YAML::Emitter yamlOut;
+      yamlOut << YAML::BeginMap;
+
+      if (symmetries_T.getRotational().size() > 0)
+      {
+        yamlOut << YAML::Key << "rotational" << YAML::Value << YAML::BeginSeq;
+        for (size_t symId = 0; symId < symmetries_T.getRotational().size(); symId++)
+        {
+          yamlOut << YAML::BeginMap << YAML::Key << "origin" << YAML::Value << YAML::Flow <<
+                     YAML::BeginSeq << symmetries_T.getRotational()[symId].getOrigin()[0] <<
+                     symmetries_T.getRotational()[symId].getOrigin()[1] <<
+                     symmetries_T.getRotational()[symId].getOrigin()[2] << YAML::EndSeq;
+          yamlOut << YAML::Key << "direction" << YAML::Value << YAML::Flow << YAML::BeginSeq <<
+                     symmetries_T.getRotational()[symId].getDirection()[0] <<
+                     symmetries_T.getRotational()[symId].getDirection()[1] <<
+                     symmetries_T.getRotational()[symId].getDirection()[2] << YAML::EndSeq << YAML::EndMap;
+        }
+        yamlOut << YAML::EndSeq;
+      }
+      if (symmetries_T.getReflectional().size() > 0)
+      {
+        yamlOut << YAML::Key << "reflectional" << YAML::Value << YAML::BeginSeq;
+        for (size_t symId = 0; symId < symmetries_T.getReflectional().size(); symId++)
+        {
+          yamlOut << YAML::BeginMap << YAML::Key << "origin" << YAML::Value << YAML::Flow <<
+                     YAML::BeginSeq << symmetries_T.getReflectional()[symId].getOrigin()[0] <<
+                     symmetries_T.getReflectional()[symId].getOrigin()[1] <<
+                     symmetries_T.getReflectional()[symId].getOrigin()[2] << YAML::EndSeq;
+          yamlOut << YAML::Key << "normal" << YAML::Value << YAML::Flow << YAML::BeginSeq <<
+                     symmetries_T.getReflectional()[symId].getNormal()[0] <<
+                     symmetries_T.getReflectional()[symId].getNormal()[1] <<
+                     symmetries_T.getReflectional()[symId].getNormal()[2] << YAML::EndSeq << YAML::EndMap;
+        }
+        yamlOut << YAML::EndSeq;
+      }
+      yamlOut << YAML::EndMap;
+      // Saving
+      // First check if the output folder exists, if not then create it
+      if (!utl::isDirectory(yamlPath))
+        utl::createDir(yamlPath);
+      std::ofstream fout(yamlFile);
+      fout << yamlOut.c_str();
+      fout.close();
+      ROS_INFO_STREAM("Yaml saved as:" << yamlFile);
     }
   }
 }
