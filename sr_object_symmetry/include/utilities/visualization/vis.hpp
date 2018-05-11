@@ -20,7 +20,7 @@ struct VisState
     : cloudDisplay_(CLOUD)
     , updateDisplay_(true)
     , showNormals_(false)
-    , showOccupancy_(false)
+    , delete_(false)
     , showSymmetry_(true)
     , showReconstructedCloud_(false)
     , segIterator_(0)
@@ -44,7 +44,7 @@ struct VisState
   CloudDisplay cloudDisplay_;
   bool updateDisplay_;
   bool showNormals_;
-  bool showOccupancy_;
+  bool delete_;
   bool showSymmetry_;
   bool showReconstructedCloud_;
 
@@ -106,7 +106,7 @@ void keyboard_callback(const pcl::visualization::KeyboardEvent& event, void* coo
 
     // Additional display
     else if (key == "KP_Decimal" || key == "KP_Delete")
-      visState->showOccupancy_ = !visState->showOccupancy_;
+      visState->delete_ = true;
     else if ((key == "n") || (key == "N"))
       visState->showNormals_ = !visState->showNormals_;
     else if ((key == "m") || (key == "M"))

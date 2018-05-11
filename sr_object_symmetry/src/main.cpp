@@ -229,7 +229,13 @@ int main(int argc, char **argv)
                                                                    symmetryDisplayIds.size() - 1);
               int symId = symmetryDisplayIds[visState.segIterator_];
               utl::showPointCloudColor<PointT>(visualizer, cloudHighRes, "cloud", visState.pointSize_);
-              //  Show symmetry
+              if ((visState.delete_) && (symmetries_T.getRotational().size() > 1))
+              {
+                visState.delete_ = false;
+                symmetries_T.removeCurrRotational(symId);
+                visState.updateDisplay_ = true;
+              }
+              // Show symmetry
               if (visState.showSymmetry_)
                 sym::showRotationalSymmetry(visualizer, symmetryDisplay[symId], "symmetry", 5, 5.0);
               text = "Rotational symmetries score:" + std::to_string(symmetries_T.getRotationalScores()[symId]);
@@ -256,6 +262,12 @@ int main(int argc, char **argv)
               int symId = symmetryDisplayIds[visState.segIterator_];
               text = "cloudInlierScores Score: " + std::to_string(symmetries_T.getReflectionalScores()[symId]);
               utl::showPointCloudColor<PointT>(visualizer, cloudHighRes, "cloud", visState.pointSize_);
+              if ((visState.delete_) && (symmetries_T.getReflectional().size() > 1))
+              {
+                visState.delete_ = false;
+                symmetries_T.removeCurrReflectional(symId);
+                visState.updateDisplay_ = true;
+              }
               // Show symmetry
               if (visState.showSymmetry_)
                 sym::showReflectionalSymmetry(visualizer, symmetryDisplay[symId], "symmetry", 1);

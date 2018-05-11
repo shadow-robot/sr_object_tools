@@ -147,6 +147,39 @@ public:
   {
     return ref_corresp_inlier_scores;
   }
+  void removeCurrRotational(int symDel)
+  {
+    std::vector<sym::RotationalSymmetry> rot_symmetries_tmp;
+    std::vector<float> rot_symmetry_scores_tmp;
+    for (size_t symId = 0; symId < rot_symmetries.size(); symId++)
+      {
+        if (symId != symDel)
+        {
+          rot_symmetries_tmp.push_back(rot_symmetries[symId]);
+          rot_symmetry_scores_tmp.push_back(rot_symmetry_scores[symId]);
+        }
+      }
+      rot_symmetries = rot_symmetries_tmp;
+      rot_symmetry_scores = rot_symmetry_scores_tmp;
+  }
+  void removeCurrReflectional(int symDel)
+  {
+    std::vector<sym::ReflectionalSymmetry> ref_symmetries_tmp;
+    std::vector<float> ref_cloud_inlier_scores_tmp;
+    std::vector<float> ref_corresp_inlier_scores_tmp;
+    for (size_t symId = 0; symId < ref_symmetries.size(); symId++)
+      {
+        if (symId != symDel)
+        {
+          ref_symmetries_tmp.push_back(ref_symmetries[symId]);
+          ref_cloud_inlier_scores_tmp.push_back(ref_cloud_inlier_scores[symId]);
+          ref_corresp_inlier_scores_tmp.push_back(ref_corresp_inlier_scores[symId]);
+        }
+      }
+      ref_symmetries = ref_symmetries_tmp;
+      ref_cloud_inlier_scores = ref_cloud_inlier_scores_tmp;
+      ref_corresp_inlier_scores = ref_corresp_inlier_scores_tmp;
+  }
 };
 
 #endif  // SR_OBJECT_SYMMETRY_SYMMETRY_DETECTION_H
