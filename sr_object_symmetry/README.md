@@ -1,0 +1,5 @@
+# sr_object_symmetry
+
+This tool returns yaml(s) files with the corresponding rotational and reflectional symmetries of the corresponding CAD (.ply,.obj,.stl) models. The package accepts as input a single file or a folder path `objects_path`. The tool will save the yaml files in the defined directory `yaml_path`. 
+
+The paramaters are available in the launch file located:[sr_object_symmetry.launch](launch/sr_object_symmetry.launch)  that includes a description of each one of them. 

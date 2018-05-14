@@ -104,7 +104,6 @@ int main(int argc, char **argv)
     // First check if file exists, if not then extract symmetries
     if ((utl::isFile(yamlFile) == false) || (overWrite == true))
     {
-      
       ROS_INFO_STREAM("Loading object: " << files[fileIndex].c_str());
       symmetries_T.loadFile(files[fileIndex].c_str(), objectSampling);
       // Detect rotational symmetries
