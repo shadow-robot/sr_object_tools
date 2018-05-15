@@ -258,7 +258,7 @@ inline bool sym::ReflectionalSymmetryDetection<PointT>::detect()
       {
         Eigen::Vector3f rot_symmetry;
         rot_symmetry = params_.rot_symmetries[rotId];
-        std::cout << "ABS:" << fabs(rot_symmetry.dot(symmetries_initial_[symId].getNormal())) << std::endl;
+        // std::cout << "ABS:" << fabs(rot_symmetry.dot(symmetries_initial_[symId].getNormal())) << std::endl;
         if (fabs(rot_symmetry.dot(symmetries_initial_[symId].getNormal())) > 0.99)
           pre_symmetries.push_back(symmetries_initial_[symId]);
       }
