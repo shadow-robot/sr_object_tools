@@ -234,7 +234,6 @@ int main(int argc, char **argv)
               visState.segIterator_ = utl::clampValueCircular<int>(visState.segIterator_, 0,
                                                                    symmetryDisplayIds.size() - 1);
               int symId = symmetryDisplayIds[visState.segIterator_];
-              
               utl::showPointCloudColor<PointT>(visualizer, cloudHighRes, "cloud", visState.pointSize_);
               if (visState.delete_)
               {
