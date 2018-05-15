@@ -15,8 +15,8 @@
   correspondence and a reflection of the second point -->
   <arg name="min_inlier_normal_angle" default="15.0"/> <!-- minimum normal fit angle for an inlier symmetric correspondence -->
   <arg name="max_inlier_normal_angle" default="20.0"/> <!-- maximum normal fit angle for an inlier symmetric correspondence -->
-  <arg name="min_cloud_inlier_score" default="0.15"/> <!-- Symmetry filtering parameters -->
-  <arg name="min_corresp_inlier_score" default="0.90"/> <!-- Symmetry filtering parameters -->
+  <arg name="min_cloud_inlier_score" default="0.25"/> <!-- Symmetry filtering parameters -->
+  <arg name="min_corresp_inlier_score" default="0.8"/> <!-- Symmetry filtering parameters -->
   <arg name="symmetry_min_angle_diff" default="7.0"/> <!-- Two symmetries are considered similar if the angle between their normals
   is less than this threshold -->
   <arg name="symmetry_min_distance_diff" default="0.01"/> <!-- Two symmetries are considered similar if the difference between

@@ -174,6 +174,7 @@ int main(int argc, char **argv)
               visualizer.addText("Numpad 1: Show Point Cloud", 0, 20, 24, 1.0, 1.0, 1.0);
               visualizer.addText("Numpad 3: Show Rotational Symmetries", 0, 40, 24, 1.0, 1.0, 1.0);
               visualizer.addText("Numpad 7: Show Reflectional Symmetries", 0, 60, 24, 1.0, 1.0, 1.0);
+              visualizer.addText("Q: Go to next object", 0, 80, 24, 1.0, 1.0, 1.0);
             }
             else if ((visState.cloudDisplay_ == VisState::ROTATIONAL_SYMMETRIES) &&
                      (symmetries_T.getRotational().size() > 0))
@@ -211,6 +212,7 @@ int main(int argc, char **argv)
                 visualizer.addText("Numpad 1: Show Point Cloud", 0, 20, 24, 1.0, 1.0, 1.0);
                 visualizer.addText("Numpad 3: Show Rotational Symmetries", 0, 40, 24, 1.0, 1.0, 1.0);
                 visualizer.addText("Numpad 7: Show Reflectional Symmetries", 0, 60, 24, 1.0, 1.0, 1.0);
+                visualizer.addText("Q: Go to next object", 0, 80, 24, 1.0, 1.0, 1.0);
                 visualizer.addText("Symmetry index ID " + std::to_string(visState.segIterator_) + " Size " +
                                        std::to_string(symmetryDisplayIds.size()),
                                    15, 125, 24, 1.0, 1.0, 1.0);
@@ -232,7 +234,7 @@ int main(int argc, char **argv)
               visState.segIterator_ = utl::clampValueCircular<int>(visState.segIterator_, 0,
                                                                    symmetryDisplayIds.size() - 1);
               int symId = symmetryDisplayIds[visState.segIterator_];
-              text = "cloudInlierScores Score: " + std::to_string(symmetries_T.getReflectionalScores()[symId]);
+              
               utl::showPointCloudColor<PointT>(visualizer, cloudHighRes, "cloud", visState.pointSize_);
               if (visState.delete_)
               {
@@ -247,10 +249,13 @@ int main(int argc, char **argv)
               {
                 if (visState.showSymmetry_)
                   sym::showReflectionalSymmetry(visualizer, symmetryDisplay[symId], "symmetry", 1);
+                text = "cloudInlierScores Score: " + std::to_string(symmetries_T.getReflectionalScores()[symId]);
                 visualizer.addText("Numpad 0: Delete current symmetry", 0, 0, 24, 1.0, 1.0, 1.0);
                 visualizer.addText("Numpad 1: Show Point Cloud", 0, 20, 24, 1.0, 1.0, 1.0);
                 visualizer.addText("Numpad 3: Show Rotational Symmetries", 0, 40, 24, 1.0, 1.0, 1.0);
                 visualizer.addText("Numpad 7: Show Reflectional Symmetries", 0, 60, 24, 1.0, 1.0, 1.0);
+                visualizer.addText("Q: Go to next object", 0, 80, 24, 1.0, 1.0, 1.0);
+                visualizer.addText(text, 0, 100, 24, 1.0, 1.0, 1.0);
                 visualizer.addText("Symmetry index ID" + std::to_string(visState.segIterator_) + " Size " +
                                        std::to_string(symmetryDisplayIds.size()),
                                    15, 125, 24, 1.0, 1.0, 1.0);

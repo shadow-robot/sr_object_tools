@@ -145,7 +145,7 @@ public:
   }
   std::vector<float> getReflectionalScores(void)
   {
-    return ref_corresp_inlier_scores;
+    return ref_cloud_inlier_scores;
   }
   void removeCurrRotational(int symDel)
   {
