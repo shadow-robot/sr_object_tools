@@ -131,13 +131,6 @@ int main(int argc, char **argv)
         // For visualization
         pcl::PointCloud<PointT>::Ptr cloudHighRes(new pcl::PointCloud<PointT>);
         cloudHighRes = symmetries_T.getCloud();
-        //  Visualization
-        std::cout << "Controls:" << std::endl;
-        std::cout << "Numpad 1: Show Point Cloud" << std::endl;
-        std::cout << "Numpad 3: Show Rotational Symmetries" << std::endl;
-        std::cout << "Numpad 7: Show Reflectional Symmetries" << std::endl;
-        std::cout << "Left/Right arrows: Show next symmetry in list" << std::endl;
-
         VisState visState;
         pcl::visualization::PCLVisualizer visualizer;
         visualizer.setCameraPosition(0.0, 0.0, -1.0,  // camera position
@@ -177,6 +170,10 @@ int main(int argc, char **argv)
                 utl::showNormalCloud<PointT>(visualizer, cloudDisplay, 10, 0.02, "normals",
                                              visState.pointSize_, utl::green);
               visualizer.addText(text, 0, 150, 24, 1.0, 1.0, 1.0);
+              visualizer.addText("Numpad 0: Delete current symmetry", 0, 0, 24, 1.0, 1.0, 1.0);
+              visualizer.addText("Numpad 1: Show Point Cloud", 0, 20, 24, 1.0, 1.0, 1.0);
+              visualizer.addText("Numpad 3: Show Rotational Symmetries", 0, 40, 24, 1.0, 1.0, 1.0);
+              visualizer.addText("Numpad 7: Show Reflectional Symmetries", 0, 60, 24, 1.0, 1.0, 1.0);
             }
             else if ((visState.cloudDisplay_ == VisState::ROTATIONAL_SYMMETRIES) &&
                      (symmetries_T.getRotational().size() > 0))
@@ -193,20 +190,31 @@ int main(int argc, char **argv)
                                                                    symmetryDisplayIds.size() - 1);
               int symId = symmetryDisplayIds[visState.segIterator_];
               utl::showPointCloudColor<PointT>(visualizer, cloudHighRes, "cloud", visState.pointSize_);
-              if ((visState.delete_) && (symmetries_T.getRotational().size() > 1))
+              if (visState.delete_)
               {
                 visState.delete_ = false;
                 symmetries_T.removeCurrRotational(symId);
+                if (symmetries_T.getRotational().size() == 0)
+                  visState.cloudDisplay_ = VisState::CLOUD;
                 visState.updateDisplay_ = true;
+                visState.showSymmetry_ = false;
               }
               // Show symmetry
-              if (visState.showSymmetry_)
-                sym::showRotationalSymmetry(visualizer, symmetryDisplay[symId], "symmetry", 5, 5.0);
-              text = "Rotational symmetries score:" + std::to_string(symmetries_T.getRotationalScores()[symId]);
-              visualizer.addText(text, 0, 150, 24, 1.0, 1.0, 1.0);
-              visualizer.addText("Symmetry " + std::to_string(visState.segIterator_) + " / " +
-                                     std::to_string(symmetryDisplayIds.size() - 1),
-                                 15, 125, 24, 1.0, 1.0, 1.0);
+              if (symmetries_T.getRotational().size() > 0)
+              {
+                if (visState.showSymmetry_)
+                  sym::showRotationalSymmetry(visualizer, symmetryDisplay[symId], "symmetry", 5, 5.0);
+
+                text = "Rotational symmetries score:" + std::to_string(symmetries_T.getRotationalScores()[symId]);
+                visualizer.addText(text, 0, 150, 24, 1.0, 1.0, 1.0);
+                visualizer.addText("Numpad 0: Delete current symmetry", 0, 0, 24, 1.0, 1.0, 1.0);
+                visualizer.addText("Numpad 1: Show Point Cloud", 0, 20, 24, 1.0, 1.0, 1.0);
+                visualizer.addText("Numpad 3: Show Rotational Symmetries", 0, 40, 24, 1.0, 1.0, 1.0);
+                visualizer.addText("Numpad 7: Show Reflectional Symmetries", 0, 60, 24, 1.0, 1.0, 1.0);
+                visualizer.addText("Symmetry index ID " + std::to_string(visState.segIterator_) + " Size " +
+                                       std::to_string(symmetryDisplayIds.size()),
+                                   15, 125, 24, 1.0, 1.0, 1.0);
+              }
             }
             else if ((visState.cloudDisplay_ == VisState::REFLECTIONAL_SYMMETRIES) &&
                      (symmetries_T.getReflectional().size() > 0))
@@ -226,19 +234,27 @@ int main(int argc, char **argv)
               int symId = symmetryDisplayIds[visState.segIterator_];
               text = "cloudInlierScores Score: " + std::to_string(symmetries_T.getReflectionalScores()[symId]);
               utl::showPointCloudColor<PointT>(visualizer, cloudHighRes, "cloud", visState.pointSize_);
-              if ((visState.delete_) && (symmetries_T.getReflectional().size() > 1))
+              if (visState.delete_)
               {
                 visState.delete_ = false;
                 symmetries_T.removeCurrReflectional(symId);
+                if (symmetries_T.getReflectional().size() == 0)
+                  visState.cloudDisplay_ = VisState::CLOUD;
                 visState.updateDisplay_ = true;
               }
               // Show symmetry
-              if (visState.showSymmetry_)
-                sym::showReflectionalSymmetry(visualizer, symmetryDisplay[symId], "symmetry", 1);
-              visualizer.addText(text, 0, 150, 24, 1.0, 1.0, 1.0);
-              visualizer.addText("Symmetry " + std::to_string(visState.segIterator_) + " / " +
-                                     std::to_string(symmetryDisplayIds.size() - 1),
-                                 15, 125, 24, 1.0, 1.0, 1.0);
+              if (symmetries_T.getReflectional().size() > 0)
+              {
+                if (visState.showSymmetry_)
+                  sym::showReflectionalSymmetry(visualizer, symmetryDisplay[symId], "symmetry", 1);
+                visualizer.addText("Numpad 0: Delete current symmetry", 0, 0, 24, 1.0, 1.0, 1.0);
+                visualizer.addText("Numpad 1: Show Point Cloud", 0, 20, 24, 1.0, 1.0, 1.0);
+                visualizer.addText("Numpad 3: Show Rotational Symmetries", 0, 40, 24, 1.0, 1.0, 1.0);
+                visualizer.addText("Numpad 7: Show Reflectional Symmetries", 0, 60, 24, 1.0, 1.0, 1.0);
+                visualizer.addText("Symmetry index ID" + std::to_string(visState.segIterator_) + " Size " +
+                                       std::to_string(symmetryDisplayIds.size()),
+                                   15, 125, 24, 1.0, 1.0, 1.0);
+              }
             }
           }
           // Spin once
@@ -248,7 +264,6 @@ int main(int argc, char **argv)
       }
       YAML::Emitter yamlOut;
       yamlOut << YAML::BeginMap;
-
       if (symmetries_T.getRotational().size() > 0)
       {
         yamlOut << YAML::Key << "rotational" << YAML::Value << YAML::BeginSeq;
@@ -284,12 +299,15 @@ int main(int argc, char **argv)
       yamlOut << YAML::EndMap;
       // Saving
       // First check if the output folder exists, if not then create it
-      if (!utl::isDirectory(yamlPath))
-        utl::createDir(yamlPath);
-      std::ofstream fout(yamlFile);
-      fout << yamlOut.c_str();
-      fout.close();
-      ROS_INFO_STREAM("Yaml saved as:" << yamlFile);
+      if ((symmetries_T.getReflectional().size() > 0) || (symmetries_T.getRotational().size() > 0))
+      {
+        if (!utl::isDirectory(yamlPath))
+          utl::createDir(yamlPath);
+        std::ofstream fout(yamlFile);
+        fout << yamlOut.c_str();
+        fout.close();
+        ROS_INFO_STREAM("Yaml saved as:" << yamlFile);
+      }
     }
   }
 }

@@ -151,6 +151,8 @@ public:
   {
     std::vector<sym::RotationalSymmetry> rot_symmetries_tmp;
     std::vector<float> rot_symmetry_scores_tmp;
+    rot_symmetry_scores_tmp.resize(0);
+    rot_symmetries_tmp.resize(0);
     for (size_t symId = 0; symId < rot_symmetries.size(); symId++)
       {
         if (symId != symDel)
@@ -167,6 +169,9 @@ public:
     std::vector<sym::ReflectionalSymmetry> ref_symmetries_tmp;
     std::vector<float> ref_cloud_inlier_scores_tmp;
     std::vector<float> ref_corresp_inlier_scores_tmp;
+    ref_symmetries_tmp.resize(0);
+    ref_cloud_inlier_scores_tmp.resize(0);
+    ref_corresp_inlier_scores_tmp.resize(0);
     for (size_t symId = 0; symId < ref_symmetries.size(); symId++)
       {
         if (symId != symDel)

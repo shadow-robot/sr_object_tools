@@ -17,7 +17,7 @@
 #include <limits>
 #include <list>
 #include <vector>
-
+#include <cmath>
 #include <sr_object_symmetry/reflectional_symmetry_detection_core.hpp>
 #include <sr_object_symmetry/reflectional_symmetry_scoring.hpp>
 
@@ -257,8 +257,9 @@ inline bool sym::ReflectionalSymmetryDetection<PointT>::detect()
       for (size_t rotId = 0; rotId < params_.rot_symmetries.size(); rotId++)
       {
         Eigen::Vector3f rot_symmetry;
-        rot_symmetry = params_.rot_symmetries[rotId];  // only one rotational symmetry
-        if (rot_symmetry.dot(symmetries_initial_[symId].getNormal()) < -0.99)
+        rot_symmetry = params_.rot_symmetries[rotId];
+        std::cout << "ABS:" << fabs(rot_symmetry.dot(symmetries_initial_[symId].getNormal())) << std::endl;
+        if (fabs(rot_symmetry.dot(symmetries_initial_[symId].getNormal())) > 0.99)
           pre_symmetries.push_back(symmetries_initial_[symId]);
       }
     }
