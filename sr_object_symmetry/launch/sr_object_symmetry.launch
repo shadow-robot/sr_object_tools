@@ -27,7 +27,7 @@
   <!-- General parameters -->
   <arg name="visualization" default="true"/> <!-- This will show you the symmetries and prompt you to accept/reject -->
   <arg name="overwrite" default="true"/> <!-- This will overwrite the current yaml files -->
-  <arg name="yaml_path" default="$(find sr_object_symmetry)/sample_objects"/> <!-- The ouput path for the yaml files -->
+  <arg name="yaml_path" default="$(find sr_object_symmetry)/yaml"/> <!-- The ouput path for the yaml files -->
   <arg name="objects_path" default="$(find sr_object_symmetry)/sample_objects"/> <!-- The input path for the object files -->
   <arg name="object_sampling" default="15000"/> <!-- The sampling size for the objects -->
   

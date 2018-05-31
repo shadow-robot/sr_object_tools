@@ -79,7 +79,8 @@ int main(int argc, char **argv)
       while ((dirp = readdir(dir)) != NULL)
       {
         std::string fname = dirp->d_name;
-        if (fname.find(".ply") != std::string::npos)
+        if ((fname.find(".stl") != std::string::npos) || (fname.find(".ply") != std::string::npos)
+                                                      || (fname.find(".obj") != std::string::npos))
           files.push_back(objectsPath + "/" + fname);
       }
       closedir(dir);

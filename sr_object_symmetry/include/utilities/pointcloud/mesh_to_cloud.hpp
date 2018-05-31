@@ -157,10 +157,12 @@ pcl::PointCloud<pcl::PointXYZRGBNormal>::Ptr convertPlyToCloud(std::string& file
 {
   vtkSmartPointer<vtkPolyData> polydata1 = vtkSmartPointer<vtkPolyData>::New();
   pcl::PolygonMesh mesh;
-  // loadPolygonFileSTL
-  // loadPolygonFileOBJ
-  // loadPolygonFileVTK
-  pcl::io::loadPolygonFilePLY(fileName, mesh);
+  if (fileName.find(".stl") != std::string::npos)
+    pcl::io::loadPolygonFileSTL(fileName, mesh);
+  else if (fileName.find(".ply") != std::string::npos)
+    pcl::io::loadPolygonFilePLY(fileName, mesh);
+  else if (fileName.find(".obj") != std::string::npos)
+    pcl::io::loadPolygonFileOBJ(fileName, mesh);
   pcl::io::mesh2vtk(mesh, polydata1);
   // make sure that the polygons are triangles!
   vtkSmartPointer<vtkTriangleFilter> triangleFilter = vtkSmartPointer<vtkTriangleFilter>::New();
