@@ -99,39 +99,39 @@ int main(int argc, char **argv)
   for (size_t fileIndex = 0; fileIndex < files.size(); fileIndex++)
   {
     // Create new Symmetries object
-    SymmetryDetection symmetries_T;
+    SymmetryDetection symmetries;
     reflDetParams.rot_symmetries.clear();
     yamlFile = yamlPath + "/" + utl::getBasenameNoExtension(files[fileIndex].c_str()) + ".yaml";
     // First check if file exists, if not then extract symmetries
     if ((utl::isFile(yamlFile) == false) || (overWrite == true))
     {
       ROS_INFO_STREAM("Loading object: " << files[fileIndex].c_str());
-      symmetries_T.loadFile(files[fileIndex].c_str(), objectSampling);
+      symmetries.loadFile(files[fileIndex].c_str(), objectSampling);
       // Detect rotational symmetries
-      symmetries_T.rotationalDetection<PointT>(rotDetParams);
-      if (symmetries_T.getRotational().size() == 0)
+      symmetries.rotationalDetection<PointT>(rotDetParams);
+      if (symmetries.getRotational().size() == 0)
       {
-        ROS_WARN("Could not find rotational symmetries");
+        ROS_INFO("Could not find rotational symmetries");
       }
       else
       {
-        ROS_INFO_STREAM("Rotational symmetries: " << symmetries_T.getRotational().size());
-        for (size_t symId = 0; symId < symmetries_T.getRotational().size(); symId++)
-          reflDetParams.rot_symmetries.push_back(symmetries_T.getRotational()[symId].getDirection());
+        ROS_INFO_STREAM("Rotational symmetries: " << symmetries.getRotational().size());
+        for (size_t symId = 0; symId < symmetries.getRotational().size(); symId++)
+          reflDetParams.rot_symmetries.push_back(symmetries.getRotational()[symId].getDirection());
       }
       // Detect reflectional symmetries
-      symmetries_T.reflectionalDetection<PointT>(reflDetParams);
-      if (symmetries_T.getReflectional().size() == 0)
-        ROS_WARN("Could not find reflectional symmetries");
+      symmetries.reflectionalDetection<PointT>(reflDetParams);
+      if (symmetries.getReflectional().size() == 0)
+        ROS_INFO("Could not find reflectional symmetries");
       else
       {
-        ROS_INFO_STREAM("Reflectional symmetries: " << symmetries_T.getReflectional().size());
+        ROS_INFO_STREAM("Reflectional symmetries: " << symmetries.getReflectional().size());
       }
       if (visEnable)
       {
         // For visualization
         pcl::PointCloud<PointT>::Ptr cloudHighRes(new pcl::PointCloud<PointT>);
-        cloudHighRes = symmetries_T.getCloud();
+        cloudHighRes = symmetries.getCloud();
         VisState visState;
         pcl::visualization::PCLVisualizer visualizer;
         visualizer.setCameraPosition(0.0, 0.0, -1.0,  // camera position
@@ -178,13 +178,13 @@ int main(int argc, char **argv)
               visualizer.addText("Q: Go to next object", 0, 80, 24, 1.0, 1.0, 1.0);
             }
             else if ((visState.cloudDisplay_ == VisState::ROTATIONAL_SYMMETRIES) &&
-                     (symmetries_T.getRotational().size() > 0))
+                     (symmetries.getRotational().size() > 0))
             {
               std::vector<sym::RotationalSymmetry> symmetryDisplay;
               std::vector<int> symmetryDisplayIds;
               std::string text;
-              symmetryDisplay = symmetries_T.getRotational();
-              for (size_t symId = 0; symId < symmetries_T.getRotational().size(); symId++)
+              symmetryDisplay = symmetries.getRotational();
+              for (size_t symId = 0; symId < symmetries.getRotational().size(); symId++)
               {
                 symmetryDisplayIds.push_back(symId);
               }
@@ -195,19 +195,19 @@ int main(int argc, char **argv)
               if (visState.delete_)
               {
                 visState.delete_ = false;
-                symmetries_T.removeCurrRotational(symId);
-                if (symmetries_T.getRotational().size() == 0)
+                symmetries.removeCurrRotational(symId);
+                if (symmetries.getRotational().size() == 0)
                   visState.cloudDisplay_ = VisState::CLOUD;
                 visState.updateDisplay_ = true;
                 visState.showSymmetry_ = false;
               }
               // Show symmetry
-              if (symmetries_T.getRotational().size() > 0)
+              if (symmetries.getRotational().size() > 0)
               {
                 if (visState.showSymmetry_)
                   sym::showRotationalSymmetry(visualizer, symmetryDisplay[symId], "symmetry", 5, 5.0);
 
-                text = "Rotational symmetries score:" + std::to_string(symmetries_T.getRotationalScores()[symId]);
+                text = "Rotational symmetries score:" + std::to_string(symmetries.getRotationalScores()[symId]);
                 visualizer.addText(text, 0, 150, 24, 1.0, 1.0, 1.0);
                 visualizer.addText("Numpad 0: Delete current symmetry", 0, 0, 24, 1.0, 1.0, 1.0);
                 visualizer.addText("Numpad 1: Show Point Cloud", 0, 20, 24, 1.0, 1.0, 1.0);
@@ -220,15 +220,15 @@ int main(int argc, char **argv)
               }
             }
             else if ((visState.cloudDisplay_ == VisState::REFLECTIONAL_SYMMETRIES) &&
-                     (symmetries_T.getReflectional().size() > 0))
+                     (symmetries.getReflectional().size() > 0))
             {
               std::vector<sym::ReflectionalSymmetry> symmetryDisplay;
               std::vector<int> symmetryDisplayIds;
               std::string text;
               if (visState.cloudDisplay_ == VisState::REFLECTIONAL_SYMMETRIES)
               {
-                symmetryDisplay = symmetries_T.getReflectional();
-                for (size_t symId = 0; symId < symmetries_T.getReflectional().size(); symId++)
+                symmetryDisplay = symmetries.getReflectional();
+                for (size_t symId = 0; symId < symmetries.getReflectional().size(); symId++)
                   symmetryDisplayIds.push_back(symId);
                 text = "Reflectional symmetry ";
               }
@@ -239,17 +239,17 @@ int main(int argc, char **argv)
               if (visState.delete_)
               {
                 visState.delete_ = false;
-                symmetries_T.removeCurrReflectional(symId);
-                if (symmetries_T.getReflectional().size() == 0)
+                symmetries.removeCurrReflectional(symId);
+                if (symmetries.getReflectional().size() == 0)
                   visState.cloudDisplay_ = VisState::CLOUD;
                 visState.updateDisplay_ = true;
               }
               // Show symmetry
-              if (symmetries_T.getReflectional().size() > 0)
+              if (symmetries.getReflectional().size() > 0)
               {
                 if (visState.showSymmetry_)
                   sym::showReflectionalSymmetry(visualizer, symmetryDisplay[symId], "symmetry", 1);
-                text = "cloudInlierScores Score: " + std::to_string(symmetries_T.getReflectionalScores()[symId]);
+                text = "cloudInlierScores Score: " + std::to_string(symmetries.getReflectionalScores()[symId]);
                 visualizer.addText("Numpad 0: Delete current symmetry", 0, 0, 24, 1.0, 1.0, 1.0);
                 visualizer.addText("Numpad 1: Show Point Cloud", 0, 20, 24, 1.0, 1.0, 1.0);
                 visualizer.addText("Numpad 3: Show Rotational Symmetries", 0, 40, 24, 1.0, 1.0, 1.0);
@@ -269,42 +269,42 @@ int main(int argc, char **argv)
       }
       YAML::Emitter yamlOut;
       yamlOut << YAML::BeginMap;
-      if (symmetries_T.getRotational().size() > 0)
+      if (symmetries.getRotational().size() > 0)
       {
         yamlOut << YAML::Key << "rotational" << YAML::Value << YAML::BeginSeq;
-        for (size_t symId = 0; symId < symmetries_T.getRotational().size(); symId++)
+        for (size_t symId = 0; symId < symmetries.getRotational().size(); symId++)
         {
           yamlOut << YAML::BeginMap << YAML::Key << "origin" << YAML::Value << YAML::Flow <<
-                     YAML::BeginSeq << symmetries_T.getRotational()[symId].getOrigin()[0] <<
-                     symmetries_T.getRotational()[symId].getOrigin()[1] <<
-                     symmetries_T.getRotational()[symId].getOrigin()[2] << YAML::EndSeq;
+                     YAML::BeginSeq << symmetries.getRotational()[symId].getOrigin()[0] <<
+                     symmetries.getRotational()[symId].getOrigin()[1] <<
+                     symmetries.getRotational()[symId].getOrigin()[2] << YAML::EndSeq;
           yamlOut << YAML::Key << "direction" << YAML::Value << YAML::Flow << YAML::BeginSeq <<
-                     symmetries_T.getRotational()[symId].getDirection()[0] <<
-                     symmetries_T.getRotational()[symId].getDirection()[1] <<
-                     symmetries_T.getRotational()[symId].getDirection()[2] << YAML::EndSeq << YAML::EndMap;
+                     symmetries.getRotational()[symId].getDirection()[0] <<
+                     symmetries.getRotational()[symId].getDirection()[1] <<
+                     symmetries.getRotational()[symId].getDirection()[2] << YAML::EndSeq << YAML::EndMap;
         }
         yamlOut << YAML::EndSeq;
       }
-      if (symmetries_T.getReflectional().size() > 0)
+      if (symmetries.getReflectional().size() > 0)
       {
         yamlOut << YAML::Key << "reflectional" << YAML::Value << YAML::BeginSeq;
-        for (size_t symId = 0; symId < symmetries_T.getReflectional().size(); symId++)
+        for (size_t symId = 0; symId < symmetries.getReflectional().size(); symId++)
         {
           yamlOut << YAML::BeginMap << YAML::Key << "origin" << YAML::Value << YAML::Flow <<
-                     YAML::BeginSeq << symmetries_T.getReflectional()[symId].getOrigin()[0] <<
-                     symmetries_T.getReflectional()[symId].getOrigin()[1] <<
-                     symmetries_T.getReflectional()[symId].getOrigin()[2] << YAML::EndSeq;
+                     YAML::BeginSeq << symmetries.getReflectional()[symId].getOrigin()[0] <<
+                     symmetries.getReflectional()[symId].getOrigin()[1] <<
+                     symmetries.getReflectional()[symId].getOrigin()[2] << YAML::EndSeq;
           yamlOut << YAML::Key << "normal" << YAML::Value << YAML::Flow << YAML::BeginSeq <<
-                     symmetries_T.getReflectional()[symId].getNormal()[0] <<
-                     symmetries_T.getReflectional()[symId].getNormal()[1] <<
-                     symmetries_T.getReflectional()[symId].getNormal()[2] << YAML::EndSeq << YAML::EndMap;
+                     symmetries.getReflectional()[symId].getNormal()[0] <<
+                     symmetries.getReflectional()[symId].getNormal()[1] <<
+                     symmetries.getReflectional()[symId].getNormal()[2] << YAML::EndSeq << YAML::EndMap;
         }
         yamlOut << YAML::EndSeq;
       }
       yamlOut << YAML::EndMap;
       // Saving
       // First check if the output folder exists, if not then create it
-      if ((symmetries_T.getReflectional().size() > 0) || (symmetries_T.getRotational().size() > 0))
+      if ((symmetries.getReflectional().size() > 0) || (symmetries.getRotational().size() > 0))
       {
         if (!utl::isDirectory(yamlPath))
           utl::createDir(yamlPath);

@@ -6,9 +6,10 @@
 
   <maintainer email="software@shadowrobot.com">Shadow Robot's software team</maintainer>
 
-  <license>Private</license>
+  <license>GPLv2+</license>
 
   <author>Shadow Robot's software team</author>
+  <author>Aleksandrs Ecins</author>
 
   <buildtool_depend>catkin</buildtool_depend>
   <depend>libpcl-all-dev</depend>

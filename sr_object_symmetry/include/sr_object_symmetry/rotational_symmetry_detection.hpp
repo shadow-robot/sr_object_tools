@@ -235,14 +235,6 @@ inline void sym::RotationalSymmetryDetection<PointT>::filter()
       symmetry_filtered_ids_.push_back(symId);
     }
   }
-  // // create a copy of the symmetry array
-  // std::vector<sym::RotationalSymmetry> symmetry_cp;
-  // symmetry_cp = symmetries_refined_;
-  // // Loop through the filtered symmetries and delete similar ones
-  // for (size_t symId = 0; symId < symmetry_filtered_ids_.size(); symId++)
-  // {
-
-  // }
 }
 
 ////////////////////////////////////////////////////////////////////////////////

@@ -95,10 +95,6 @@ inline float reflSymPointSymmetryScores(
               cloud_boundary_point_ids.end())
         continue;
 
-      //         if (utl::lineLineAngle<float>((srcPoint - tgtPoint).normalized(), symmetry.getNormal()) >
-      //         pcl::deg2rad(15.0f))
-      //           continue;
-
       // Calculate error
       float symmetryScore = sym::getReflSymNormalFitError(srcNormal, tgtNormal, symmetry, true);
 
@@ -107,8 +103,6 @@ inline float reflSymPointSymmetryScores(
       if (symmetryScore > M_PI * 3 / 4)
         symmetryScore = M_PI - symmetryScore;
 
-      //         if (symmetryScore > max_inlier_normal_angle)
-      //           continue;
       symmetryScore = (symmetryScore - min_inlier_normal_angle) / (max_inlier_normal_angle - min_inlier_normal_angle);
       symmetryScore = utl::clampValue(symmetryScore, 0.0f, 1.0f);
 
@@ -116,21 +110,6 @@ inline float reflSymPointSymmetryScores(
       symmetric_correspondences.push_back(pcl::Correspondence(pointId, neighbours[0], distancesSquared[0]));
       point_symmetry_scores.push_back(symmetryScore);
     }
-
-    //       else if (std::abs(utl::pointToPlaneSignedDistance<float>(srcPointReflected, table_plane)) <
-    //       max_sym_corresp_reflected_distance)
-    //       {
-    //         float symmetryScore = sym::getReflSymNormalFitError (srcNormal, -planeNormal, symmetry, true);
-    //         if (symmetryScore > max_inlier_normal_angle)
-    //           continue;
-    //         symmetryScore = (symmetryScore - min_inlier_normal_angle) / (max_inlier_normal_angle -
-    //         min_inlier_normal_angle);
-    //         symmetryScore = utl::clampValue(symmetryScore, 0.0f, 1.0f);
-    //
-    //         // If all checks passed - add correspondence
-    //         symmetric_correspondences.push_back(pcl::Correspondence(pointId, 0, -1.0f));
-    //         point_symmetry_scores.push_back(symmetryScore);
-    //       }
   }
 
   return true;

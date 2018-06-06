@@ -328,34 +328,6 @@ struct ReflSymRefineFunctor : BaseFunctor<float>
     // Get current rotational symmetry
     ReflectionalSymmetry symmetry(x.head(3), x.tail(3));
 
-    //       // Compute occlusion scores
-    //       for(size_t i = 0; i < this->cloud_ds_->size(); i++)
-    //       {
-    //         Eigen::Vector3f srcPoint  = cloud_ds_->points[i].getVector3fMap();
-    //         Eigen::Vector3f srcPointReflected   = symmetry.reflectPoint(srcPoint);
-    //
-    //         fvec(i) = 0.5 * std::max(0.0f, occupancy_->getNearestObstacleDistance(srcPointReflected) - 0.01f);
-    //       }
-    //
-    //       // Compute symmetry scores
-    //       for(size_t i = 0; i < this->correspondences_.size(); i++)
-    //       {
-    //         int srcPointIndex = correspondences_[i].index_query;
-    //         int tgtPointIndex = correspondences_[i].index_match;
-    //
-    //         Eigen::Vector3f srcPoint  = cloud_ds_->points[srcPointIndex].getVector3fMap();
-    //         Eigen::Vector3f srcNormal = cloud_ds_->points[srcPointIndex].getNormalVector3fMap();
-    //         Eigen::Vector3f tgtPoint  = cloud_->points[tgtPointIndex].getVector3fMap();
-    //         Eigen::Vector3f tgtNormal = cloud_->points[tgtPointIndex].getNormalVector3fMap();
-    //
-    //         // Reflect target point and normal
-    //         Eigen::Vector3f tgtPointReflected   = symmetry.reflectPoint(tgtPoint);
-    //         Eigen::Vector3f tgtNormalReflected  = symmetry.reflectNormal(tgtNormal);
-    //
-    //         fvec(srcPointIndex) += std::abs(utl::pointToPlaneSignedDistance<float>(srcPoint, tgtPointReflected,
-    //         tgtNormalReflected));
-    //       }
-
     // Compute fitness
     for (size_t i = 0; i < this->correspondences_.size(); i++)
     {

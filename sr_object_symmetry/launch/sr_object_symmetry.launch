@@ -7,7 +7,7 @@
   <arg name="max_perpendicular_score" default="0.6"/> <!-- perpendicularity scores for individual points -->
   <arg name="min_coverage_score" default="0.3"/> <!-- The minimum score for coverage for filtering symmetries -->
   <!-- Reflectional parameters -->
-  <arg name="voxel_size" default="0.0"/> <!-- Downsample -->
+  <arg name="voxel_size" default="0.0"/> <!-- Downsample 0 means no downsampling-->
   <arg name="num_angle_divisions" default="20"/> <!-- number of divisions of a sphere -->
   <arg name="flatness_threshold" default="0.005"/> <!-- maximum third eigenvalue for the segment to be considered flat -->
   <arg name="refine_iterations" default="20"/> <!-- maximum number of optimization iterations -->
@@ -26,7 +26,7 @@
 
   <!-- General parameters -->
   <arg name="visualization" default="true"/> <!-- This will show you the symmetries and prompt you to accept/reject -->
-  <arg name="overwrite" default="true"/> <!-- This will overwrite the current yaml files -->
+  <arg name="overwrite" default="true"/> <!-- True will overwrite the current yaml files and False Generation will be skipped for existing yaml files and carried out normally for non-existing ones.-->
   <arg name="yaml_path" default="$(find sr_object_symmetry)/yaml"/> <!-- The ouput path for the yaml files -->
   <arg name="objects_path" default="$(find sr_object_symmetry)/sample_objects"/> <!-- The input path for the object files -->
   <arg name="object_sampling" default="15000"/> <!-- The sampling size for the objects -->
