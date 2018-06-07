@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>sr_object_symmetry</name>
+  <version>0.0.0</version>
+  <description>The sr_object_symmetry package</description>
+
+  <maintainer email="software@shadowrobot.com">Shadow Robot's software team</maintainer>
+
+  <license>GPLv2+</license>
+
+  <author>Fotios Papadopoulos</author>
+  <author>Aleksandrs Ecins</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <depend>libpcl-all-dev</depend>
+  <depend>roscpp</depend>
+  <depend>std_msgs</depend>
+  <depend>yaml-cpp</depend>
+  <export>
+
+  </export>
+</package>
