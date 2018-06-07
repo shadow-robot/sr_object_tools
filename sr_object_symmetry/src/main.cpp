@@ -101,7 +101,7 @@ int main(int argc, char **argv)
     // Create new Symmetries object
     SymmetryDetection symmetries;
     reflDetParams.rot_symmetries.clear();
-    yamlFile = yamlPath + "/" + utl::getBasenameNoExtension(files[fileIndex].c_str()) + ".yaml";
+    yamlFile = yamlPath + "/" + utl::getBasenameNoExtension(files[fileIndex].c_str()) + "_symmetries.yaml";
     // First check if file exists, if not then extract symmetries
     if ((utl::isFile(yamlFile) == false) || (overWrite == true))
     {
@@ -269,6 +269,7 @@ int main(int argc, char **argv)
       }
       YAML::Emitter yamlOut;
       yamlOut << YAML::BeginMap;
+      yamlOut << YAML::Key << "object_id" << YAML::Value << utl::getBasenameNoExtension(files[fileIndex].c_str());
       if (symmetries.getRotational().size() > 0)
       {
         yamlOut << YAML::Key << "rotational" << YAML::Value << YAML::BeginSeq;
