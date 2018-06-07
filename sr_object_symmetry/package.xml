@@ -8,7 +8,7 @@
 
   <license>GPLv2+</license>
 
-  <author>Shadow Robot's software team</author>
+  <author>Fotios Papadopoulos</author>
   <author>Aleksandrs Ecins</author>
 
   <buildtool_depend>catkin</buildtool_depend>
