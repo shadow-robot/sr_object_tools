@@ -1,4 +1,4 @@
-/**
+/*
 * Copyright 2019 Shadow Robot Company Ltd.
 *
 * This program is free software: you can redistribute it and/or modify it
@@ -25,7 +25,7 @@
 
 namespace utl
 {
-/** \brief Write matrix to a file in binary mode.
+/* \brief Write matrix to a file in binary mode.
     *  \param filename output file name
     *  \param matrix matrix
     *  \note http://stackoverflow.com/questions/25389480/how-to-write-read-an-eigen-matrix-from-binary-file
@@ -50,7 +50,7 @@ inline bool writeBinary(const std::string filename, const Matrix& matrix)
   }
 }
 
-/** \brief Read a matrix from a binary file.
+/* \brief Read a matrix from a binary file.
     *  \param filename input file name
     *  \param matrix matrix
     *  \note http://stackoverflow.com/questions/25389480/how-to-write-read-an-eigen-matrix-from-binary-file
@@ -74,7 +74,7 @@ inline bool readBinary(const std::string filename, Matrix& matrix)
   return true;
 }
 
-/** \brief Write matrix to a file in ASCII mode.
+/* \brief Write matrix to a file in ASCII mode.
     *  \param filename output file name
     *  \param matrix matrix
     *  \return TRUE if file written successfully
@@ -96,7 +96,7 @@ inline bool writeASCII(const std::string filename, const Matrix& matrix)
   }
 }
 
-/** \brief Read a matrix from an ASCII file.
+/* \brief Read a matrix from an ASCII file.
     *  \param filename input file name
     *  \param matrix matrix
     *  \return TRUE if file read successfully

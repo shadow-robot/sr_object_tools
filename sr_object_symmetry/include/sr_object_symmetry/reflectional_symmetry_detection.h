@@ -70,10 +70,10 @@ struct ReflSymDetectParams
    *  \param[in]  occlusion_scores            occlusion scores
    *  \param[out] merged_sym_ids              ids of symmetries after merging
    *  \param[in]  max_normal_angle_diff       maximum angle between the normals of two distinct symmetries that will be
- * merged
+* merged
    *  \param[in]  max_distance_diff           minimum distance between two symmetries that will be merged
    *  \param[in]  max_reference_point_distance  maximum distance between the reference points of two symmetries that can
- * be merged
+* be merged
    */
 inline void mergeDuplicateReflSymmetries(const std::vector<sym::ReflectionalSymmetry>& symmetries,
                                          const Eigen::Vector3f& symmetry_reference_points,
@@ -89,10 +89,10 @@ inline void mergeDuplicateReflSymmetries(const std::vector<sym::ReflectionalSymm
    *  \param[in]  occlusion_scores            occlusion scores
    *  \param[out] merged_sym_ids              ids of symmetries after merging
    *  \param[in]  max_normal_angle_diff       maximum angle between the normals of two distinct symmetries that will be
- * merged
+* merged
    *  \param[in]  max_distance_diff           minimum distance between two symmetries that will be merged
    *  \param[in]  max_reference_point_distance  maximum distance between the reference points of two symmetries that can
- * be merged
+* be merged
    */
 inline void mergeDuplicateReflSymmetries(const std::vector<sym::ReflectionalSymmetry>& symmetries,
                                          const Eigen::Vector3f& symmetry_reference_points,

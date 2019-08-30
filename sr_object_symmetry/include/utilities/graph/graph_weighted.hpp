@@ -1,4 +1,4 @@
-/**
+/*
 * Copyright 2019 Shadow Robot Company Ltd.
 *
 * This program is free software: you can redistribute it and/or modify it
@@ -23,7 +23,7 @@
 
 namespace utl
 {
-/** \brief Data structure representing an undirected unwheighted graph.
+/* \brief Data structure representing an undirected unwheighted graph.
    * Self loops are not allowed.
    */
 class GraphWeighted : public utl::GraphBase<Vertex, EdgeWeighted>
@@ -32,20 +32,20 @@ public:
   using utl::GraphBase<Vertex, EdgeWeighted>::getEdge;
   using utl::GraphBase<Vertex, EdgeWeighted>::addEdge;
 
-  /** \brief Empty constructor. */
+  /* \brief Empty constructor. */
   GraphWeighted() : utl::GraphBase<utl::Vertex, utl::EdgeWeighted>()
   {
   }
 
-  /** \brief Constructor that preallocates memory for vertices. */
+  /* \brief Constructor that preallocates memory for vertices. */
   explicit GraphWeighted(const int num_vertices) : utl::GraphBase<utl::Vertex, utl::EdgeWeighted>(num_vertices)
   {
   }
 
-  /** \brief Destructor. */
+  /* \brief Destructor. */
   ~GraphWeighted() {}
 
-  /** \brief Add an edge to the graph if it doesn't exist already.
+  /* \brief Add an edge to the graph if it doesn't exist already.
      *  \param[in] v1     index of first vertex
      *  \param[in] v2     index of second vertex
      *  \param[in] weight edge weight
@@ -56,7 +56,7 @@ public:
     return utl::GraphBase<Vertex, EdgeWeighted>::addEdge(EdgeWeighted(vtx1_id, vtx2_id, weight));
   }
 
-  /** \brief Get edge at specified index.
+  /* \brief Get edge at specified index.
      *  \param[in]  edge_id   edge index
      *  \param[out] vtx1_id   index of first edge
      *  \param[out] vtx2_id   index of first edge
@@ -84,7 +84,7 @@ public:
     return success;
   }
 
-  /** \brief Set the weight of an edge. If it doesn't exist - return false.
+  /* \brief Set the weight of an edge. If it doesn't exist - return false.
      *  \param[in] v1     index of first vertex
      *  \param[in] v2     index of second vertex
      *  \param[in] weight edge weight
@@ -113,7 +113,7 @@ public:
     return true;
   }
 
-  /** \brief Set the weight of an edge. If it doesn't exist - return false.
+  /* \brief Set the weight of an edge. If it doesn't exist - return false.
      *  \param[in] edge_id  index of the edge
      *  \param[in] weight edge weight
      *  \return false if edge does not exist
@@ -133,7 +133,7 @@ public:
     return true;
   }
 
-  /** \brief Get the weight of an edge. If it doesn't exist - return false.
+  /* \brief Get the weight of an edge. If it doesn't exist - return false.
      *  \param[in]  v1     index of first vertex
      *  \param[in]  v2     index of second vertex
      *  \param[out] weight edge weight
@@ -162,7 +162,7 @@ public:
     return true;
   }
 
-  /** \brief Get the weight of an edge. If it doesn't exist - return false.
+  /* \brief Get the weight of an edge. If it doesn't exist - return false.
      *  \param[in] edge_id  index of the edge
      *  \param[in] weight edge weight
      *  \return false if edge does not exist

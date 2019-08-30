@@ -1,4 +1,4 @@
-/**
+/*
 * Copyright 2019 Shadow Robot Company Ltd.
 *
 * This program is free software: you can redistribute it and/or modify it
@@ -34,7 +34,7 @@ namespace sym
 // Initial symmetry generation
 //----------------------------------------------------------------------------
 
-/** \brief Generate points on a unit sphere such that they are evenly
+/* \brief Generate points on a unit sphere such that they are evenly
    * distributed along the great circles associated with the meridians. The
    * angular step between the meridians and the poins on each meridian is
    * defined as 180 degrees divided by number of divisions.
@@ -100,7 +100,7 @@ inline bool generateSpherePoints(const int num_divs, std::vector<Eigen::Vector3f
   return true;
 }
 
-/** \brief Get the initial symmetries used for reflectional symmetry detection.
+/* \brief Get the initial symmetries used for reflectional symmetry detection.
    *  \param[in]  cloud               input cloud
    *  \param[out] symmetries          reflectional symmetries
    *  \param[out] cloud_mean          mean of the pointcloud
@@ -161,7 +161,7 @@ inline bool getInitialReflSymmetries(const typename pcl::PointCloud<PointT>::Con
 // Symmetry position refinement
 //----------------------------------------------------------------------------
 
-/** \brief Refine the position of a reflectional symmetry with respect to a
+/* \brief Refine the position of a reflectional symmetry with respect to a
    * pointcloud by shifting it along the symmetry plane normal. The shift
    * distance is calculated by:
    *  1. finding symmetric correspondences of the cloud
@@ -180,7 +180,7 @@ inline bool getInitialReflSymmetries(const typename pcl::PointCloud<PointT>::Con
    *  \param[in]  search_cylinder_radius    radius of the search cylinder
    *  \param[in]  max_sym_normal_fit_error  maximum normal error of fit (used for correspondence rejection)
    *  \param[in]  min_sym_corresp_distance  maximum distance between two correspondences (used for correspondence
- * rejection)
+* rejection)
    *  \return     FALSE if input cloud is empty or there were no correspondences found
    */
 template <typename PointT>
@@ -312,7 +312,7 @@ inline bool refineReflSymPosition(const typename pcl::PointCloud<PointT>::ConstP
 // Symmetry global refinement
 //----------------------------------------------------------------------------
 
-/** \brief A functor for refining a symmetry candidate in a
+/* \brief A functor for refining a symmetry candidate in a
    * Levenberg-Marquardt optimization. Given a set of symmetric correspondences
    * between oriented points and an initial reflectional symmetry candidate,
    * find a relfectional symmetry candidate that minimizes the point to plane
@@ -325,10 +325,10 @@ inline bool refineReflSymPosition(const typename pcl::PointCloud<PointT>::ConstP
 template <typename PointT>
 struct ReflSymRefineFunctor : BaseFunctor<float>
 {
-  /** \brief Empty constructor */
+  /* \brief Empty constructor */
   ReflSymRefineFunctor() {}
 
-  /** \brief Compute fitness for each input point.
+  /* \brief Compute fitness for each input point.
      *  \param[in]  x coefficients of the symmetry plane
      *  \param[out] fvec error vector
      */
@@ -361,22 +361,22 @@ struct ReflSymRefineFunctor : BaseFunctor<float>
     return 0;
   }
 
-  /** \brief Input cloud. */
+  /* \brief Input cloud. */
   typename pcl::PointCloud<PointT>::ConstPtr cloud_;
 
-  /** \brief Downsampled input cloud. */
+  /* \brief Downsampled input cloud. */
   typename pcl::PointCloud<PointT>::ConstPtr cloud_ds_;
 
-  /** \brief Input correspondences. */
+  /* \brief Input correspondences. */
   pcl::Correspondences correspondences_;
 
-  /** \brief Dimensionality of the optimization parameter vector. */
+  /* \brief Dimensionality of the optimization parameter vector. */
   int inputs() const
   {
     return 6;
   }
 
-  /** \brief Number of points. */
+  /* \brief Number of points. */
   //     int values() const { return this->cloud_ds_->size(); }
   int values() const
   {
@@ -389,7 +389,7 @@ struct ReflSymRefineFunctorDiff : Eigen::NumericalDiff<ReflSymRefineFunctor<Poin
 {
 };
 
-/** \brief Given a pointcloud with normals and an initial reflectional
+/* \brief Given a pointcloud with normals and an initial reflectional
    * symmetry candidate, refine the reflectional symmetry such that the cloud
    * "reflects" onto itself. This is done in an ICP-like optimization scheme,
    * that alternates between symmetric correspondence estimation and symmetry
@@ -407,9 +407,9 @@ struct ReflSymRefineFunctorDiff : Eigen::NumericalDiff<ReflSymRefineFunctor<Poin
    *  \param[in]  max_iterations            maximum number of optimization iterations
    *  \param[in]  max_sym_normal_fit_error  maximum normal error of fit (used for correspondence rejection)
    *  \param[in]  min_sym_corresp_distance  maximum distance between two correspondences (used for correspondence
- * rejection)
+* rejection)
    *  \param[in]  max_sym_corresp_reflected_distance  maximum distance between the first point of a symmetric
- * correspondence and a reflection of the second point (used for correspondence rejection)
+* correspondence and a reflection of the second point (used for correspondence rejection)
    *  \return     FALSE if input cloud is empty or there were no correspondences found during any iteration
    */
 template <typename PointT>

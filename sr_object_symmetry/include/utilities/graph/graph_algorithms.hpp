@@ -1,4 +1,4 @@
-/**
+/*
 * Copyright 2019 Shadow Robot Company Ltd.
 *
 * This program is free software: you can redistribute it and/or modify it
@@ -27,7 +27,7 @@
 
 namespace utl
 {
-/** \brief Given a set of vertices in a graph return all edges between
+/* \brief Given a set of vertices in a graph return all edges between
    * the input set of vertices and the rest of the vertices in the graph.
    *  \param[in]  graph           graph
    *  \param[in]  cut_vertices    indices of vertices that were cut
@@ -59,7 +59,7 @@ inline void getCutEdges(const utl::GraphBase<VertexT, EdgeT>& graph, const std::
   }
 }
 
-/** \brief Find connected components in the graph.
+/* \brief Find connected components in the graph.
    *  \param[in]  graph         graph object
    *  \param[in]  min_cc_size   minimum size of a valid connected component (default 0)
    *  \return    a vector of vectors where each inner vector corresponds to a

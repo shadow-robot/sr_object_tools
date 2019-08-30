@@ -1,4 +1,4 @@
-/**
+/*
 * Copyright 2019 Shadow Robot Company Ltd.
 *
 * This program is free software: you can redistribute it and/or modify it
@@ -27,7 +27,7 @@
 
 namespace sym
 {
-/** \brief Calculate how well a symmetry hypothesis fits the individual points
+/* \brief Calculate how well a symmetry hypothesis fits the individual points
    * of a pointcloud.
    * Two measures are calculated:
    *  1. For points that have a symmetric correspondece the symmetry score is
@@ -40,7 +40,7 @@ namespace sym
    *  \param[out] symmetric_correspondences symmetric correspondences
    *  \param[out] point_symmetry_scores     symmetry scores for points of the cloud that have symmetric correspondences
    *  \param[in]  max_sym_corresp_reflected_distance  maximum distance between the first point of a symmetric
- * correspondence and a reflection of the second point
+* correspondence and a reflection of the second point
    *  \param[in]  min_inlier_normal_angle   minimum normal fit angle for an inlier symmetric correspondence
    *  \param[in]  max_inlier_normal_angle   maximum normal fit angle for an inlier symmetric correspondence
    */
@@ -124,7 +124,7 @@ inline float reflSymPointSymmetryScores(
   return true;
 }
 
-/** \brief Calculate how well a symmetry hypothesis fits the individual points
+/* \brief Calculate how well a symmetry hypothesis fits the individual points
    * of a pointcloud.
    * Two measures are calculated:
    *  1. For points that have a symmetric correspondece the symmetry score is

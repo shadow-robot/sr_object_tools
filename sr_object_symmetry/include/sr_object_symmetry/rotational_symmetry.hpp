@@ -1,4 +1,4 @@
-/**
+/*
 * Copyright 2019 Shadow Robot Company Ltd.
 *
 * This program is free software: you can redistribute it and/or modify it
@@ -33,22 +33,22 @@
 
 namespace sym
 {
-/** \brief Class representing a rotational symmetry in 3D space. Symmetry is
+/* \brief Class representing a rotational symmetry in 3D space. Symmetry is
    * represented as a 3D axis.
    */
 class RotationalSymmetry
 {
 public:
-  /** \brief An empty constructor */
+  /* \brief An empty constructor */
   RotationalSymmetry() : origin_(Eigen::Vector3f::Zero()), direction_(Eigen::Vector3f::Zero()) {}
-  /** \brief A constructor from origin point and direction
+  /* \brief A constructor from origin point and direction
      *  \param[in] origin origin point
      *  \param[in] direction direction
      */
   RotationalSymmetry(const Eigen::Vector3f& origin, const Eigen::Vector3f& direction)
     : origin_(origin), direction_(direction.normalized()) {}
 
-  /** \brief Get the direction vector of the symmetry axis
+  /* \brief Get the direction vector of the symmetry axis
      *  \return direction vector
      */
   Eigen::Vector3f getDirection() const
@@ -56,7 +56,7 @@ public:
     return direction_;
   }
 
-  /** \brief Get the origin point of the symmetry
+  /* \brief Get the origin point of the symmetry
      *  \return symmetry origin point
      */
   Eigen::Vector3f getOrigin() const
@@ -64,7 +64,7 @@ public:
     return origin_;
   }
 
-  /** \brief Set the origin point of the symmetry
+  /* \brief Set the origin point of the symmetry
      *  \param[in] origin symmetry origin point
      */
   void setOrigin(const Eigen::Vector3f origin)
@@ -72,7 +72,7 @@ public:
     origin_ = origin;
   }
 
-  /** \brief Set the direction vector of the symmetry
+  /* \brief Set the direction vector of the symmetry
      *  \param[in] direction symmetry direction
      */
   void setDirection(const Eigen::Vector3f direction)
@@ -80,7 +80,7 @@ public:
     direction_ = direction.normalized();
   }
 
-  /** \brief Project a 3D point on the symmetry axis
+  /* \brief Project a 3D point on the symmetry axis
      *  \param[in] point  point to be projected
      *  \return projected point
      */
@@ -89,7 +89,7 @@ public:
     return utl::projectPointToLine<float>(point, origin_, origin_ + direction_);
   };
 
-  /** \brief Set the origin of the symmetry to be the input point projected on the current symmetry axis
+  /* \brief Set the origin of the symmetry to be the input point projected on the current symmetry axis
      *  \param[in] point  point who's projection will be used as new origin
      */
   void setOriginProjected(const Eigen::Vector3f& point)
@@ -97,7 +97,7 @@ public:
     origin_ = projectPoint(point);
   };
 
-  /** \brief Set symmetry parameters from a point and a direction
+  /* \brief Set symmetry parameters from a point and a direction
      *  \param[in] point      origin point
      *  \param[in] direction  direction vector (can be non-unit)
      */
@@ -107,7 +107,7 @@ public:
     direction_ = direction.normalized();
   }
 
-  /** \brief Set symmetry parameters from two points
+  /* \brief Set symmetry parameters from two points
      *  \param[in] point1  first point
      *  \param[in] point2  second point
      */
@@ -116,7 +116,7 @@ public:
     fromPointDirection(point1, point2 - point1);
   }
 
-  /** \brief Set symmetry parameters from two points
+  /* \brief Set symmetry parameters from two points
      *  \param[in] points  6D vector where first three entries correspond to first point and second 3 entries to second
    * point
      */
@@ -125,7 +125,7 @@ public:
     fromTwoPoints(points.head(3), points.tail(3));
   }
 
-  /** \brief Transform the symmetry axis with an 3D rigid transformation.
+  /* \brief Transform the symmetry axis with an 3D rigid transformation.
      *  \param[in]  transform 3D affine transform
      */
   inline RotationalSymmetry transform(const Eigen::Affine3f& transform) const
@@ -133,7 +133,7 @@ public:
     return RotationalSymmetry(transform * origin_, transform.rotation() * direction_);
   }
 
-  /** \brief Write symmetry parameters to a filestream in ASCII format.
+  /* \brief Write symmetry parameters to a filestream in ASCII format.
      *  \param[in] file output filestream
      */
   void writeASCII(std::ofstream& file) const
@@ -144,7 +144,7 @@ public:
     file << "   " << direction_[0] << " " << direction_[1] << " " << direction_[2] << std::endl;
   }
 
-  /** \brief Read symmetry parameters from an ASCII file. Filestream pointer
+  /* \brief Read symmetry parameters from an ASCII file. Filestream pointer
      * must point to a line starting a valid symmetry record.
      *  \param[in] file input filestream
      */
@@ -179,7 +179,7 @@ public:
     return true;
   }
 
-  /** \brief Get the distance between a symmetry axis and a point.
+  /* \brief Get the distance between a symmetry axis and a point.
      *  \param[in] point  point
      *  \return distance
      */
@@ -200,7 +200,7 @@ public:
     return;
   }
 
-  /** \brief Get a rotation matrix for rotating around the symmetry axis by a
+  /* \brief Get a rotation matrix for rotating around the symmetry axis by a
      * specified angle.
      *  \param[in] angle angle of rotation in radians
      */
@@ -209,7 +209,7 @@ public:
     return Eigen::AngleAxisf(angle, direction_).toRotationMatrix();
   }
 
-  /** \brief Rotate a point around a symmetry axis by a given rotation matrix.
+  /* \brief Rotate a point around a symmetry axis by a given rotation matrix.
      * This is equivalent to rotating a vector from symmetry axis to the point
      * by a given rotation matrix.
      *  \param[in] point point to be rotated
@@ -221,7 +221,7 @@ public:
     return pointProjected + R * (point - pointProjected);
   }
 
-  /** \brief Rotate a point around a symmetry axis by a given angle. The
+  /* \brief Rotate a point around a symmetry axis by a given angle. The
      * angle is specified clockwise around the symmetry axis.
      *  \param[in] point point to be rotated
      *  \param[in] angle angle of rotation in radians
@@ -231,7 +231,7 @@ public:
     return rotatePoint(point, getRotationAroundAxis(angle));
   }
 
-  /** \brief Rotate a normal vector by a given rotation matrix.
+  /* \brief Rotate a normal vector by a given rotation matrix.
      *  \param[in] normal normal to be rotated
      *  \param[in] angle angle of rotation in radians
      */
@@ -240,7 +240,7 @@ public:
     return R * normal;
   }
 
-  /** \brief Rotate a normal around a symmetry axis by a given angle. The
+  /* \brief Rotate a normal around a symmetry axis by a given angle. The
      * angle is specified clockwise around the symmetry axis.
      *  \param[in] normal normal to be rotated
      *  \param[in] angle angle of rotation in radians
@@ -250,7 +250,7 @@ public:
     return rotateNormal(normal, getRotationAroundAxis(angle));
   }
 
-  /** \brief Rotate a pointcloud around a symmetry axis by a given angle. The
+  /* \brief Rotate a pointcloud around a symmetry axis by a given angle. The
      * angle is specified clockwise around the symmetry axis.
      *  \param[in] cloud_in original cloud
      *  \param[in] cloud_out rotated cloud
@@ -265,7 +265,7 @@ public:
       cloud_out.points[i].getVector3fMap() = rotatePoint(cloud_in.points[i].getVector3fMap(), angle);
   }
 
-  /** \brief Rotate a pointcloud around a symmetry axis by a given angle. The
+  /* \brief Rotate a pointcloud around a symmetry axis by a given angle. The
      * angle is specified clockwise around the symmetry axis.
      *  \param[in] cloud_in original cloud
      *  \param[in] indices  indices of the points that need to be rotated
@@ -282,7 +282,7 @@ public:
       cloud_out.points[i].getVector3fMap() = rotatePoint(cloud_in.points[indices[i]].getVector3fMap(), angle);
   }
 
-  /** \brief Rotate a pointcloud with normals around a symmetry axis by a given angle. The
+  /* \brief Rotate a pointcloud with normals around a symmetry axis by a given angle. The
      * angle is specified clockwise around the symmetry axis.
      *  \param[in] cloud_in original cloud
      *  \param[in] cloud_out rotated cloud
@@ -300,7 +300,7 @@ public:
       cloud_out.points[i].getNormalVector3fMap() = rotateNormal(cloud_in.points[i].getNormalVector3fMap(), R);
     }
   }
-  /** \brief Rotate a pointcloud with normals around a symmetry axis by a given angle. The
+  /* \brief Rotate a pointcloud with normals around a symmetry axis by a given angle. The
      * angle is specified clockwise around the symmetry axis.
      *  \param[in] cloud_in original cloud
      *  \param[in] indices  indices of the points that need to be rotated
@@ -320,7 +320,7 @@ public:
       cloud_out.points[i].getNormalVector3fMap() = rotateNormal(cloud_in.points[indices[i]].getNormalVector3fMap(), R);
     }
   }
-  /** \brief Get the normal of the plane used to construct the profile curve.
+  /* \brief Get the normal of the plane used to construct the profile curve.
      * The normal is constructed as unit direction vector of a line that goes
      * through the coordinate system origin and is perpendicular to the symmetry
      * axis.
@@ -333,7 +333,7 @@ public:
     Eigen::Vector3f coordinateOriginProjected = projectPoint(Eigen::Vector3f::Zero());
     return (Eigen::Vector3f::Zero() - coordinateOriginProjected).normalized();
   }
-  /** \brief Get the profile curve of a cloud under current symmetry axis.
+  /* \brief Get the profile curve of a cloud under current symmetry axis.
      *  \param[in]  cloud input cloud
      *  \param[out] profile_curve profile curve
      */
@@ -357,7 +357,7 @@ public:
     }
   }
 
-  /** \brief Get the profile curve of a cloud under current symmetry axis.
+  /* \brief Get the profile curve of a cloud under current symmetry axis.
      *  \param[in]  cloud input cloud
      *  \param[out] profile_curve profile curve
      *  \note 3 times slower than getProfileCurve
@@ -401,7 +401,7 @@ public:
     }
   }
 
-  /** \brief Get cylinder centered on a symmetry axis that bounds the
+  /* \brief Get cylinder centered on a symmetry axis that bounds the
      * pointcloud.
      *  \param[in]  cloud input cloud
      *  \param[in]  indices indices of the points of the cloud that are used
@@ -449,7 +449,7 @@ public:
     return true;
   }
 
-  /** \brief Get cylinder centered on a symmetry axis that bounds the
+  /* \brief Get cylinder centered on a symmetry axis that bounds the
      * pointcloud.
      *  \param[in]  cloud input cloud
      *  \param[in]  indices indices of the points of the cloud that are used
@@ -473,7 +473,7 @@ protected:
   Eigen::Vector3f direction_;  ///< Unit length vector representing the direction of the symmetry axis.
 };
 
-/** \brief Print symmetry details to ostream */
+/* \brief Print symmetry details to ostream */
 inline std::ostream& operator<<(std::ostream& os, const RotationalSymmetry& symmetry)
 {
   os << "origin:    " << symmetry.getOrigin().transpose();
@@ -483,7 +483,7 @@ inline std::ostream& operator<<(std::ostream& os, const RotationalSymmetry& symm
   return os;
 }
 
-/** \brief Visualize a rotational symmetry as a line segment centered at the symmetry origin point
+/* \brief Visualize a rotational symmetry as a line segment centered at the symmetry origin point
    *  \param[in] visualizer object
    *  \param[in] symmetry rotational symmetry
    *  \param[in] id symmetry axis object id (default: symmetry)
@@ -504,7 +504,7 @@ inline void showRotationalSymmetry(pcl::visualization::PCLVisualizer& visualizer
   utl::setLineRenderProps(visualizer, id, line_width, color, opacity);
 }
 
-/** \brief Visualize a rotational symmetry around a pointcloud. Symmetry is
+/* \brief Visualize a rotational symmetry around a pointcloud. Symmetry is
    * visualized as a line with endpoints obtained by projecting the pointcloud
    * points onto the symmetry line.
    *  \param[in]  visualizer  object
@@ -564,7 +564,7 @@ inline void showCloudRotationalSymmetry(pcl::visualization::PCLVisualizer& visua
   utl::setLineRenderProps(visualizer, id, line_width, color, opacity);
 }
 
-/** \brief Calculate the error of fit between a symmetry axis and an oriented
+/* \brief Calculate the error of fit between a symmetry axis and an oriented
     * point. Error of fit is calculated as the angle between the point normal
     * and the plane containing the symmetry axis and the point itself.
     *  \param[in]  point                   point coordinate
@@ -586,7 +586,7 @@ inline float getRotSymFitError(const Eigen::Vector3f& point, const Eigen::Vector
   return std::asin(angle_sin);
 }
 
-/** \brief Calculate how perpendicular a surface point is to the symmetry
+/* \brief Calculate how perpendicular a surface point is to the symmetry
    * axis. Perpendicularity is calculated as:
    *   1 - (angle between symmetry axis and point normal / PI/2)
    * The final score is in the [0, 1] range. Higher values indicate higher

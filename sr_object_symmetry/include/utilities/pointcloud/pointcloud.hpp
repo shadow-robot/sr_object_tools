@@ -1,4 +1,4 @@
-/**
+/*
 * Copyright 2019 Shadow Robot Company Ltd.
 *
 * This program is free software: you can redistribute it and/or modify it
@@ -37,7 +37,7 @@
 
 namespace utl
 {
-/** \brief @b Downsample Downsamples a pointcloud using the @b VoxelGrid
+/* \brief @b Downsample Downsamples a pointcloud using the @b VoxelGrid
     * filter. Unlike the original @b VoxelGrid filter can return
     *  - a map from downsampled indices to original cloud indices
     *  - indices of points of the original cloud that are closest to the
@@ -56,7 +56,7 @@ protected:
   using pcl::VoxelGrid<PointT>::setFilterLimitsNegative;
 
 public:
-  /** \brief Methods for downsampling pointclouds. */
+  /* \brief Methods for downsampling pointclouds. */
   enum CloudDownsampleMethod
   {
     AVERAGE,  // for each voxel downsampled point/normal is an average of points/normals belonging to the voxel.
@@ -65,7 +65,7 @@ public:
                       // nearest to the voxel centroid
   };
 
-  /** \brief Empty constructor. */
+  /* \brief Empty constructor. */
   Downsample()
     : downsample_method_(AVERAGE)
     , output_(new pcl::PointCloud<PointT>)
@@ -77,10 +77,10 @@ public:
     this->setSaveLeafLayout(true);
   }
 
-  /** \brief Destructor. */
+  /* \brief Destructor. */
   ~Downsample() {}
 
-  /** \brief Provide a pointer to the input dataset
+  /* \brief Provide a pointer to the input dataset
       *  \param cloud the const boost shared pointer to a PointCloud message
       */
   virtual void setInputCloud(const typename pcl::PCLBase<PointT>::PointCloudConstPtr& cloud)
@@ -89,7 +89,7 @@ public:
     resetComputation();
   }
 
-  /** \brief Provide a pointer to the input dataset
+  /* \brief Provide a pointer to the input dataset
       *  \param cloud the const boost shared pointer to a PointCloud message
       */
   virtual void setIndices(const pcl::IndicesPtr& indices)
@@ -98,7 +98,7 @@ public:
     resetComputation();
   }
 
-  /** \brief Set downsampling method used.
+  /* \brief Set downsampling method used.
       *  \param downsample_method downsample method
       */
   inline void setDownsampleMethod(const CloudDownsampleMethod downsample_method)
@@ -106,7 +106,7 @@ public:
     downsample_method_ = downsample_method;
   }
 
-  /** \brief Get downsampling method used.
+  /* \brief Get downsampling method used.
       *  \param downsample_method downsample method
       */
   inline CloudDownsampleMethod getDownsampleMethod() const
@@ -114,7 +114,7 @@ public:
     return downsample_method_;
   }
 
-  /** \brief Set the voxel grid leaf size.
+  /* \brief Set the voxel grid leaf size.
       *  \param[in] leaf_size the voxel grid leaf size
       */
   inline void setLeafSize(const float leaf_size)
@@ -123,13 +123,13 @@ public:
     resetComputation();
   }
 
-  /** \brief Get the voxel grid leaf size. */
+  /* \brief Get the voxel grid leaf size. */
   inline float getLeafSize() const
   {
     return this->leaf_size_[0];
   }
 
-  /** \brief Get downsample map i.e. map from downsampled cloud points to
+  /* \brief Get downsample map i.e. map from downsampled cloud points to
       * original cloud points.
       *  \param[out] downsample_map  downsample map
       */
@@ -139,7 +139,7 @@ public:
     downsample_map = downsample_map_;
   }
 
-  /** \brief Get indices of points in the original cloud that are closest to
+  /* \brief Get indices of points in the original cloud that are closest to
       * downsampled cloud points.
       *  \param[out] nearest_indices  nearest point indices
       */
@@ -150,23 +150,23 @@ public:
   }
 
 private:
-  /** \brief Downsampling method used. */
+  /* \brief Downsampling method used. */
   CloudDownsampleMethod downsample_method_;
 
-  /** \brief Downsampled pointcloud. */
+  /* \brief Downsampled pointcloud. */
   typename pcl::PointCloud<PointT>::Ptr output_;
 
-  /** \brief Downsample map */
+  /* \brief Downsample map */
   std::vector<std::vector<int>> downsample_map_;
 
-  /** \brief A map from the points of the donwsampled cloud mask to the indices of the NaN filtered downsampled cloud.
+  /* \brief A map from the points of the donwsampled cloud mask to the indices of the NaN filtered downsampled cloud.
    */
   std::vector<int> non_nan_point_map_;
 
-  /** \brief Indices of points closest to downsampled points */
+  /* \brief Indices of points closest to downsampled points */
   std::vector<int> nearest_indices_;
 
-  /** \brief Get downsample map i.e. map from downsampled cloud points to
+  /* \brief Get downsample map i.e. map from downsampled cloud points to
       * original cloud points.
       */
   inline void computeDownsampleMap()
@@ -192,7 +192,7 @@ private:
     }
   }
 
-  /** \brief Get indices of points in the original cloud that are closest to
+  /* \brief Get indices of points in the original cloud that are closest to
       * downsampled cloud points.
       */
   inline void computeNearestPointIndices()
@@ -215,7 +215,7 @@ private:
     }
   }
 
-  /** \brief Downsample the input pointcloud
+  /* \brief Downsample the input pointcloud
       *  \param[out] output filtered pointcloud
       */
   virtual void applyFilter(pcl::PointCloud<PointT>& output)
@@ -252,7 +252,7 @@ private:
     return;
   }
 
-  /** \brief Reset computation flags. */
+  /* \brief Reset computation flags. */
   inline void resetComputation()
   {
     output_.reset(new pcl::PointCloud<PointT>);
@@ -262,7 +262,7 @@ private:
   }
 };
 
-/** \brief Fit a plane to a pointcloud.
+/* \brief Fit a plane to a pointcloud.
     *  \param[in] cloud input cloud
     *  \param[in] indices  indices of the points used to calculate the plane
     *  \param[out] plane_coefficients coefficients of a plane (ax + by + cz + d = 0)
@@ -293,7 +293,7 @@ inline void fitPlane(const typename pcl::PointCloud<PointT>::ConstPtr& cloud, co
   utl::pointNormalToPlaneCoefficients<float>(point, normal, plane_coefficients);
 }
 
-/** \brief Fit a plane to a pointcloud.
+/* \brief Fit a plane to a pointcloud.
     *  \param[in] cloud input cloud
     *  \param[out] plane_coefficients coefficients of a plane (ax + by + cz + d = 0)
     */
@@ -309,7 +309,7 @@ inline void fitPlane(const typename pcl::PointCloud<PointT>::ConstPtr& cloud, Ei
   fitPlane<PointT>(cloud, indices, plane_coefficients);
 }
 
-/** \brief @b ConvexHull2D Projects pointcloud to a plane and computes the
+/* \brief @b ConvexHull2D Projects pointcloud to a plane and computes the
     * 2D convex hull of the projected points. The projection plane can be set
     * by the user. If it is not set it is computed automatically by
     * fitting a plane to the input pointcloud using PCA.
@@ -330,20 +330,20 @@ public:
   typedef typename PointCloud::ConstPtr PointCloudConstPtr;
 
 public:
-  /** \brief Empty constructor. */
+  /* \brief Empty constructor. */
   ConvexHull2D() : plane_coefficients_(Eigen::Vector4f::Zero()), compute_plane_(true), chull_()
   {
     chull_.setDimension(2);
     chull_.setComputeAreaVolume(true);
   }
 
-  /** \brief Destructor. */
+  /* \brief Destructor. */
   virtual ~ConvexHull2D()
   {
     input_projected_.reset();
   }
 
-  /** \brief Provide a pointer to the input cloud. */
+  /* \brief Provide a pointer to the input cloud. */
   void setInputCloud(const PointCloudConstPtr& cloud)
   {
     pcl::PCLBase<PointT>::setInputCloud(cloud);
@@ -352,27 +352,27 @@ public:
       indices_->clear();
   }
 
-  /** \brief Set coefficients of the plane to which the points will be projected. */
+  /* \brief Set coefficients of the plane to which the points will be projected. */
   inline void setPlaneCoefficients(const Eigen::Vector4f& plane_coefficients)
   {
     plane_coefficients_ = plane_coefficients;
     compute_plane_ = false;
   }
 
-  /** \brief Get plane coefficients of the plane to which the points will be projected (either set by user or computed
+  /* \brief Get plane coefficients of the plane to which the points will be projected (either set by user or computed
    * automatically). */
   inline Eigen::Vector4f getPlaneCoefficients() const
   {
     return plane_coefficients_;
   }
 
-  /** \brief Get input cloud projected on the 2D plane. Need to run reconstruct first*/
+  /* \brief Get input cloud projected on the 2D plane. Need to run reconstruct first*/
   inline PointCloudConstPtr getInputCloudProjected() const
   {
     return (input_projected_);
   }
 
-  /** \brief Compute a convex hull for all points given.
+  /* \brief Compute a convex hull for all points given.
       * \param[out] points the resultant points lying on the convex hull.
       */
   void reconstruct(PointCloud& points)
@@ -414,26 +414,26 @@ public:
     deinitCompute();
   }
 
-  /** \brief Returns the total area of the convex hull. */
+  /* \brief Returns the total area of the convex hull. */
   double getTotalArea() const
   {
     return (chull_.getTotalArea());
   }
 
 private:
-  /** \brief Coefficients of the plane to which the points are projected. */
+  /* \brief Coefficients of the plane to which the points are projected. */
   Eigen::Vector4f plane_coefficients_;
 
-  /** \brief Flag indicating whether projection plane should be computed automatically. */
+  /* \brief Flag indicating whether projection plane should be computed automatically. */
   bool compute_plane_;
 
-  /** \brief Input cloud projected onto a 2D plane. */
+  /* \brief Input cloud projected onto a 2D plane. */
   PointCloudPtr input_projected_;
 
-  /** \brief Convex hull object. */
+  /* \brief Convex hull object. */
   typename pcl::ConvexHull<PointT> chull_;
 
-  /** \brief Reset intermideate computation results. */
+  /* \brief Reset intermideate computation results. */
   inline void resetComputation()
   {
     input_projected_.reset();
@@ -442,7 +442,7 @@ private:
   }
 };
 
-/** \brief Generate graph structure representing local connectivity between
+/* \brief Generate graph structure representing local connectivity between
     * points in a pointcloud. Each point is connected to its k nearest
     * neighbors.
     *  \param[in]  cloud             input cloud
@@ -497,7 +497,7 @@ inline bool getCloudConnectivityNearestK(const typename pcl::PointCloud<PointT>:
   return true;
 }
 
-/** \brief Generate graph structure representing local connectivity between
+/* \brief Generate graph structure representing local connectivity between
     * points in a pointcloud. Each point is connected to its k nearest
     * neighbors.
     *  \param[in]  cloud             input cloud
@@ -527,7 +527,7 @@ inline bool getCloudConnectivityNearestK(const typename pcl::PointCloud<PointT>:
   return getCloudConnectivityNearestK<PointT>(cloud, fake_indices, graph, num_neighbours);
 }
 
-/** \brief Generate graph structure representing local connectivity between
+/* \brief Generate graph structure representing local connectivity between
     * points in a pointcloud. Each point is connected to it's k nearest
     * neighbors within a radius r.
     *  \param[in]  cloud             input cloud
@@ -588,7 +588,7 @@ inline bool getCloudConnectivityRadius(const typename pcl::PointCloud<PointT>::C
   return true;
 }
 
-/** \brief Generate graph structure representing local connectivity between
+/* \brief Generate graph structure representing local connectivity between
     * points in a pointcloud. Each point is connected to it's k nearest
     * neighbors within a radius r.
     *  \param[in]  cloud             input cloud
@@ -610,7 +610,7 @@ inline bool getCloudConnectivityRadius(const typename pcl::PointCloud<PointT>::C
   return getCloudConnectivityRadius(cloud, indices, searchTree, graph, radius, num_neighbours);
 }
 
-/** \brief Generate graph structure representing local connectivity between
+/* \brief Generate graph structure representing local connectivity between
     * points in the pointcloud. Each point is connected to it's k nearest
     * neighbors within a radius r.
     *  \param[in]  cloud             input cloud
@@ -636,7 +636,7 @@ inline bool getCloudConnectivityRadius(const typename pcl::PointCloud<PointT>::C
   return getCloudConnectivityRadius<PointT>(cloud, fake_indices, search_tree, graph, radius, num_neighbours);
 }
 
-/** \brief Generate graph structure representing local connectivity between
+/* \brief Generate graph structure representing local connectivity between
     * points in the pointcloud. Each point is connected to it's k nearest
     * neighbors within a radius r.
     *  \param[in]  cloud             input cloud
@@ -661,7 +661,7 @@ inline bool getCloudConnectivityRadius(const typename pcl::PointCloud<PointT>::C
   return getCloudConnectivityRadius<PointT>(cloud, fake_indices, graph, radius, num_neighbours);
 }
 
-/** \brief Given a point in the pointcloud and it's neighbors, check if that
+/* \brief Given a point in the pointcloud and it's neighbors, check if that
     * point is a boundary point.
     * The idea is similar to occlusion boundary detection provess described in
     * "Multi-scale Feature Extraction on Point-Sampled Surfaces" by Pauly et al.:
@@ -719,7 +719,7 @@ bool isBoundaryPoint(const typename pcl::PointCloud<PointT>& cloud, const int po
     return false;
 }
 
-/** \brief Find the boundary points of a pointcloud. See @utl::isBoundaryPoint
+/* \brief Find the boundary points of a pointcloud. See @utl::isBoundaryPoint
     * for algorithm details.
     *  \param[in]  cloud           input pointcloud
     *  \param[in]  search_radius   radius used to search for point neighbors
@@ -774,7 +774,7 @@ bool getCloudBoundary(const typename pcl::PointCloud<PointT>::ConstPtr& cloud, c
   return true;
 }
 
-//     /** \brief Find the boundary points of a pointcloud. See @utl::isBoundaryPoint
+//     /* \brief Find the boundary points of a pointcloud. See @utl::isBoundaryPoint
 //      * for algorithm details.
 //      *  \param[in]  cloud           input pointcloud
 //      *  \param[in]  search_radius   radius used to search for point neighbors
@@ -794,7 +794,7 @@ bool getCloudBoundary(const typename pcl::PointCloud<PointT>::ConstPtr& cloud, c
 //       getCloudBoundary<PointT>(cloud, fake_indices, search_radius, boundary_point_ids, max_angle);
 //     }
 
-/** \brief Find the boundary points of a pointcloud. See @utl::isBoundaryPoint
+/* \brief Find the boundary points of a pointcloud. See @utl::isBoundaryPoint
     * for algorithm details.
     *  \param[in]  cloud           input pointcloud
     *  \param[in]  search_radius   radius used to search for point neighbors
@@ -836,7 +836,7 @@ void getCloudBoundary(const typename pcl::PointCloud<PointT>::ConstPtr& cloud, c
   }
 }
 
-/** \brief Project a pointcloud on a plane.
+/* \brief Project a pointcloud on a plane.
     *  \param[in]  cloud_in pointcloud to be projected
     *  \param[in]  plane_point  a point on the plane
     *  \param[in]  plane_normal plane normal
@@ -855,7 +855,7 @@ inline void projectCloudToPlane(const pcl::PointCloud<PointT>& cloud_in, const E
   return;
 }
 
-/** \brief Project a pointcloud on a plane.
+/* \brief Project a pointcloud on a plane.
     *  \param[in]  cloud_in pointcloud to be projected
     *  \param[in]  plane_coefficients  coefficients of an equation of a plane
     *  \param[out] cloud_out projected pointcloud
@@ -872,7 +872,7 @@ inline void projectCloudToPlane(const pcl::PointCloud<PointT>& cloud_in, const E
   return;
 }
 
-/** \brief Project a pointcloud on a line.
+/* \brief Project a pointcloud on a line.
     *  \param[in]  cloud_in pointcloud to be projected
     *  \param[in]  line_point1   first point of the line
     *  \param[in]  line_point2   second point of the line

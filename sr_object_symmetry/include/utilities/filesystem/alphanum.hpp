@@ -1,4 +1,4 @@
-/**
+/*
 * Copyright 2019 Shadow Robot Company Ltd.
 *
 * This program is free software: you can redistribute it and/or modify it
@@ -74,13 +74,13 @@ namespace
 // if you want to honour the locale settings for detecting digit
 // characters, you should define ALPHANUM_LOCALE
 #ifdef ALPHANUM_LOCALE
-/** wrapper function for ::isdigit() */
+/* wrapper function for ::isdigit() */
 bool alphanum_isdigit(int c)
 {
   return isdigit(c);
 }
 #else
-/** this function does not consider the current locale and only
+/* this function does not consider the current locale and only
 works with ASCII digits.
 @return true if c is a digit character
 */
@@ -90,7 +90,7 @@ bool alphanum_isdigit(const char c)
 }
 #endif
 
-/**
+/*
    compare l and r with strcmp() semantics, but using
    the "Alphanum Algorithm". This function is designed to read
    through the l and r strings only one time, for
@@ -104,7 +104,7 @@ bool alphanum_isdigit(const char c)
    @param l NULL-terminated C-style string
    @param r NULL-terminated C-style string
    @return negative if l<r, 0 if l equals r, positive if l>r
- */
+*/
 int alphanum_impl(const char* l, const char* r)
 {
   enum mode_t
@@ -192,7 +192,7 @@ int alphanum_impl(const char* l, const char* r)
 }
 }  // namespace
 
-/**
+/*
    Compare left and right with the same semantics as strcmp(), but with the
    "Alphanum Algorithm" which produces more human-friendly
    results. The classes lT and rT must implement "std::ostream
@@ -214,7 +214,7 @@ int alphanum_comp(const lT& left, const rT& right)
   return alphanum_impl(l.str().c_str(), r.str().c_str());
 }
 
-/**
+/*
    Compare l and r with the same semantics as strcmp(), but with
    the "Alphanum Algorithm" which produces more human-friendly
    results.
@@ -236,7 +236,7 @@ inline int alphanum_comp<std::string>(const std::string& l, const std::string& r
 // direct call to alphanum_impl() upon the various combinations of c
 // and c++ strings.
 
-/**
+/*
    Compare l and r with the same semantics as strcmp(), but with
    the "Alphanum Algorithm" which produces more human-friendly
    results.
@@ -321,7 +321,7 @@ inline int alphanum_comp(const char* l, const std::string& r)
 
 ////////////////////////////////////////////////////////////////////////////
 
-/**
+/*
    Functor class to compare two objects with the "Alphanum
    Algorithm". If the objects are no std::string, they must
    implement "std::ostream operator<< (std::ostream&, const Ty&)".

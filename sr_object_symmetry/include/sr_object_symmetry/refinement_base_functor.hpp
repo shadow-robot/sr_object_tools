@@ -1,4 +1,4 @@
-/**
+/*
 * Copyright 2019 Shadow Robot Company Ltd.
 *
 * This program is free software: you can redistribute it and/or modify it
@@ -24,7 +24,7 @@
 
 namespace sym
 {
-/** \brief Base functor for non-linear optimization with Eigen. All the models
+/* \brief Base functor for non-linear optimization with Eigen. All the models
    * that need non linear optimization must define their own one and implement
    * either of:
    *   operator() (const Eigen::VectorXd& x, Eigen::VectorXd& fvec)

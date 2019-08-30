@@ -53,7 +53,7 @@ struct RotSymDetectParams
    *  \param[in]  symmetry_scores             symmetry scores for input symmetries
    *  \param[out] merged_sym_ids              ids of symmetries after merging
    *  \param[in]  max_angle_diff              maximum angle between the axes of two distinct symmetries that will be
- * merged
+* merged
    *  \param[in]  max_distance_diff           minimum distance between two symmetries that will be merged
    */
 inline void mergeDuplicateRotSymmetries(const std::vector<sym::RotationalSymmetry>& symmetries,
@@ -68,7 +68,7 @@ inline void mergeDuplicateRotSymmetries(const std::vector<sym::RotationalSymmetr
    *  \param[in]  symmetry_scores             symmetry scores for input symmetries
    *  \param[out] merged_sym_ids              ids of symmetries after merging
    *  \param[in]  max_angle_diff              maximum angle between the axes of two distinct symmetries that will be
- * merged
+* merged
    *  \param[in]  max_distance_diff           minimum distance between two symmetries that will be merged
    */
 inline void mergeDuplicateRotSymmetries(const std::vector<sym::RotationalSymmetry>& symmetries,

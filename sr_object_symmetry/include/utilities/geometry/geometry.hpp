@@ -1,4 +1,4 @@
-/**
+/*
 * Copyright 2019 Shadow Robot Company Ltd.
 *
 * This program is free software: you can redistribute it and/or modify it
@@ -29,7 +29,7 @@ namespace utl
 // Conversions
 //--------------------------------------------------------------------------
 
-/** \brief Extract plane unit normal and point on the plane closest to the origin
+/* \brief Extract plane unit normal and point on the plane closest to the origin
     * from coefficients of an equation of a plane (ax + by + cz + d = 0).
     *  \param[in]  plane_coefficients plane coefficients (ax + by + cz + d = 0)
     *  \param[out] plane_point plane point closest to the origin
@@ -46,7 +46,7 @@ inline void planeCoefficientsToPointNormal(const Eigen::Matrix<Scalar, 4, 1>& pl
   plane_point = plane_normal * (-plane_coefficients[3] / norm);
 }
 
-/** \brief Given a point an a normal defining a plane extract coefficients
+/* \brief Given a point an a normal defining a plane extract coefficients
     * of the equation of a plane (ax + by + cz + d = 0).
     *  \param[in]  plane_point plane point closest to the origin
     *  \param[in]  plane_normal plane unit normal
@@ -65,7 +65,7 @@ inline void pointNormalToPlaneCoefficients(const Eigen::Matrix<Scalar, 3, 1>& pl
 // Distances
 //--------------------------------------------------------------------------
 
-/** \brief Get the Euclidean distance between two N-dimensional points.
+/* \brief Get the Euclidean distance between two N-dimensional points.
     *  \param[in] point1 first point
     *  \param[in] point2 second point
     *  \return distance between points
@@ -82,7 +82,7 @@ inline Scalar pointToPointDistance(const Eigen::Matrix<Scalar, Eigen::Dynamic, 1
   return (point1 - point2).norm();
 }
 
-/** \brief Get distance between a point and a line.
+/* \brief Get distance between a point and a line.
     *  \param[in] point point
     *  \param[in] line_point1  first point of a line
     *  \param[in] line_point2  second point of a line
@@ -96,7 +96,7 @@ inline Scalar pointToLineDistance(const Eigen::Matrix<Scalar, 3, 1>& point,
   return ((point - line_point1).cross(point - line_point2)).norm() / (line_point2 - line_point1).norm();
 }
 
-/** \brief Get signed distance between a point and a plane.
+/* \brief Get signed distance between a point and a plane.
     *  \param[in] point point
     *  \param[in] plane_point  a point on the plane
     *  \param[in] plane_normal plane normal
@@ -111,7 +111,7 @@ inline Scalar pointToPlaneSignedDistance(const Eigen::Matrix<Scalar, 3, 1>& poin
   return planeToPointVector.dot(plane_normal);
 }
 
-/** \brief Get the signed distance between a point and a plane.
+/* \brief Get the signed distance between a point and a plane.
     *  \param[in] point point
     *  \param[in] plane_coefficients coefficients of the equation of the plane
     *  \return signed distance between point and plane
@@ -125,7 +125,7 @@ inline Scalar pointToPlaneSignedDistance(const Eigen::Matrix<Scalar, 3, 1>& poin
   return pointToPlaneSignedDistance<Scalar>(point, plane_point, plane_normal);
 }
 
-/** \brief Get distance between two skew lines.
+/* \brief Get distance between two skew lines.
     *  \param[in] line1_point1 first point of the line 1
     *  \param[in] line1_point2 second point of the line 1
     *  \param[in] line2_point1 first point of the line 2
@@ -157,7 +157,7 @@ inline Scalar lineToLineDistance(const Eigen::Matrix<Scalar, 3, 1>& line1_point1
 // Angles
 //--------------------------------------------------------------------------
 
-/** \brief Get cosine of the angle between two vectors.
+/* \brief Get cosine of the angle between two vectors.
     *  \param[in] v1 vector 1 (must be unit length)
     *  \param[in] v2 vector 2 (must be unit length)
     *  \return cosine of the angle between the input vectors
@@ -168,7 +168,7 @@ inline Scalar vectorVectorAngleCos(const Eigen::Matrix<Scalar, 3, 1>& v1, const 
   return utl::clampValue(v1.dot(v2), -1.0f, 1.0f);
 }
 
-/** \brief Get the angle between two vectors.
+/* \brief Get the angle between two vectors.
     *  \param[in] v1 vector 1 (must be unit length)
     *  \param[in] v2 vector 2 (must be unit length)
     *  \return cosine of the angle between the input vectors
@@ -179,7 +179,7 @@ inline Scalar vectorVectorAngle(const Eigen::Matrix<Scalar, 3, 1>& v1, const Eig
   return std::acos(vectorVectorAngleCos<Scalar>(v1, v2));
 }
 
-/** \brief Find a clockwise angle between two 3D vectors
+/* \brief Find a clockwise angle between two 3D vectors
     *  \param[in] v1 first vector
     *  \param[in] v2 second vector
     *  \param[in] normal plane normal
@@ -195,7 +195,7 @@ inline Scalar vectorVectorAngleCW(const Eigen::Matrix<Scalar, 3, 1>& v1, const E
   return std::atan2(sin, cos);
 }
 
-/** \brief Get the cosine of the angle between two skew lines.
+/* \brief Get the cosine of the angle between two skew lines.
     *  \param[in] line1_direction line 1 direction vector (must be unit length)
     *  \param[in] line2_direction line 2 direction vector (must be unit length)
     *  \return angle between input lines
@@ -207,7 +207,7 @@ inline Scalar lineLineAngleCos(const Eigen::Matrix<Scalar, 3, 1>& line1_directio
   return std::abs(vectorVectorAngleCos<Scalar>(line1_direction, line2_direction));
 }
 
-/** \brief Calculate the angle between two skew lines.
+/* \brief Calculate the angle between two skew lines.
     *  \param[in] line1_point1 first point of the line 1
     *  \param[in] line1_point2 second point of the line 1
     *  \param[in] line2_point1 first point of the line 2
@@ -227,7 +227,7 @@ inline Scalar lineLineAngleCos(const Eigen::Matrix<Scalar, 3, 1>& line1_point1,
   return lineLineAngleCos<Scalar>(a, b);
 }
 
-/** \brief Get angle between two skew lines.
+/* \brief Get angle between two skew lines.
     *  \param[in] line1_direction line 1 direction vector (must be unit length)
     *  \param[in] line2_direction line 2 direction vector (must be unit length)
     *  \return angle between input lines
@@ -239,7 +239,7 @@ inline Scalar lineLineAngle(const Eigen::Matrix<Scalar, 3, 1>& line1_direction,
   return std::acos(lineLineAngleCos<Scalar>(line1_direction, line2_direction));
 }
 
-/** \brief Calculate the angle between two skew lines.
+/* \brief Calculate the angle between two skew lines.
     *  \param[in] line1_point1 first point of the line 1
     *  \param[in] line1_point2 second point of the line 1
     *  \param[in] line2_point1 first point of the line 2
@@ -255,7 +255,7 @@ inline Scalar lineLineAngle(const Eigen::Matrix<Scalar, 3, 1>& line1_point1,
   return std::acos(lineLineAngleCos<Scalar>(line1_point1, line1_point2, line2_point1, line2_point2));
 }
 
-/** \brief Get angle between a line and a plane.
+/* \brief Get angle between a line and a plane.
     *  \param[in] line_direction unit length direction vector of the line
     *  \param[in] plane_normal   unit normal of the plane
     */
@@ -266,7 +266,7 @@ inline Scalar linePlaneAngle(const Eigen::Matrix<Scalar, 3, 1>& line_direction,
   return M_PI / 2 - std::acos(std::abs(utl::clampValue(line_direction.dot(plane_normal), -1.0f, 1.0f)));
 }
 
-/** \brief Get angle between a line and a plane.
+/* \brief Get angle between a line and a plane.
     *  \param[in] line_direction     unit length direction vector of the line
     *  \param[in] plane_coefficients coefficients of the equation of the plane
     */
@@ -279,7 +279,7 @@ inline Scalar linePlaneAngle(const Eigen::Matrix<Scalar, 3, 1>& line_direction,
   return linePlaneAngle<Scalar>(line_direction, plane_normal);
 }
 
-/** \brief Get angle between a line and a plane.
+/* \brief Get angle between a line and a plane.
     *  \param[in] line1_point1 first point of the line 1
     *  \param[in] line1_point2 second point of the line 1
     *  \param[in] plane_normal unit normal of the plane
@@ -292,7 +292,7 @@ inline Scalar linePlaneAngle(const Eigen::Matrix<Scalar, 3, 1>& line1_point,
   return linePlaneAngle<Scalar>((line1_point - line2_point).normalized(), plane_normal);
 }
 
-/** \brief Get angle between a line and a plane.
+/* \brief Get angle between a line and a plane.
     *  \param[in] line1_point1 first point of the line 1
     *  \param[in] line1_point2 second point of the line 1
     *  \param[in] plane_coefficients coefficients of the equation of the plane
@@ -305,7 +305,7 @@ inline Scalar linePlaneAngle(const Eigen::Matrix<Scalar, 3, 1>& line1_point,
   return linePlaneAngle<Scalar>((line1_point - line2_point).normalized(), plane_coefficients);
 }
 
-/** \brief Get counter clockwise difference between two angles (in radians)
+/* \brief Get counter clockwise difference between two angles (in radians)
     * \param[in] angle_start    start angle
     * \param[in] angle_end      end angle
     * \return angular distance from start angle to end angle
@@ -320,7 +320,7 @@ inline Scalar angleDifferenceCCW(const Scalar start_angle, const Scalar end_angl
 // Projections
 //--------------------------------------------------------------------------
 
-/** \brief Project point on a line.
+/* \brief Project point on a line.
     *  \param[in] point point to be projected
     *  \param[in] line_point1  first points of a line
     *  \param[in] line_point2  second point of a line
@@ -335,7 +335,7 @@ inline Eigen::Matrix<Scalar, 3, 1> projectPointToLine(const Eigen::Matrix<Scalar
   return line_point1 + (point - line_point1).dot(line_vector) * line_vector / line_vector.dot(line_vector);
 }
 
-/** \brief Project point on a plane.
+/* \brief Project point on a plane.
     *  \param[in] point point to be projected
     *  \param[in] plane_point  a point on the plane
     *  \param[in] plane_normal plane normal
@@ -349,7 +349,7 @@ inline Eigen::Matrix<Scalar, 3, 1> projectPointToPlane(const Eigen::Matrix<Scala
   return point - plane_normal * pointToPlaneSignedDistance<Scalar>(point, plane_point, plane_normal);
 }
 
-/** \brief Project point on a plane.
+/* \brief Project point on a plane.
     *  \param[in] point point to be projected
     *  \param[in] plane_coefficients coefficients of an equation of a plane
     *  \return point projected onto a plane
@@ -367,7 +367,7 @@ inline Eigen::Matrix<Scalar, 3, 1> projectPointToPlane(const Eigen::Matrix<Scala
 // Intersections
 //--------------------------------------------------------------------------
 
-/** \brief Compute an intersection point between a line and a plane.
+/* \brief Compute an intersection point between a line and a plane.
     *  \param[in] line_point1 first point of the line
     *  \param[in] line_point2 second point of the line
     *  \param[in] plane plane coefficients (ax + by + cz + d = 0)
@@ -384,7 +384,7 @@ inline Eigen::Matrix<Scalar, 3, 1> linePlaneIntersection(const Eigen::Matrix<Sca
   return line_point1 + d * line_direction;
 }
 
-/** \brief Compute an intersection point between a line anf a plane
+/* \brief Compute an intersection point between a line anf a plane
     *  \param[in] line_point1 first point of the line
     *  \param[in] line_point2 second point of the line
     *  \param[in] plane_coefficients plane coefficients (ax + by + cz + d = 0)
@@ -400,7 +400,7 @@ inline Eigen::Matrix<Scalar, 3, 1> linePlaneIntersection(const Eigen::Matrix<Sca
   return linePlaneIntersection(line_point1, line_point2, plane_point, plane_normal);
 }
 
-/** \brief Find the shortest line segment connecting two lines in 3d space.
+/* \brief Find the shortest line segment connecting two lines in 3d space.
     *  \param[in] line1_point1 first point of the line 1
     *  \param[in] line1_point2 second point of the line 1
     *  \param[in] line2_point1 first point of the line 2
@@ -447,7 +447,7 @@ inline bool lineLineIntersection(const Eigen::Matrix<Scalar, 3, 1>& line1_point1
   return false;
 }
 
-/** \brief Find an intersection of multiple planes. Two parameters are estimated:
+/* \brief Find an intersection of multiple planes. Two parameters are estimated:
   *  1) Intersection point that minimizes the point to plane distance for the input planes
   *  2) Intersection line direction that minizes th line plane angle for the input planes
   * Both are estimated using linear least squares (SVD).
@@ -489,7 +489,7 @@ inline bool planeIntersection(const std::vector<Eigen::Vector4f>& plane_coeffici
   return true;
 }
 
-/** \brief Find the area of intersection of two circles in 2D.
+/* \brief Find the area of intersection of two circles in 2D.
     *  \param[in]  circle1_c   center of the first cicle
     *  \param[in]  circle1_r   radius of the first cicle
     *  \param[in]  circle2_c   center of the second cicle
@@ -532,7 +532,7 @@ inline Scalar circleCircleIntersectionArea(const Eigen::Matrix<Scalar, 2, 1> cir
 // Miscellaneous
 //--------------------------------------------------------------------------
 
-/** \brief Find a rotation matrix that aligns two vectors. Note that transformation matrix is not unique.
+/* \brief Find a rotation matrix that aligns two vectors. Note that transformation matrix is not unique.
     *  \param target_normal target normal
     *  \param source_normal source normal
     *  \return 3x3 rotation matrix
