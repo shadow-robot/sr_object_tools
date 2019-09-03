@@ -1,4 +1,4 @@
-/**
+/*
 * Copyright 2019 Shadow Robot Company Ltd.
 *
 * This program is free software: you can redistribute it and/or modify it
@@ -33,7 +33,7 @@
 
 namespace utl
 {
-/** \brief Replace all occurences of a substring with a new substring
+/* \brief Replace all occurences of a substring with a new substring
   *  \param[in,out] string_in string which is modified
   *  \param[in] substring_orig substring that needs to be replaced
   *  \param[in] substring_new new substring
@@ -49,7 +49,7 @@ inline void replaceSubstring(std::string& string_in, const std::string& substrin
   }
 }
 
-/** \brief An analogue of the MATLAB dir function
+/* \brief An analogue of the MATLAB dir function
   * \param[in] dir_path input directory
   * \param[out] content_list a vector of strings representing names of files/folders in the directory
   */
@@ -124,7 +124,7 @@ inline void dir(const std::string& dir_path, std::vector<std::string>& content_l
   std::sort(content_list.begin(), content_list.end(), doj::alphanum_less<std::string>());
 }
 
-/** \brief Add trailing slash to pathname if it is missing
+/* \brief Add trailing slash to pathname if it is missing
   * \param[in] pathname file path
   * \return path with trailing slash
   */
@@ -138,7 +138,7 @@ inline std::string addTrailingSlash(const std::string& pathname)
     return pathname;
 }
 
-/** \brief Add trailing slash to pathname if it is missing
+/* \brief Add trailing slash to pathname if it is missing
   * \param[in] pathname file path
   * \return path with trailing slash
   */
@@ -150,7 +150,7 @@ inline std::string removeTrailingSlash(const std::string& pathname)
     return pathname;
 }
 
-/** \brief Find filename extension of a path
+/* \brief Find filename extension of a path
   * \param[in] path path
   * \return extension
   */
@@ -159,7 +159,7 @@ inline std::string getExtension(const std::string& pathname)
   return boost::filesystem::extension(boost::filesystem::path(pathname));
 }
 
-/** \brief Find the parent directory of a path
+/* \brief Find the parent directory of a path
   * \param[in] path path
   * \return parent directory
   */
@@ -172,7 +172,7 @@ inline std::string getParentDir(const std::string& path)
   return parentDir;
 }
 
-/** \brief If input is a filename - return filename without preceeding path.
+/* \brief If input is a filename - return filename without preceeding path.
   *  If input is path - return last directory in the path
   * \param[in] path path
   * \return filename
@@ -187,7 +187,7 @@ inline std::string getBasename(const std::string& path)
     return boost::filesystem::path(path.substr(0, path.length() - 1)).stem().string();
 }
 
-/** \brief Get filename without extension from the path
+/* \brief Get filename without extension from the path
   * \param[in] path path
   * \return filename without extension
   */
@@ -196,7 +196,7 @@ inline std::string getBasenameNoExtension(const std::string& path)
   return boost::filesystem::path(path).stem().string();
 }
 
-/** \brief Check if a path exists or not
+/* \brief Check if a path exists or not
   * \return true if path exists
   */
 inline bool exists(const std::string& path)
@@ -204,7 +204,7 @@ inline bool exists(const std::string& path)
   return boost::filesystem::exists(path);
 }
 
-/** \brief Check if a path is an existing file
+/* \brief Check if a path is an existing file
   * \return true if path is a filename
   */
 inline bool isFile(const std::string& path)
@@ -212,7 +212,7 @@ inline bool isFile(const std::string& path)
   return (boost::filesystem::is_regular_file(boost::filesystem::path(path)));
 }
 
-/** \brief Check if a path is a directory that exists
+/* \brief Check if a path is a directory that exists
   * \return true if path is a directory
   */
 inline bool isDirectory(const std::string& path)
@@ -220,7 +220,7 @@ inline bool isDirectory(const std::string& path)
   return (boost::filesystem::is_directory(boost::filesystem::path(path)));
 }
 
-/** \brief Delete a directory and all of its contents
+/* \brief Delete a directory and all of its contents
   * \param[in] path path
   * \return false if directory does not exist or could not delete directory
   */
@@ -235,7 +235,7 @@ inline bool deleteDir(const std::string& path)
   return true;
 }
 
-/** \brief Create a directory and all of its contents
+/* \brief Create a directory and all of its contents
   * \param[in] path path
   * \return false if directory already exists or could not create directory
   */
@@ -250,7 +250,7 @@ inline bool createDir(const std::string& path)
   return true;
 }
 
-/** \brief Join to paths to generate new path. Inspired by MATLAB's fullfile
+/* \brief Join to paths to generate new path. Inspired by MATLAB's fullfile
   * \param[in] path1 first path
   * \param[in] path2 second path
   * \return joined path

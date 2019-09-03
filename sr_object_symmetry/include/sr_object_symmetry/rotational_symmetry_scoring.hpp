@@ -1,4 +1,4 @@
-/**
+/*
 * Copyright 2019 Shadow Robot Company Ltd.
 *
 * This program is free software: you can redistribute it and/or modify it
@@ -25,7 +25,7 @@
 
 namespace sym
 {
-/** \brief Calculate how well does a rotational symmetry fit a pointcloud.
+/* \brief Calculate how well does a rotational symmetry fit a pointcloud.
    *  \param[in]  cloud                   input cloud
    *  \param[in]  symmetry                input symmetry
    *  \param[in]  point_symmetry_scores   symmetry scores for individual points
@@ -56,7 +56,7 @@ inline float rotSymCloudSymmetryScore(const pcl::PointCloud<PointT>& cloud, cons
   return utl::mean(point_symmetry_scores);
 }
 
-/** \brief Calculate how perpendicular a pointcloud is to the symmetry axis.
+/* \brief Calculate how perpendicular a pointcloud is to the symmetry axis.
    * The final score is in the [0, 1] range. Higher values indicate higher
    * perpendicularity.
    *  \param[in]  cloud                       input cloud
@@ -89,7 +89,7 @@ inline float rotSymCloudPerpendicularScores(const pcl::PointCloud<PointT>& cloud
   return utl::mean(point_perpendicular_scores);
 }
 
-/** \brief Get the angle measuring how much the pointcloud "wraps" around
+/* \brief Get the angle measuring how much the pointcloud "wraps" around
    * the symmetry axis. It is calculated as 2*pi - the maximum angular step
    * between adjacent points of the pointcloud. The maximum angular step is
    * computed as:

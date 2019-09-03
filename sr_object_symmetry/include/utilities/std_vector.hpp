@@ -1,4 +1,4 @@
-/**
+/*
 * Copyright 2019 Shadow Robot Company Ltd.
 *
 * This program is free software: you can redistribute it and/or modify it
@@ -33,14 +33,14 @@ namespace utl
 // Forward declarations
 //--------------------------------------------------------------------------
 
-/** \brief Get the maximum value of a vector of scalars
+/* \brief Get the maximum value of a vector of scalars
     *  \param[in] v  vector
     *  \return maximum value
     */
 template <typename Scalar>
 inline Scalar vectorMax(const std::vector<Scalar>& v);
 
-/** \brief Get the minimum value of a vector of scalars
+/* \brief Get the minimum value of a vector of scalars
     *  \param[in] v  vector
     *  \return minimum value
     */
@@ -52,15 +52,15 @@ inline Scalar vectorMin(const std::vector<Scalar>& v);
 //--------------------------------------------------------------------------
 // NOTE: adapted from here: http://www.alecjacobson.com/weblog/?p=1527
 
-/** \brief Sorting modes */
+/* \brief Sorting modes */
 enum SortMode
 {
-  UNSORTED,  /**< unsorted */
-  ASCENDING, /**< ascending order */
-  DESCENDING /**< descending order */
+  UNSORTED,  /*< unsorted */
+  ASCENDING, /*< ascending order */
+  DESCENDING /*< descending order */
 };
 
-/** \brief  Comparison struct used by sort for ascending order
+/* \brief  Comparison struct used by sort for ascending order
     * \note: http://bytes.com/topic/c/answers/132045-sort-get-index
     */
 template <class T>
@@ -74,7 +74,7 @@ struct index_cmp_asc
   const T arr;
 };
 
-/** \brief  Comparison struct used by sort for descending order
+/* \brief  Comparison struct used by sort for descending order
     * \note: http://bytes.com/topic/c/answers/132045-sort-get-index
     */
 template <class T>
@@ -88,7 +88,7 @@ struct index_cmp_dsc
   const T arr;
 };
 
-/** \brief Reorder a vector given a reordering index map. Act like matlab's Y = X[I]
+/* \brief Reorder a vector given a reordering index map. Act like matlab's Y = X[I]
     *  \param[in]  unordered  unsorted vector
     *  \param[in]  index_map  an index map such that sorted[i] = unsorted[index_map[i]]
     *  \return reordered vector
@@ -107,7 +107,7 @@ std::vector<T> reorder(const std::vector<T>& unordered, const std::vector<size_t
   return ordered;
 }
 
-/** \brief Sort a vector and return the reordering index map. Acts like matlab's [Y,I] = SORT(X)
+/* \brief Sort a vector and return the reordering index map. Acts like matlab's [Y,I] = SORT(X)
     *  \param[in]  unsorted  unsorted vector
     *  \param[out] sorted    sorted vector, allowed to be same as unsorted
     *  \param[out] index_map an index map such that sorted[i] = unsorted[index_map[i]]
@@ -139,7 +139,7 @@ void sort(std::vector<T>& unsorted, std::vector<T>& sorted, std::vector<size_t>&
   sorted = reorder(unsorted, sort_order);
 }
 
-/** \brief Convert subscripts of an element in a vector into corresponding
+/* \brief Convert subscripts of an element in a vector into corresponding
     * linear index.
     *  \param[in]  v       input vector
     *  \param[in]  sub1    outer subscript of the element
@@ -174,7 +174,7 @@ bool vector2dSubToLinearId(const std::vector<TypeT> v, const int sub1, const int
   return true;
 }
 
-/** \brief Convert a linear index of an element in a vector of vectors into
+/* \brief Convert a linear index of an element in a vector of vectors into
     * corresponding subscripts.
     *  \param[in]  v       input vector
     *  \param[in]  lin_id  linear index of the element
@@ -207,7 +207,7 @@ bool vector2dLinearId2Sub(const std::vector<TypeT> v, const int lin_id, int& sub
 // Vector filtering
 //--------------------------------------------------------------------------
 
-/** \brief Remove all instances of an element from vector
+/* \brief Remove all instances of an element from vector
     *  \param[in] v  vector
     *  \param[in] el element to be removed
     */
@@ -217,7 +217,7 @@ inline void removeElement(std::vector<TObject>& v, const TObject& el)
   v.erase(std::remove(v.begin(), v.end(), el), v.end());
 }
 
-/** \brief Make vector unique value. Values are sorted.
+/* \brief Make vector unique value. Values are sorted.
     *  \param[in,out] v  vector
     */
 template <typename TObject>
@@ -227,10 +227,10 @@ inline void uniqueVector(std::vector<TObject>& v)
   v.erase(std::unique(v.begin(), v.end()), v.end());
 }
 
-/** \brief Remove elements from vector given indices of the elements to be removed
+/* \brief Remove elements from vector given indices of the elements to be removed
     *  \param[in] v  vector
     *  \param[in] indices int vector where each element represents the index of an element in the original vector that
- * needs to be kept
+* needs to be kept
     *  \return filtered vector
     */
 template <typename TObject>
@@ -252,7 +252,7 @@ inline std::vector<TObject> vectorFilter(const std::vector<TObject>& v, const st
   return v_filtered;
 }
 
-/** \brief Remove elements from vector given a bool vector
+/* \brief Remove elements from vector given a bool vector
     *  \param[in] v  vector
     *  \param[in] mask bool vector where 'false' indicates that corresponding element must be removed
     *  \return filtered vector
@@ -281,7 +281,7 @@ inline std::vector<TObject> vectorFilter(const std::vector<TObject>& v, const st
 // Vector set operations
 //--------------------------------------------------------------------------
 
-/** \brief Append a vector to another vector
+/* \brief Append a vector to another vector
     *  \param[in,out]  v1  vector that will be appended
     *  \param[in]      v2  element to be appended
     */
@@ -291,8 +291,8 @@ inline void vectorAppend(std::vector<TObject>& v1, const std::vector<TObject>& v
   v1.insert(v1.end(), v2.begin(), v2.end());
 }
 
-/** \brief Find an intersection between two vectors. The return vector contains unique values that are present in both
- * vectors.
+/* \brief Find an intersection between two vectors. The return vector contains unique values that are present in both
+* vectors.
     *  \param[in] v1 first vector
     *  \param[in] v2 second vector
     *  \return vector intersection
@@ -311,7 +311,7 @@ inline std::vector<Scalar> vectorIntersection(const std::vector<Scalar>& v1, con
   return v_intersection;
 }
 
-/** \brief Find a union of two vectors. The return vector contains unique values that are present in both vectors.
+/* \brief Find a union of two vectors. The return vector contains unique values that are present in both vectors.
     *  \param[in] v1 first vector
     *  \param[in] v2 second vector
     *  \return vector union
@@ -331,8 +331,8 @@ inline std::vector<Scalar> vectorUnion(const std::vector<Scalar>& v1, const std:
   return v_union;
 }
 
-/** \brief Find a difference between two vectors. The return vector contains unique values that are present in first
- * vector but not in the second
+/* \brief Find a difference between two vectors. The return vector contains unique values that are present in first
+* vector but not in the second
     *  \param[in] v1 first vector
     *  \param[in] v2 second vector
     *  \return vector difference
@@ -357,7 +357,7 @@ inline std::vector<Scalar> vectorDifference(const std::vector<Scalar>& v1, const
 // File I/O
 //--------------------------------------------------------------------------
 
-/** \brief Write a vector of variables to a file.
+/* \brief Write a vector of variables to a file.
     *  \param[in] v vector
     *  \param[in] filename filename
     *  \return true if writing was successfull
@@ -379,7 +379,7 @@ inline bool writeVectorToFileASCII(const std::vector<Scalar> v, const std::strin
   file.close();
 }
 
-/** \brief Read a vector of variables from a file.
+/* \brief Read a vector of variables from a file.
     * \param[in] v vector
     * \param[in] filename filename
     * \return true if reading was successfull
@@ -419,7 +419,7 @@ inline bool readVectorFromFileASCII(std::vector<Scalar>& v, const std::string& f
 // Element occurence count
 //--------------------------------------------------------------------------
 
-/** \brief Compute number of times a value occurs in a vector
+/* \brief Compute number of times a value occurs in a vector
     *  \param[in]  v a vector of values
     *  \param[in]  target_value value to be searched for
     *  \return number of ocurrences of a value in the vector
@@ -430,7 +430,7 @@ inline size_t vectorCount(const std::vector<Scalar>& v, const Scalar target_valu
   return std::count(v.begin(), v.end(), target_value);
 }
 
-/** \brief Find indices of vector elements that are equal to a target value.
+/* \brief Find indices of vector elements that are equal to a target value.
     *  \param[in]  v a vector of values
     *  \param[in]  target_value value to be searched for
     *  \param[in]  target_loc indices of elements equal to target value
@@ -457,7 +457,7 @@ inline int vectorFind(const std::vector<Scalar>& v, const Scalar target_value, s
   return target_loc.size();
 }
 
-/** \brief Count occurences of values in a vector
+/* \brief Count occurences of values in a vector
     *  \param[in]  v a vector of values
     *  \param[out] v_unique unique values in the vector
     *  \param[out] counts occurence counts for unique values
@@ -485,7 +485,7 @@ inline void vectorHistogram(const std::vector<Scalar>& v, std::vector<Scalar>& v
   }
 }
 
-/** \brief Find the most (or least) freqent element in a vector
+/* \brief Find the most (or least) freqent element in a vector
     *  \param[in]  v a vector of values
     *  \param[in]  sort_mode DESCENDING return most frequent while ASCENDING returns least frequent element
     *  \return most (or least) freqent element in a vector
@@ -505,7 +505,7 @@ inline void vectorMode(const std::vector<Scalar>& v, Scalar& vector_mode, size_t
 // Vector minimum and maximum values
 //--------------------------------------------------------------------------
 
-/** \brief Get the maximum value of a vector of scalars
+/* \brief Get the maximum value of a vector of scalars
     *  \param[in] v  vector
     *  \return maximum value
     */
@@ -521,7 +521,7 @@ inline Scalar vectorMax(const std::vector<Scalar>& v)
   return *std::max_element(v.begin(), v.end());
 }
 
-/** \brief Get the minimum value of a vector of scalars
+/* \brief Get the minimum value of a vector of scalars
     *  \param[in] v  vector
     *  \return minimum value
     */
@@ -537,7 +537,7 @@ inline Scalar vectorMin(const std::vector<Scalar>& v)
   return *std::min_element(v.begin(), v.end());
 }
 
-/** \brief Get the maximum value of a vector of scalars and the indices of
+/* \brief Get the maximum value of a vector of scalars and the indices of
     * the elements equal to the maximum value
     *  \param[in] v  vector
     *  \param[out] max_val maximum value
@@ -559,7 +559,7 @@ inline int vectorMaxLoc(const std::vector<Scalar>& v, Scalar& max_val, std::vect
   return vectorFind<Scalar>(v, max_val, max_val_loc);
 }
 
-/** \brief Get the minimum value of a vector of scalars and the indices of
+/* \brief Get the minimum value of a vector of scalars and the indices of
     * the elements equal to the minimum value
     *  \param[in] v  vector
     *  \param[out] min_val minimum value
@@ -581,7 +581,7 @@ inline int vectorMinLoc(const std::vector<Scalar>& v, Scalar& min_val, std::vect
   return vectorFind<Scalar>(v, min_val, min_val_loc);
 }
 
-/** \brief Given a value find positions of nearest smaller and nearest greater
+/* \brief Given a value find positions of nearest smaller and nearest greater
     * value in a vector. If only
     *  \param[in] vec    vector
     *  \param[in] value  query value

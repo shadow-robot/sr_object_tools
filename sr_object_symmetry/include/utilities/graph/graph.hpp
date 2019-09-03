@@ -1,4 +1,4 @@
-/**
+/*
 * Copyright 2019 Shadow Robot Company Ltd.
 *
 * This program is free software: you can redistribute it and/or modify it
@@ -23,23 +23,23 @@
 
 namespace utl
 {
-/** \brief Data structure representing an undirected unwheighted graph.
+/* \brief Data structure representing an undirected unwheighted graph.
    * Self loops are not allowed.
    */
 class Graph : public utl::GraphBase<Vertex, Edge>
 {
 public:
-  /** \brief Empty constructor. */
+  /* \brief Empty constructor. */
   Graph() : utl::GraphBase<utl::Vertex, utl::Edge>()
   {
   }
 
-  /** \brief Constructor that preallocates memory for vertices. */
+  /* \brief Constructor that preallocates memory for vertices. */
   explicit Graph(const int num_vertices) : utl::GraphBase<utl::Vertex, utl::Edge>(num_vertices)
   {
   }
 
-  /** \brief Destructor. */
+  /* \brief Destructor. */
   ~Graph() {}
 };
 }  // namespace utl

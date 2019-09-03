@@ -1,4 +1,4 @@
-/**
+/*
 * Copyright 2019 Shadow Robot Company Ltd.
 *
 * This program is free software: you can redistribute it and/or modify it
@@ -73,13 +73,13 @@ bool addEdge(Traits::vertex_descriptor& v1, Traits::vertex_descriptor& v2, Graph
 
 namespace utl
 {
-/** \brief Perform a min cut on a graph
- *  \param[in]  source_potentials   weights between nodes and source node
- *  \param[in]  sink_potentials     weights between nodes and sink node
- *  \param[in]  binary_potentials   binary potential structure and weights
- *  \param[out] source_points       points belonging to source
- *  \param[out] sink_points         points belonging to sink
- */
+/* \brief Perform a min cut on a graph
+*  \param[in]  source_potentials   weights between nodes and source node
+*  \param[in]  sink_potentials     weights between nodes and sink node
+*  \param[in]  binary_potentials   binary potential structure and weights
+*  \param[out] source_points       points belonging to source
+*  \param[out] sink_points         points belonging to sink
+*/
 double mincut(const std::vector<float>& source_potentials, const std::vector<float>& sink_potentials,
               const utl::GraphWeighted& binary_potentials, std::vector<int>& source_points,
               std::vector<int>& sink_points)

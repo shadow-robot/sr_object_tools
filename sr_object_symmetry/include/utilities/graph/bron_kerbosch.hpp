@@ -1,4 +1,4 @@
-/**
+/*
 * Copyright 2019 Shadow Robot Company Ltd.
 *
 * This program is free software: you can redistribute it and/or modify it
@@ -55,7 +55,7 @@ struct CliqueVisitor
 
 namespace utl
 {
-/** \brief Find all maximal cliques in a graph using the Bron-Kerbosch
+/* \brief Find all maximal cliques in a graph using the Bron-Kerbosch
    * algorithm.
    *  \param[in]  graph   input graph
    *  \param[out] cliques output cliques

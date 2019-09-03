@@ -1,4 +1,4 @@
-/**
+/*
 * Copyright 2019 Shadow Robot Company Ltd.
 *
 * This program is free software: you can redistribute it and/or modify it
@@ -63,7 +63,7 @@ const Color bgColor(0.7, 0.7, 1.0);  // Background color for the PCL visaualizer
 // Set rendering properties
 //----------------------------------------------------------------------------
 
-/** \brief modify the rendering properties of a single normal pointcloud
+/* \brief modify the rendering properties of a single normal pointcloud
    *  \param[in] visualizer   visualizer object
    *  \param[in] id           the point cloud object id prefix
    *  \param[in] point_size   size of the points used for visualization
@@ -83,7 +83,7 @@ inline void setPointCloudRenderProps(pcl::visualization::PCLVisualizer& visualiz
     visualizer.setPointCloudRenderingProperties(pcl::visualization::PCL_VISUALIZER_OPACITY, opacity, id);
 }
 
-/** \brief modify the rendering properties of a cloud of normals
+/* \brief modify the rendering properties of a cloud of normals
    *  \param[in] visualizer   visualizer object
    *  \param[in] id           the point cloud object id prefix
    *  \param[in] line_width   width of normal arrows
@@ -103,7 +103,7 @@ inline void setNormalCloudRenderProps(pcl::visualization::PCLVisualizer& visuali
     visualizer.setPointCloudRenderingProperties(pcl::visualization::PCL_VISUALIZER_OPACITY, opacity, id);
 }
 
-/** \brief modify the rendering properties of a line shape
+/* \brief modify the rendering properties of a line shape
    *  \param[in] visualizer   visualizer object
    *  \param[in] id           the point cloud object id prefix (default: cloud)
    *  \param[in] line_width   width of normal arrows
@@ -122,7 +122,7 @@ inline void setShapeRenderProps(pcl::visualization::PCLVisualizer& visualizer, c
     visualizer.setShapeRenderingProperties(pcl::visualization::PCL_VISUALIZER_REPRESENTATION, representation, id);
 }
 
-/** \brief modify the rendering properties of a line shape
+/* \brief modify the rendering properties of a line shape
    *  \param[in] visualizer   visualizer object
    *  \param[in] id           the point cloud object id prefix (default: cloud)
    *  \param[in] line_width   width of normal arrows
@@ -144,7 +144,7 @@ inline void setLineRenderProps(pcl::visualization::PCLVisualizer& visualizer, co
 // Individual pointcloud visualization
 //----------------------------------------------------------------------------
 
-/** \brief Show a single pointcloud
+/* \brief Show a single pointcloud
    *  \param[in]  visualizer  visualizer object
    *  \param[in]  cloud       pointcloud
    *  \param[in]  id          point cloud object id prefix (default: cloud)
@@ -161,7 +161,7 @@ inline void showPointCloud(pcl::visualization::PCLVisualizer& visualizer,
   setPointCloudRenderProps(visualizer, id, point_size, color, opacity);
 }
 
-/** \brief Show a single pointcloud with color information
+/* \brief Show a single pointcloud with color information
    *  \param[in]  visualizer  visualizer object
    *  \param[in]  cloud       pointcloud
    *  \param[in]  id          point cloud object id prefix (default: cloud)
@@ -179,7 +179,7 @@ inline void showPointCloudColor(pcl::visualization::PCLVisualizer& visualizer,
   setPointCloudRenderProps(visualizer, id, point_size, Color(), opacity);
 }
 
-/** \brief Show pointcloud normals
+/* \brief Show pointcloud normals
    *  \param[in]  visualizer  visualizer object
    *  \param[in]  cloud       pointcloud
    *  \param[in]  level       display only every level'th point (default: 100)
@@ -199,7 +199,7 @@ inline void showNormalCloud(pcl::visualization::PCLVisualizer& visualizer,
   setNormalCloudRenderProps(visualizer, id, line_width, color, opacity);
 }
 
-/** \brief Show pointcloud normals for a specific subset of points in the
+/* \brief Show pointcloud normals for a specific subset of points in the
    * cloud.
    *  \param[in]  visualizer  visualizer object
    *  \param[in]  cloud       pointcloud
@@ -225,7 +225,7 @@ inline void showNormalCloud(pcl::visualization::PCLVisualizer& visualizer,
 // Multiple pointcloud visualization
 //----------------------------------------------------------------------------
 
-/** \brief visualize multiple pointclouds
+/* \brief visualize multiple pointclouds
    *  \param[in] visualizer  visualizer object
    *  \param[in] clouds      a vector of clouds that need to bi visualized
    *  \param[in] id_prefix   the point cloud object id prefix (default: segment_)
@@ -246,7 +246,7 @@ inline void showPointClouds(pcl::visualization::PCLVisualizer& visualizer,
   }
 }
 
-/** \brief visualize multiple pointclouds
+/* \brief visualize multiple pointclouds
    *  \param[in] visualizer  visualizer object
    *  \param[in] clouds      a vector of clouds that need to be visualized
    *  \param[in] color       color of the pointclouds
@@ -267,7 +267,7 @@ inline void showPointClouds(pcl::visualization::PCLVisualizer& visualizer,
   }
 }
 
-/** \brief visualize multiple pointclouds
+/* \brief visualize multiple pointclouds
    *  \param[in] visualizer  visualizer object
    *  \param[in] clouds      a vector of clouds that need to bi visualized
    *  \param[in] id_prefix   the point cloud object id prefix (default: segment_)
@@ -291,7 +291,7 @@ inline void showNormalClouds(pcl::visualization::PCLVisualizer& visualizer,
 // Oversegmentation visualization
 //----------------------------------------------------------------------------
 
-/** \brief Visualize multiple pointclouds that are a subset of some other cloud
+/* \brief Visualize multiple pointclouds that are a subset of some other cloud
    *  \param[in]  visualizer        visualizer object
    *  \param[in]  cloud             pointcloud
    *  \param[in]  segments          indices of points belonging to each segment
@@ -330,7 +330,7 @@ inline void showSegmentation(pcl::visualization::PCLVisualizer& visualizer,
   utl::showPointCloudColor<PointT>(visualizer, bgCloud, id_prefix + "_bg", point_size / 2.0f, bg_opacity);
 }
 
-/** \brief Visualize multiple pointclouds that are a subset of some other colored cloud
+/* \brief Visualize multiple pointclouds that are a subset of some other colored cloud
    *  \param[in]  visualizer        visualizer object
    *  \param[in]  cloud             pointcloud
    *  \param[in]  segments          indices of points belonging to each segment
@@ -401,7 +401,7 @@ inline void showFGsegmentationMesh(pcl::visualization::PCLVisualizer& visualizer
   }
 }
 
-/** \brief Visualize a foreground background segmentation of a pointcloud.
+/* \brief Visualize a foreground background segmentation of a pointcloud.
    *  \param[in] visualizer visualizer object
    *  \param[in] cloud input pointcloud
    *  \param[in] fg_indices indices of the foreground points
@@ -434,7 +434,7 @@ inline void showFGSegmentation(pcl::visualization::PCLVisualizer& visualizer,
   utl::showPointCloud<PointT>(visualizer, fgCloud, id_prefix + "_fg", point_size, utl::white);
 }
 
-/** \brief visualize a a freground background segmentation of a pointcloud where cloud is already colored
+/* \brief visualize a a freground background segmentation of a pointcloud where cloud is already colored
    *  \param[in] visualizer visualizer object
    *  \param[in] cloud input pointcloud
    *  \param[in] fg_indices indices of the foreground points
@@ -487,7 +487,7 @@ inline void showFGSegmentationColor(pcl::visualization::PCLVisualizer& visualize
 // Graph visualization
 //----------------------------------------------------------------------------
 
-/** \brief visualize a graph defined on points in 3D space
+/* \brief visualize a graph defined on points in 3D space
    *  \param[in]  visualizer  visualizer object
    *  \param[in]  points      points
    *  \param[in]  edges       edges in the graph
@@ -536,7 +536,7 @@ inline void showPointGraph(pcl::visualization::PCLVisualizer& visualizer, const 
   utl::setLineRenderProps(visualizer, id, line_width, color, opacity);
 }
 
-/** \brief Visualize a weighted graph defined on points in 3D space
+/* \brief Visualize a weighted graph defined on points in 3D space
    *  \param[in]  visualizer    visualizer object
    *  \param[in]  points        points
    *  \param[in]  edges         graph edges
@@ -594,7 +594,7 @@ inline void showPointGraphWeighted(pcl::visualization::PCLVisualizer& visualizer
   utl::setLineRenderProps(visualizer, id, line_width, Color(), opacity);
 }
 
-/** \brief visualize a 3d curve represented as an ordered set of points
+/* \brief visualize a 3d curve represented as an ordered set of points
    *  \param[in]  visualizer  visualizer object
    *  \param[in]  curve       curve
    *  \param[in]  id_prefix   prefix to be used for line objects (default: curve_)
@@ -624,7 +624,7 @@ inline void showCurve(pcl::visualization::PCLVisualizer& visualizer, const pcl::
 // Geometric primitives
 //----------------------------------------------------------------------------
 
-/** \brief Add an oriented rectangle to the visualizer.
+/* \brief Add an oriented rectangle to the visualizer.
    *  \param[in]  visualizer      visualizer object
    *  \param[in]  pose            rectangle pose (rectangle lies in the XY plane)
    *  \param[in]  width           width (along X axis)
@@ -666,7 +666,7 @@ inline void showRectangle3d(pcl::visualization::PCLVisualizer& visualizer, const
                                          pcl::visualization::PCL_VISUALIZER_REPRESENTATION_WIREFRAME, id + "_border");
 }
 
-/** \brief Add an oriented rectangle to the visualizer.
+/* \brief Add an oriented rectangle to the visualizer.
    *  \param[in]  visualizer      visualizer object
    *  \param[in]  point           point belonging to the plane
    *  \param[in]  normal          normal of the rectangle plane
@@ -688,7 +688,7 @@ inline void showRectangle3d(pcl::visualization::PCLVisualizer& visualizer, const
   showRectangle3d(visualizer, pose, width, height, id, color, opacity);
 }
 
-/** \brief Add a circle to the visualizer
+/* \brief Add a circle to the visualizer
    *  \param[in]  visualizer      visualizer object
    *  \param[in]  center          circle center
    *  \param[in]  normal          normal of the circle plane
@@ -734,13 +734,13 @@ inline void showCircle3d(pcl::visualization::PCLVisualizer& visualizer, const Ei
 // Miscelanious
 //----------------------------------------------------------------------------
 
-/** \brief Show correspondences between points by rendering a line between
+/* \brief Show correspondences between points by rendering a line between
    * each pair of corresponding points.
    *  \param[in]  visualizer      visualizer object
    *  \param[in]  source_points The source points
    *  \param[in]  target_points The target points
    *  \param[in]  correspondences The mapping from source points to target points. Each element must be an index into
- * target_points
+* target_points
    *  \param[in]  nth display only the Nth correspondence (e.g., skip the rest)
    *  \param[in]  id the polygon object id (default: "correspondences")
    *  \param[in]  line_width   width of the lines
@@ -798,7 +798,7 @@ void showCorrespondences(pcl::visualization::PCLVisualizer& visualizer, const pc
   utl::setLineRenderProps(visualizer, id, line_width, utl::Color(), opacity);
 }
 
-/** \brief show a visualization of camera view frustum
+/* \brief show a visualization of camera view frustum
    *  \param[in]  visualizer      visualizer object
    *  \param[in]  K               camera matrix
    *  \param[in]  height          camera height
@@ -867,7 +867,7 @@ inline void showCamera(pcl::visualization::PCLVisualizer& visualizer, const Eige
   setLineRenderProps(visualizer, id + "_line8", -1.0, color);
 }
 
-/** \brief show a visualization of camera view frustum
+/* \brief show a visualization of camera view frustum
    *  \param[in]  visualizer      visualizer object
    *  \param[in]  K               camera matrix
    *  \param[in]  height          camera height
@@ -888,7 +888,7 @@ inline void removeCamera(pcl::visualization::PCLVisualizer& visualizer, const st
   visualizer.removeShape(id + "_line8");
 }
 
-/** \brief Remove all text from the visualizer
+/* \brief Remove all text from the visualizer
    *  \param[in]  visualizer      visualizer object
    */
 inline void removeAllText(pcl::visualization::PCLVisualizer& visualizer)

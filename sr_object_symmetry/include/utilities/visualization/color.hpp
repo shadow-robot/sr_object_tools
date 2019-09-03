@@ -1,4 +1,4 @@
-/**
+/*
 * Copyright 2019 Shadow Robot Company Ltd.
 *
 * This program is free software: you can redistribute it and/or modify it
@@ -39,7 +39,7 @@ namespace utl
 // Color generators
 //--------------------------------------------------------------------------
 
-/** \brief Generate a random color
+/* \brief Generate a random color
     *  \return color      RGB color triplet corresponding to the element. Colors are in [0,1] range
     */
 inline Color getRandomColor()
@@ -51,7 +51,7 @@ inline Color getRandomColor()
   return color;
 }
 
-/** \brief Generate a random color
+/* \brief Generate a random color
     *  \param[in]  id      index of the element
     *  \return color      RGB color triplet corresponding to the element. Colors are in [0,1] range
     */
@@ -78,10 +78,10 @@ inline Color getGlasbeyColor(const int id)
   return color;
 }
 
-/** \brief Convert a single point with RGB information to grayscale
+/* \brief Convert a single point with RGB information to grayscale
     *  \param[in,out]  point point to be converted to grayscale
     *  \note conversion is done using the formula used in OpenCV
- * (http://docs.opencv.org/modules/imgproc/doc/miscellaneous_transformations.html)
+* (http://docs.opencv.org/modules/imgproc/doc/miscellaneous_transformations.html)
     */
 template <typename PointT>
 inline void rgb2gray(PointT& point)
@@ -93,10 +93,10 @@ inline void rgb2gray(PointT& point)
   point.b = gray;
 }
 
-/** \brief Convert color in pointcloud to grayscale
+/* \brief Convert color in pointcloud to grayscale
     *  \param[in,out]  cloud cloud to be converted to grayscale
     *  \note conversion is done using the formula used in OpenCV
- * (http://docs.opencv.org/modules/imgproc/doc/miscellaneous_transformations.html)
+* (http://docs.opencv.org/modules/imgproc/doc/miscellaneous_transformations.html)
     */
 template <typename PointT>
 inline void rgb2gray(pcl::PointCloud<PointT>& cloud)
@@ -105,11 +105,11 @@ inline void rgb2gray(pcl::PointCloud<PointT>& cloud)
     rgb2gray<PointT>(cloud.points[pointId]);
 }
 
-/** \brief Change the tint of a point to a given color
+/* \brief Change the tint of a point to a given color
     *  \param[in,out]  point point to be converted to grayscale
     *  \param[in]      color color of the tint
     *  \param[in]      alpha amount of tint. 0 leaves point color unchanged while 1 replace it by input color. Default
- * 0.5
+* 0.5
     */
 template <typename PointT>
 inline void tintPoint(PointT& point, const Color& color, const float alpha = 0.3)
@@ -122,11 +122,11 @@ inline void tintPoint(PointT& point, const Color& color, const float alpha = 0.3
       static_cast<uint8_t>(std::min(255.0f, static_cast<float>(point.b * (1 - alpha) + color.b * alpha * 255.0f)));
 }
 
-/** \brief Change the tint of a pointcloud to a given color
+/* \brief Change the tint of a pointcloud to a given color
     *  \param[in,out]  cloud pointcloud to be converted to grayscale
     *  \param[in]      color color of the tint
     *  \param[in]      alpha amount of tint. 0 leaves point color unchanged while 1 replace it by input color. Default
- * 0.5
+* 0.5
     */
 template <typename PointT>
 inline void tintPointCloud(pcl::PointCloud<PointT>& cloud, const std::vector<int>& indices, const Color& color,
@@ -136,11 +136,11 @@ inline void tintPointCloud(pcl::PointCloud<PointT>& cloud, const std::vector<int
     tintPoint<PointT>(cloud.points[indices[pointIdIt]], color, alpha);
 }
 
-/** \brief Change the tint of a pointcloud to a given color
+/* \brief Change the tint of a pointcloud to a given color
     *  \param[in,out]  cloud pointcloud to be converted to grayscale
     *  \param[in]      color color of the tint
     *  \param[in]      alpha amount of tint. 0 leaves point color unchanged while 1 replace it by input color. Default
- * 0.5
+* 0.5
     */
 template <typename PointT>
 inline void tintPointCloud(pcl::PointCloud<PointT>& cloud, const Color& color, const float alpha = 0.3)

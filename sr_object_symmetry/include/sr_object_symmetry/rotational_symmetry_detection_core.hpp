@@ -1,4 +1,4 @@
-/**
+/*
 * Copyright 2019 Shadow Robot Company Ltd.
 *
 * This program is free software: you can redistribute it and/or modify it
@@ -30,7 +30,7 @@ namespace sym
 // Initial symmetry generation
 //----------------------------------------------------------------------------
 
-/** \brief Get the initial symmetries used for rotational symmetry
+/* \brief Get the initial symmetries used for rotational symmetry
    * detection of a pointcloud.
    *  \param[in]  cloud               input cloud
    *  \param[out] symmetries          rotational symmetries
@@ -67,7 +67,7 @@ inline bool getInitialRotSymmetries(const typename pcl::PointCloud<PointT>::Cons
 // Symmetry refinement
 //----------------------------------------------------------------------------
 
-/** \brief Given 3D pointcloud with normals and an initial 3D rotational
+/* \brief Given 3D pointcloud with normals and an initial 3D rotational
    * symmetry axis refine the symmetry axis such that it minimizes the error
    * of fit between the symmetry and the points.
    * Symmetry axis is represented as a 6D vector (point on the symmetry axis and
@@ -77,10 +77,10 @@ inline bool getInitialRotSymmetries(const typename pcl::PointCloud<PointT>::Cons
 template <typename PointT>
 struct RotSymRefineFunctor : BaseFunctor<float>
 {
-  /** \brief Empty constructor */
+  /* \brief Empty constructor */
   RotSymRefineFunctor() : max_fit_angle_(1.0f) {}
 
-  /** \brief Compute fitness for each input point.
+  /* \brief Compute fitness for each input point.
      *  \param[in]  x symmetry axis
      *  \param[out] fvec error vector
      */
@@ -100,19 +100,19 @@ struct RotSymRefineFunctor : BaseFunctor<float>
     return 0;
   }
 
-  /** \brief Input cloud. */
+  /* \brief Input cloud. */
   typename pcl::PointCloud<PointT>::ConstPtr cloud_;
 
-  /** \brief Maximum error of fit between a symmetry and a point. */
+  /* \brief Maximum error of fit between a symmetry and a point. */
   float max_fit_angle_;
 
-  /** \brief Dimensionality of the optimization parameter vector. */
+  /* \brief Dimensionality of the optimization parameter vector. */
   int inputs() const
   {
     return 6;
   }
 
-  /** \brief Number of points. */
+  /* \brief Number of points. */
   int values() const
   {
     return this->cloud_->size();

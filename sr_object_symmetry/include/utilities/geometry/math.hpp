@@ -1,4 +1,4 @@
-/**
+/*
 * Copyright 2019 Shadow Robot Company Ltd.
 *
 * This program is free software: you can redistribute it and/or modify it
@@ -29,7 +29,7 @@
 
 namespace utl
 {
-/** \brief Calculate the remainder of division of two numbers. Unlike
+/* \brief Calculate the remainder of division of two numbers. Unlike
     * standard remainder functions provided by C++ this method return a true
     * remainder that is bounded by [0, denom)
     *  \param[in] numer    numenator
@@ -46,7 +46,7 @@ inline T remainder(const T numer, const T denom)
   return result;
 }
 
-/** \brief Clamp a value from above and below.
+/* \brief Clamp a value from above and below.
     *  \param[in] value value to be clamped
     *  \param[in] minValue minimum value
     *  \param[in] maxValue maximum value
@@ -62,7 +62,7 @@ inline Scalar clampValue(const Scalar value, const Scalar minValue, const Scalar
   return valueBounded;
 }
 
-/** \brief Clamp a value from above and below in circle.
+/* \brief Clamp a value from above and below in circle.
     *  \param[in] value value to be clamped
     *  \param[in] minValue minimum value
     *  \param[in] maxValue maximum value
@@ -75,7 +75,7 @@ inline Scalar clampValueCircular(const Scalar value, const Scalar minValue, cons
   return minValue + remainder(value - minValue, maxValue - minValue + 1);
 }
 
-/** \brief Count the number of values that are within the spcified bin range.
+/* \brief Count the number of values that are within the spcified bin range.
     * If a value is outside the provided range it is discarded.
     * Analog of MATLAB histc
     * (http://www.mathworks.com/help/matlab/ref/histc.html)
@@ -120,7 +120,7 @@ inline void histc(const Eigen::VectorXd& x, const Eigen::VectorXd& bin_ranges, E
   }
 }
 
-/** \brief Compute the histgroam of the input vector
+/* \brief Compute the histgroam of the input vector
     *  \param[in] vector_in input vector
     *  \param[in] nbins number of bins in the histogram
     *  \param[out] hist_out output histogram
@@ -146,7 +146,7 @@ inline void hist(const Eigen::VectorXd& x, int nbins, Eigen::VectorXd& hist_out,
   utl::histc(x, bin_ranges, hist_out);
 }
 
-/** \brief Compute a normal pdf at a given set of data points
+/* \brief Compute a normal pdf at a given set of data points
     * \param[in] x data points where rows correspond to dimensions and columns correspond to data points
     * \param[in] mean mean vector of the distribution
     * \param[in] cov covarinace matrix of the distribution
@@ -190,7 +190,7 @@ inline Eigen::Matrix<Scalar, 1, Eigen::Dynamic> normpdf(const Eigen::Matrix<Scal
   return pdf;
 }
 
-/** \brief Compute a normal pdf at a given set of data points
+/* \brief Compute a normal pdf at a given set of data points
     * \param[in] x data points where rows correspond to dimensions and columns correspond to data points
     * \param[in] mean mean value (same for all dimensions)
     * \param[in] cov covarinace value (same for all dimensions)
@@ -216,7 +216,7 @@ inline Eigen::Matrix<Scalar, 1, Eigen::Dynamic> normpdf(const Eigen::Matrix<Scal
   return normpdf<Scalar>(x, mean, cov);
 }
 
-/** \brief Compute a normal pdf at a given set of data points
+/* \brief Compute a normal pdf at a given set of data points
     * \param[in] x data points where rows correspond to dimensions and columns correspond to data points
     * \param[in] mean mean vector of the distribution
     * \param[in] cov covarinace value (same for all dimensions)
@@ -238,7 +238,7 @@ inline Eigen::Matrix<Scalar, 1, Eigen::Dynamic> normpdf(const Eigen::Matrix<Scal
   return normpdf<Scalar>(x, mean, cov);
 }
 
-/** \brief Compute a normal pdf at a given set of data points
+/* \brief Compute a normal pdf at a given set of data points
     * \param[in] x data points where rows correspond to dimensions and columns correspond to data points
     * \param[in] mean mean value (same for all dimensions)
     * \param[in] cov covarinace matrix of the distribution
@@ -259,7 +259,7 @@ inline Eigen::Matrix<Scalar, 1, Eigen::Dynamic> normpdf(const Eigen::Matrix<Scal
   return normpdf<Scalar>(x, mean, cov);
 }
 
-/** \brief Generate samples from Multivariate Notmal Distribution
+/* \brief Generate samples from Multivariate Notmal Distribution
     *  \param num_samples number of samples to generate
     *  \param mu mean
     *  \param covar covariance
@@ -322,7 +322,7 @@ inline Eigen::MatrixXd mvnrnd(const int num_samples, const Eigen::VectorXd& mean
   return samples;
 }
 
-/** \brief Compute rowwise mean of the sample
+/* \brief Compute rowwise mean of the sample
     *  \param samples matrix containing the samples. Each column is a sample
     *  \return mean of the sample
     */
@@ -333,7 +333,7 @@ mean(const Eigen::Matrix<Scalar, Eigen::Dynamic, Eigen::Dynamic>& samples)
   return samples.rowwise().mean();
 }
 
-/** \brief Compute the covariance of sample.
+/* \brief Compute the covariance of sample.
     *  \param samples matrix containing the samples. Each column is a sample
     *  \return covariance of the sample
     */
@@ -345,7 +345,7 @@ cov(const Eigen::Matrix<Scalar, Eigen::Dynamic, Eigen::Dynamic>& samples)
   return centered * centered.adjoint() / (samples.cols() - 1);
 }
 
-/** \brief Compute mean of an std::vector.
+/* \brief Compute mean of an std::vector.
     *  \param v    input vector
     *  \return mean of the vector
     */
@@ -356,7 +356,7 @@ inline double mean(const std::vector<Scalar>& v)
   return static_cast<double>(sum) / static_cast<double>(v.size());
 }
 
-/** \brief Compute median value of an std::vector.
+/* \brief Compute median value of an std::vector.
     *  \param v    input vector
     *  \return median of the vector
     */
