@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 2.8)
 project(sr_object_symmetry)
-set (CMAKE_BUILD_TYPE Release)
+# set (CMAKE_BUILD_TYPE Release)
 ## Compile as C++11, supported in ROS Kinetic and newer
 add_compile_options(-std=c++11)
 ## Find catkin macros and libraries
